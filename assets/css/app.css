@@ -1,0 +1,112 @@
+body {
+    background-color: #c5c5c5;
+}
+
+.inline {
+    display: inline;
+    text-align:center;
+}
+
+.block {
+    display: block
+}
+
+.topDown5pxMargin {
+    margin: 5px 0px 5px 0px;
+}
+
+.right25pxMargin {
+    margin-right: 25px;
+}
+
+.left25pxMargin {
+    margin-left: 25px;
+}
+
+/*.navbar {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+nav {
+    background-color: #242424;
+}
+
+nav ul {
+    display: flex;
+    padding:0;
+}
+
+nav li.main {
+    flex-grow:5;
+    flex-basis:0;
+}
+
+nav li.about {
+    flex-grow:1.5;
+    flex-basis:0;
+}
+
+nav li.right {
+    border-left: 0.15rem solid white;
+}
+
+nav li.left {
+    border-right: 0.15rem solid white;
+}
+
+
+.navLink {
+    color:#ffffff;
+    text-decoration: none;
+    font-size: 200%;
+}
+
+.navLink:hover {
+    color: #50c4a8;
+    text-decoration: none;
+}
+
+.navLink:focus {
+    color: #50c4a8;
+    outline:none;
+}
+
+.default {
+    color:#50c4a8;
+}
+
+.listContainer {
+    /*display: flex;*/
+    flex-direction: column;
+    margin-right: 0.15rem
+}
+
+.listContainerEl {
+    display: flex;
+    background-color: white;
+    border-left: 0.15rem solid #c5c5c5;
+    text-align: center;
+    padding: 1rem;
+    /*flex-grow: 2;*/
+    /*flex-basis:0;*/
+}
+
+.listContainerElParagraph {
+    flex-grow: 1;
+    flex-basis:0;
+}
+
+.listContainerElButton {
+    flex-grow: 0.7;
+    flex-basis:0;
+}
+
+.listContainerElElements {
+    flex-grow: 2;
+    flex-basis:0;
+}
+
+
+
+
