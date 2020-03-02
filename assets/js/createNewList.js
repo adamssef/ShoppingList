@@ -28,9 +28,11 @@ class CreateList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.listName !== this.state.listName || prevState.isListActive !== this.state.isListActive) {
-            console.log("component did update works!");
+        if (prevState.listName !== this.state.listName) {
+            console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
         }
+
+
     }
 
 
@@ -45,28 +47,33 @@ class CreateList extends Component {
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
+        console.log("proceedOnEnterPressNameMode has been called")
         if (event.key === "Enter") {
-            this.setState({
-                listName: input
-            });
-
-            btn.click(event);
-
-            console.log(this.state.listName);
+            console.log(input);
+            console.log("proceedOnEnterPressNameMode has been called while enter pressed")
+            // this.setState({
+            //     listName: input
+            // });
+            event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);
         }
+
+        console.log(this.state.listName);
     }
 
     proceedOnBtnClickNameMode(event) {
-        let input = event.target.value;
+        let input = event.currentTarget.previousSibling.value
+
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         this.setState({
             listName: input
         });
+
     }
 
     //FIRST ITEM MODE
 
     proceedOnEnterPressFirstItemMode(event) {
+        console.log("dupa?")
         let inputField = event.target.value;
         // let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         console.log(inputField)
@@ -85,30 +92,8 @@ class CreateList extends Component {
         }
     }
 
-    proceedOnBtnClickFirstItemMode(event) {
-        console.log(event.previousSiblingElement);
-    }
-
-    // clickOnEnterPressAndSaveName(event) {
-    //     let input = event.target.value;
-    //     console.log(input);
-    //     let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
-    //     console.log(btn)
-    //     // Number 13 is the "Enter" key on the keyboard
-    //     if (event.key === "Enter" || event.type === "click") {
-    //         console.log(event.key);
-    //         console.log(event.type);
-    //         console.log(input)
-    //         this.setState({
-    //             listName: input
-    //         });
-    //         btn.click(event);
-    //         // (event)=> {this.onClickSetNameState(event)};
-    //     }
-    //     console.log(this.state.listName);
-    // }
-
     addItemOnClick(e) {
+        console.log("addItemOnClick has been called")
         let inputField = e.target.previousSibling.value;
         let set = new Set(this.state.currentItems);
 
@@ -195,6 +180,7 @@ class CreateList extends Component {
     render() {
         //case 1: list is not active yet
         if (!this.state.isListActive) {
+            console.log("ActivateListMode is going on")
             return <>
                 <ActivateListMode onClickCreateList={(e) => {
                     this.createListOnClick(e)
@@ -204,12 +190,13 @@ class CreateList extends Component {
 
         //case 2: list is active but no list name has been added
         else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName === false) {
+            console.log("Name you list mode is going on")
             return <>
                 <NameYourListMode
                     proceedOnEnterPressNameMode={(e) => {
                         this.proceedOnEnterPressNameMode(e)
                     }}
-                    proceedOnBtnClickNameMode={(e)=>{
+                    proceedOnBtnClick={(e)=>{
                         this.proceedOnBtnClickNameMode(e)
                     }
                     }
@@ -219,6 +206,7 @@ class CreateList extends Component {
 
         //case 3: list is active but no list name or product has been added
         else if(this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false){
+            console.log("first item mode is going on")
             return <>
                 <FirstItemMode
                     onClickPropsAdd={(e) => {
@@ -233,6 +221,7 @@ class CreateList extends Component {
 
         //case 4: list is active, named, and first product is already on the list
         else if (this.state.currentItemsCounter > 0) {
+            console.log("edition mode is going on")
             return <>
                 <EditionMode
                     onClickPropsAdd={e => {
@@ -249,7 +238,7 @@ class CreateList extends Component {
                         this.clearListDraft(e)
                     }}
                    proceedOnEnterPress={(e) => {
-                        this.proceedOnEnterPressFirstItemAndEditionMode(e)
+                        this.proceedOnEnterPressFirstItemMode(e)
                     }}
                 />
 
@@ -276,7 +265,7 @@ class NameYourListMode extends Component {
     render() {
         return <div>
             {/*<h2>Nazwij swoją listę</h2>*/}
-            <NameYourListInput proceedOnEnterPressNameMode={this.props.proceedOnEnterPressNameMode} proceedOnBtnClickNameMode={this.props.proceedOnBtnClickNameMode}/>
+            <NameYourListInput proceedOnEnterPressNameMode={this.props.proceedOnEnterPressNameMode} proceedOnBtnClick={this.props.proceedOnBtnClick}/>
         </div>
     }
 }
@@ -285,8 +274,8 @@ class NameYourListMode extends Component {
 class FirstItemMode extends Component {
     render() {
         return <div>
-            <h2>Dodaj zakup do listy</h2>
-            <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress}/>
+            <h2>Dodaj zakup do listy ${this.state.listName}</h2>
+            <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress} onClickPropsAdd={this.props.onClickPropsAdd}/>
         </div>
     }
 }
@@ -352,7 +341,7 @@ class NameYourListInput extends Component {
         return <div className={"left25pxMargin"}>
             <input id="listNameInput" type="text" placeholder={"nazwij swoją listę"}
                    onKeyPress={this.props.proceedOnEnterPressNameMode}/>
-            <button className={"btn-sm btn-success"} id="addNameBtn" onClick={this.props.proceedOnBtnClickNameMode}>Dodaj
+            <button className={"btn-sm btn-success"} id="addNameBtn" onClick={this.props.proceedOnBtnClick}>Dodaj
             </button>
         </div>
     }
