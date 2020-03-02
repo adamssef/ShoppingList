@@ -80,8 +80,13 @@ class CreateList extends Component {
                     inputFieldState: ""
                 });
 
-            event.target.previousSibling.value = this.state.inputFieldState;
+
+            event.target.value = this.state.inputFieldState;
         }
+    }
+
+    proceedOnBtnClickFirstItemMode(event) {
+        console.log(event.previousSiblingElement);
     }
 
     // clickOnEnterPressAndSaveName(event) {
@@ -185,12 +190,49 @@ class CreateList extends Component {
     }
 
 
-//RENDER PART
+//CONDITIONAL RENDER PART
 
     render() {
-        console.log(this.state.listName);
-        //case 1: shopping list is not empty
-        if (this.state.currentItemsCounter > 0) {
+        //case 1: list is not active yet
+        if (!this.state.isListActive) {
+            return <>
+                <ActivateListMode onClickCreateList={(e) => {
+                    this.createListOnClick(e)
+                }}/>
+            </>
+        }
+
+        //case 2: list is active but no list name has been added
+        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName === false) {
+            return <>
+                <NameYourListMode
+                    proceedOnEnterPressNameMode={(e) => {
+                        this.proceedOnEnterPressNameMode(e)
+                    }}
+                    proceedOnBtnClickNameMode={(e)=>{
+                        this.proceedOnBtnClickNameMode(e)
+                    }
+                    }
+                />
+            </>
+        }
+
+        //case 3: list is active but no list name or product has been added
+        else if(this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false){
+            return <>
+                <FirstItemMode
+                    onClickPropsAdd={(e) => {
+                        this.addItemOnClick(e)
+                    }}
+                    proceedOnEnterPress={(e)=>{
+                        this.proceedOnEnterPressFirstItemMode(e)}
+                    }
+                />
+            </>
+        }
+
+        //case 4: list is active, named, and first product is already on the list
+        else if (this.state.currentItemsCounter > 0) {
             return <>
                 <EditionMode
                     onClickPropsAdd={e => {
@@ -211,41 +253,6 @@ class CreateList extends Component {
                     }}
                 />
 
-            </>
-
-            //case 2: shopping list is empty,but list is activated
-        } else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName === false) {
-            return <>
-                <NameYourListMode
-                    proceedOnEnterPressNameMode={(e) => {
-                        this.proceedOnEnterPressNameMode(e)
-                    }}
-                    proceedOnBtnClickNameMode={(e)=>{
-                        this.proceedOnBtnClickNameMode(e)
-                    }
-                    }
-                />
-            </>
-        } else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false) {
-            return <>
-                <FirstItemMode
-                    onClickPropsAdd={(e) => {
-                        this.addItemOnClick(e)
-                    }}
-                    proceedOnEnterPress={(e)=>{
-                        this.proceedOnEnterPressFirstItemMode(e)}
-                    }
-                />
-            </>
-
-            //case 3: shopping list is not active - <CreateMode />
-        }
-        //case 3: shopping list is not active - <CreateMode />
-        else if (!this.state.isListActive) {
-            return <>
-                <ActivateListMode onClickCreateList={(e) => {
-                    this.createListOnClick(e)
-                }}/>
             </>
         }
     }
