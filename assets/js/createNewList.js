@@ -255,7 +255,7 @@ class ActivateListMode extends Component {
         return <div>
             <button
                 onClick={this.props.onClickCreateList}
-                className={"btn-sm btn-success"}> Stwórz nową listę
+                className={"btn-sm btn-success left25pxMargin"} autoFocus> Stwórz nową listę
             </button>
         </div>
     }
@@ -264,7 +264,7 @@ class ActivateListMode extends Component {
 class NameYourListMode extends Component {
     render() {
         return <div>
-            {/*<h2>Nazwij swoją listę</h2>*/}
+            <h2>Nazwij swoją listę</h2>
             <NameYourListInput proceedOnEnterPressNameMode={this.props.proceedOnEnterPressNameMode} proceedOnBtnClick={this.props.proceedOnBtnClick}/>
         </div>
     }
@@ -274,7 +274,7 @@ class NameYourListMode extends Component {
 class FirstItemMode extends Component {
     render() {
         return <div>
-            <h2>Dodaj zakup do listy ${this.state.listName}</h2>
+            <h2>Dodaj zakup do listy</h2>
             <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress} onClickPropsAdd={this.props.onClickPropsAdd}/>
         </div>
     }
@@ -340,7 +340,7 @@ class NameYourListInput extends Component {
     render() {
         return <div className={"left25pxMargin"}>
             <input id="listNameInput" type="text" placeholder={"nazwij swoją listę"}
-                   onKeyPress={this.props.proceedOnEnterPressNameMode}/>
+                   onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
             <button className={"btn-sm btn-success"} id="addNameBtn" onClick={this.props.proceedOnBtnClick}>Dodaj
             </button>
         </div>
@@ -350,8 +350,8 @@ class NameYourListInput extends Component {
 class ShoppingListInput extends Component {
 
     render() {
-        return <div>
-            <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress}/>
+        return <div className={"left25pxMargin"}>
+            <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
             <button className={"btn-sm btn-success"} onClick={this.props.onClickPropsAdd} id="addItemBtn">Dodaj</button>
         </div>
     }
