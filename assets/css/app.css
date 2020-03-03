@@ -2,6 +2,10 @@ body {
     background-color: #c5c5c5;
 }
 
+input:focus {
+
+}
+
 .inline {
     display: inline;
     text-align:center;
