@@ -82,34 +82,80 @@ nav li.left {
 
 .listContainer {
     /*display: flex;*/
-    flex-direction: column;
-    margin-right: 0.15rem
+
+    margin-right: 0.15rem;
+
 }
 
 .listContainerEl {
     display: flex;
     background-color: white;
-    border-left: 0.15rem solid #c5c5c5;
+    border-left: solid #c5c5c5;
     text-align: center;
-    padding: 1rem;
+    height: auto;
+    flex-grow: inherit;
+    /*align-items: center;*/
+    justify-content: center;
     /*flex-grow: 2;*/
     /*flex-basis:0;*/
-}
+    align-items: stretch;
 
+}
 .listContainerElParagraph {
+    /*margin-top: 10px;*/
     flex-grow: 1;
     flex-basis:0;
+    border-right-style: solid;
+    border-color: #00b4ef;]
+    /*display:block;*/
+    height: inherit;
+    /*margin-bottom: 0;*/
+    margin: 0 auto;
+    text-align: left;
+    /*text-align: center;*/
+
+    /*align-self: center;*/
+
 }
 
 .listContainerElButton {
     flex-grow: 0.7;
-    flex-basis:0;
+    flex-basis: 0;
+    border-right-style: solid;
+    border-right-color: #00b4ef;
+    display: block;
+    margin: 0 auto;
+    height: inherit;
+    /*align-self: center;*/
+
+    /*vertical-align: center;*/
 }
 
 .listContainerElElements {
     flex-grow: 2;
     flex-basis:0;
+    margin: 0 auto;
+    height: auto;
 }
+
+ol {
+    width: auto;
+}
+
+ol li {
+    text-align: left;
+}
+
+.px10MarginUpDown {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.px10MarginLeft {
+    margin-left: 10px;
+}
+
+
 
 
 
