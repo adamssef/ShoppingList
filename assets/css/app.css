@@ -84,14 +84,15 @@ nav li.left {
     /*display: flex;*/
 
     margin-right: 0.15rem;
+    text-align: center;
 
 }
 
 .listContainerEl {
+    text-align: center;
     display: flex;
     background-color: white;
     border-left: solid #c5c5c5;
-    text-align: center;
     height: auto;
     flex-grow: inherit;
     /*align-items: center;*/
@@ -99,11 +100,13 @@ nav li.left {
     /*flex-grow: 2;*/
     /*flex-basis:0;*/
     align-items: stretch;
+    width: 95%;
+    margin: auto auto 2px auto;
 
 }
 .listContainerElParagraph {
     /*margin-top: 10px;*/
-    flex-grow: 1;
+    flex-grow: 2;
     flex-basis:0;
     border-right-style: solid;
     border-color: #00b4ef;]
@@ -119,7 +122,7 @@ nav li.left {
 }
 
 .listContainerElButton {
-    flex-grow: 0.7;
+    flex-grow: 1;
     flex-basis: 0;
     border-right-style: solid;
     border-right-color: #00b4ef;
@@ -132,7 +135,7 @@ nav li.left {
 }
 
 .listContainerElElements {
-    flex-grow: 2;
+    flex-grow: 6;
     flex-basis:0;
     margin: 0 auto;
     height: auto;
@@ -153,6 +156,26 @@ ol li {
 
 .px10MarginLeft {
     margin-left: 10px;
+}
+
+h2 {
+    color: rgba(72, 65, 75, 0.87);
+    margin-left: 10px;
+    font-family: OCR A Std, monospace;
+}
+
+.listIndex {
+    color: #50c4a8;
+    display: inline;
+}
+
+.listIndex2 {
+    color: rgba(72, 65, 75, 0.87);
+    display: inline;
+}
+
+ol li::before {
+    color: #50c4a8;
 }
 
 
