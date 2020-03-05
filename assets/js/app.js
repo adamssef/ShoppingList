@@ -25,13 +25,13 @@ class App extends Component {
                 <nav>
                     <ul>
                         <li className={"inline left main"} >
-                            <Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Create New List</Link>
+                            <Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Stwórz nową listę</Link>
                         </li>
                         <li className={"inline main"}>
-                            <Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Saved Lists</Link>
+                            <Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>
                         </li>
                         <li className={"inline right about"}>
-                            <Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>About</Link>
+                            <Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>
                         </li>
                     </ul>
                 </nav>

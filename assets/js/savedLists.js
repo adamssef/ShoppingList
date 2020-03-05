@@ -47,10 +47,14 @@ class SavedLists extends Component {
             }
 
             list.style.display = "block";
+            e.target.innerHTML = "ukryj"
         } else if (list.style.display === "block") {
                 list.style.display = "none";
+                e.target.innerHTML = "pokaż!"
         } else {
             list.style.display = "block"
+            console.log(e.target.element);
+            e.target.innerHTML = "ukryj"
         }
         ;
     }
@@ -67,11 +71,11 @@ class SavedLists extends Component {
             <div className={"listContainer"}>{this.state.data.map(function (item, index) {
                 return <div className="topDown5pxMargin listContainerEl" key={item.id} id={index}>
                     <div className="listContainerElParagraph px10MarginLeft"><p
-                        className={"px10MarginUpDown"}> {index + 1} {item.name}</p></div>
+                        className={"listIndex"}> {index + 1}</p><p className={"listIndex2"}> {item.name}</p></div>
                     <div className={"listContainerElButton"}>
-                        <button className={"px10MarginUpDown"} onClick={this.showListItems}>pokaż listę!</button>
+                        <button className={"px10MarginUpDown btn-sm btn-success"} onClick={this.showListItems}>pokaż!</button>
                     </div>
-                    <div className="listContainerElElements">
+                    <div className="listContainerElElements px10MarginUpDown">
                         <ol id={`list` + (index + 1)}></ol>
                     </div>
                 </div>;
