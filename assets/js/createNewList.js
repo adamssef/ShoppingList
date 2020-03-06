@@ -255,7 +255,7 @@ class ActivateListMode extends Component {
         return <div>
             <button
                 onClick={this.props.onClickCreateList}
-                className={"btn-lg btn-success left25pxMargin"} autoFocus> Utwórzgit
+                className={"btn-lg btn-success left25pxMargin"} autoFocus> Start
             </button>
         </div>
     }
