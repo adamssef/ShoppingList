@@ -8,7 +8,7 @@ input:focus {
 
 .inline {
     display: inline;
-    text-align:center;
+    text-align: center;
 }
 
 .block {
@@ -38,17 +38,18 @@ nav {
 
 nav ul {
     display: flex;
-    padding:0;
+    padding: 0;
+    text-transform: uppercase;
 }
 
 nav li.main {
-    flex-grow:5;
-    flex-basis:0;
+    flex-grow: 5;
+    flex-basis: 0;
 }
 
 nav li.about {
-    flex-grow:1.5;
-    flex-basis:0;
+    flex-grow: 1.5;
+    flex-basis: 0;
 }
 
 nav li.right {
@@ -61,7 +62,7 @@ nav li.left {
 
 
 .navLink {
-    color:#ffffff;
+    color: #ffffff;
     text-decoration: none;
     font-size: 200%;
 }
@@ -73,11 +74,11 @@ nav li.left {
 
 .navLink:focus {
     color: #50c4a8;
-    outline:none;
+    outline: none;
 }
 
 .default {
-    color:#50c4a8;
+    color: #50c4a8;
 }
 
 .listContainer {
@@ -104,14 +105,16 @@ nav li.left {
     margin: auto auto 2px auto;
 
 }
+
 .listContainerElParagraph {
     /*margin-top: 10px;*/
     flex-grow: 2;
-    flex-basis:0;
+    flex-basis: 0;
     border-right-style: solid;
-    border-color: #00b4ef;]
+    border-color: #00b4ef;
+]
     /*display:block;*/
-    height: inherit;
+height: inherit;
     /*margin-bottom: 0;*/
     margin: 0 auto;
     text-align: left;
@@ -136,9 +139,20 @@ nav li.left {
 
 .listContainerElElements {
     flex-grow: 6;
-    flex-basis:0;
+    flex-basis: 0;
     margin: 0 auto;
     height: auto;
+}
+
+.listCreationDateColumn {
+    flex-basis: 0;
+    flex-grow: 1;
+    border-right-style: solid;
+    border-right-color: #00b4ef;
+    display: block;
+    margin: 0 auto;
+    height: inherit;
+    color: rgba(72, 65, 75, 0.87);
 }
 
 ol {
@@ -154,12 +168,12 @@ ol li {
     margin-bottom: 10px;
 }
 
-.px10MarginLeft {
-    margin-left: 10px;
-}
+/*.px10MarginLeft {*/
+/*    margin-left: 10px;*/
+/*}*/
 
 h2 {
-    color: rgba(72, 65, 75, 0.87);
+    color: black;
     margin-left: 10px;
     font-family: OCR A Std, monospace;
 }
@@ -170,12 +184,71 @@ h2 {
 }
 
 .listIndex2 {
-    color: rgba(72, 65, 75, 0.87);
+    color: black;
     display: inline;
 }
 
+
 ol li::before {
     color: #50c4a8;
+}
+
+.headingFlexContainer {
+    text-align: center;
+    display: flex;
+    background-color: white;
+    border-left: solid #c5c5c5;
+    height: auto;
+    flex-grow: inherit;
+    justify-content: center;
+    font-size:200%;
+    align-items: center;
+    width: 95%;
+    margin: auto auto 2px auto;
+}
+
+.headingFlexElName {
+    flex-grow: 2;
+    flex-basis: 0;
+    border-right-style: solid;
+    border-color: #00b4ef;
+    height: inherit;
+    margin: 0 auto;
+    color:white;
+    background-color: #242424;
+}
+
+.headingFlexElDate {
+    flex-grow: 1;
+    flex-basis: 0;
+    border-right-style: solid;
+    border-color: #00b4ef;
+    height: inherit;
+    margin: 0 auto;
+    color:white;
+    background-color: #242424;
+}
+
+.headingFlexElAction {
+    flex-grow: 1;
+    flex-basis: 0;
+    border-right-style: solid;
+    border-color: #00b4ef;
+    height: inherit;
+    margin: 0 auto;
+    color:white;
+    background-color: #242424;
+}
+
+.headingFlexElList {
+    flex-grow: 6;
+    flex-basis: 0;
+    border-right-style: solid;
+    border-color: #00b4ef;
+    height: inherit;
+    margin: 0 auto;
+    color:white;
+    background-color: #242424;
 }
 
 

@@ -63,15 +63,23 @@ class SavedLists extends Component {
     render() {
         // let handleClick = this.showListItems();
 
-
+        console.log(this.state.data);
         // console.log(callback);
 
         return <div>
             <h2>Twoje 10 ostatnio zapisanych list:</h2>
+            <div className={"headingFlexContainer"}>
+                <div className={"headingFlexElName px10MarginLeft"}>Nazwa</div>
+                <div className={"headingFlexElDate"}>Data</div>
+                <div className={"headingFlexElAction"}>Akcja</div>
+                <div className={"headingFlexElList"}>Twoje zakupy</div>
+            </div>
             <div className={"listContainer"}>{this.state.data.map(function (item, index) {
                 return <div className="topDown5pxMargin listContainerEl" key={item.id} id={index}>
+
                     <div className="listContainerElParagraph px10MarginLeft"><p
                         className={"listIndex"}> {index + 1}</p><p className={"listIndex2"}> {item.name}</p></div>
+                    <div className={"listCreationDateColumn"}>{item.creationDate.substring(0,10)}</div>
                     <div className={"listContainerElButton"}>
                         <button className={"px10MarginUpDown btn-sm btn-success"} onClick={this.showListItems}>pokaż!</button>
                     </div>
