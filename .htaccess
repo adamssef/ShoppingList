@@ -1,6 +1,0 @@
-ErrorDocument 403 /error_pages/403.php
-
-AuthName "Only authorized users can enter"
-AuthUserFile /home/server870015/ftp/.htpasswd
-AuthType Basic
-require valid-user

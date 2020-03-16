@@ -1,3 +1,11 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+home:
+  path: /
+  controller: App\Controller\DefaultController::index
+
+save:
+  path: /save
+  controller: App\Controller\DefaultController::save
+
+saved:
+  path: /saved
+  controller: App\Controller\DefaultController::saved
