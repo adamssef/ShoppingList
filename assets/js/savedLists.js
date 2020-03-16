@@ -11,6 +11,7 @@ class SavedLists extends Component {
     }
 
     componentDidMount() {
+
         let port = location.port;
         let targetUrl = `https://localhost:${port}/saved`;
         let request = new Request(targetUrl, {
@@ -65,7 +66,7 @@ class SavedLists extends Component {
 
         console.log(this.state.data);
         // console.log(callback);
-
+        console.log("dupa");
         return <div>
             <h2>Twoje 10 ostatnio zapisanych list:</h2>
             <div className={"headingFlexContainer"}>

@@ -13,18 +13,54 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="home", defaults={"reactRouting": null})
+     * //     * @Route("/", defaults={"reactRouting": null})
      * @param $reactRouting
      */
-    public function index($reactRouting)
+    public function index($reactRouting, Request $request)
     {
+        if ($reactRouting === null) {
+            return $this->render('default/index.html.twig', [
+                'controller_name' => 'DefaultController',
+            ]);
+        } elseif ($reactRouting === 'save') {
+            $shoppingList = new ShoppingList();
+            $list = $request->request->all();
 
-//        phpinfo();
-//        var_dump($reactRouting);
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+            if (count($list) > 0) {
+                $em = $this->getDoctrine()->getManager();
+                $shoppingList->setCreationDate(new \DateTime());
+                $shoppingList->setName($list['name']);
+                unset($list['name']);
+                $shoppingList->setListItems($list);
 
+                $em->persist($shoppingList);
+                $em->flush();
+                $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+                $response = $this->json($results);
+
+                $response->headers->set('Access-Control-Allow-Origin', 'https://listazakupow.com.pl');
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            }
+        } elseif ($reactRouting === 'saved') {
+            if ($request->getMethod() === "POST") {
+                $em = $this->getDoctrine()->getManager();
+                $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+
+                $response = $this->json($results);
+
+                $response->headers->set('Content-Type', 'application/json');
+                $response->headers->set('Access-Control-Allow-Origin', 'https://localhost:' . $request->getPort());
+                $response->headers->set('Access-Control-Allow-Methods', 'GET,POST');
+
+                return $response;
+            } else {
+                return $this->redirect("localhost:" . $request->getPort());
+            }
+        }
+
+        return new Response();
     }
 
 
@@ -33,6 +69,9 @@ class DefaultController extends AbstractController
      */
     public function save(Request $request)
     {
+
+//        var_dump("dupa");
+
         $shoppingList = new ShoppingList();
         $list = $request->request->all();
 
@@ -48,7 +87,7 @@ class DefaultController extends AbstractController
             $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
             $response = $this->json($results);
 
-            $response->headers->set('Access-Control-Allow-Origin', 'https://localhost:8006');
+//            $response->headers->set('Access-Control-Allow-Origin', 'http://listazakupow.com.pl');
             $response->headers->set('Content-Type', 'application/json');
 
 
@@ -56,7 +95,7 @@ class DefaultController extends AbstractController
         } else {
             return new Response();
         }
-
+        return new Response();
     }
 
     /**
@@ -64,7 +103,6 @@ class DefaultController extends AbstractController
      */
     public function saved(Request $request)
     {
-
         if ($request->getMethod() === "POST") {
             $em = $this->getDoctrine()->getManager();
             $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
@@ -72,12 +110,13 @@ class DefaultController extends AbstractController
             $response = $this->json($results);
 
             $response->headers->set('Content-Type', 'application/json');
-            $response->headers->set('Access-Control-Allow-Origin', 'https://localhost:'.$request->getPort());
+            $response->headers->set('Access-Control-Allow-Origin', "http://localhost:" . $request->getPort());
             $response->headers->set('Access-Control-Allow-Methods', 'GET,POST');
 
             return $response;
         } else {
-            return $this->redirect("https://localhost:".$request->getPort());
+            return $this->redirect("localhost:" . $request->getPort());
         }
     }
+
 }

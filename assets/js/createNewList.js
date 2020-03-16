@@ -73,7 +73,6 @@ class CreateList extends Component {
     //FIRST ITEM MODE
 
     proceedOnEnterPressFirstItemMode(event) {
-        console.log("dupa?")
         let inputField = event.target.value;
         // let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         console.log(inputField)
@@ -147,14 +146,16 @@ class CreateList extends Component {
 
 
         let port = location.port;
+        // let targetUrl = `https://localhost:${port}/save`;
         let targetUrl = `https://localhost:${port}/save`;
+        // let targetUrl = `http://listazakupow.com.pl/save`;
 
         let request = new Request(targetUrl, {
             body: formData,
             method: "POST",
             headers: {
-                "Access-Control-Request-Method": "POST",
-                "Origin": targetUrl,
+                "Access-Control-Request-Method": "POST, GET, OPTIONS",
+                "Origin": `https://localhost:${port}`,
             }
         })
         fetch(request)
@@ -237,7 +238,7 @@ class CreateList extends Component {
                     onClickClearList={e => {
                         this.clearListDraft(e)
                     }}
-                   proceedOnEnterPress={(e) => {
+                    proceedOnEnterPress={(e) => {
                         this.proceedOnEnterPressFirstItemMode(e)
                     }}
                 />
