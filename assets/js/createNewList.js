@@ -5,6 +5,8 @@ var url = require('url');
 var https = require('https');
 var HttpsProxyAgent = require('https-proxy-agent');
 
+const imgPath = require('../img/photo.jpg');
+
 class CreateList extends Component {
 
     //CONSTRUCTOR PART
@@ -258,6 +260,7 @@ class ActivateListMode extends Component {
                 onClick={this.props.onClickCreateList}
                 className={"btn-lg btn-success left25pxMargin"} autoFocus> Start
             </button>
+            <img src={imgPath} alt={"image"}/>
         </div>
     }
 }

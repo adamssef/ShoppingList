@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        {{ encore_entry_link_tags('css/app') }}
+    {% endblock %}
+
 </head>
 <body>
 {% block body %}{% endblock %}
 {% block javascripts %}
 
     <!-- Include the compiled script-->
-    <script type="text/javascript" src="{{ asset('build/js/app.js') }}" charset="utf-8"></script>
+    {{ encore_entry_script_tags('js/app') }}
 
 {% endblock %}
 </body>
