@@ -13,54 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * //     * @Route("/", defaults={"reactRouting": null})
-     * @param $reactRouting
+     * @Route("/")
      */
-    public function index($reactRouting, Request $request)
+    public function index(Request $request)
     {
-        if ($reactRouting === null) {
             return $this->render('default/index.html.twig', [
                 'controller_name' => 'DefaultController',
             ]);
-        } elseif ($reactRouting === 'save') {
-            $shoppingList = new ShoppingList();
-            $list = $request->request->all();
-
-            if (count($list) > 0) {
-                $em = $this->getDoctrine()->getManager();
-                $shoppingList->setCreationDate(new \DateTime());
-                $shoppingList->setName($list['name']);
-                unset($list['name']);
-                $shoppingList->setListItems($list);
-
-                $em->persist($shoppingList);
-                $em->flush();
-                $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
-                $response = $this->json($results);
-
-                $response->headers->set('Access-Control-Allow-Origin', 'https://listazakupow.com.pl');
-                $response->headers->set('Content-Type', 'application/json');
-
-                return $response;
-            }
-        } elseif ($reactRouting === 'saved') {
-            if ($request->getMethod() === "POST") {
-                $em = $this->getDoctrine()->getManager();
-                $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
-
-                $response = $this->json($results);
-
-                $response->headers->set('Content-Type', 'application/json');
-                $response->headers->set('Access-Control-Allow-Origin', 'https://localhost:' . $request->getPort());
-                $response->headers->set('Access-Control-Allow-Methods', 'GET,POST');
-
-                return $response;
-            } else {
-                return $this->redirect("localhost:" . $request->getPort());
-            }
-        }
-
-        return new Response();
     }
 
 
@@ -70,10 +29,10 @@ class DefaultController extends AbstractController
     public function save(Request $request)
     {
 
-//        var_dump("dupa");
-
-        $shoppingList = new ShoppingList();
-        $list = $request->request->all();
+        if ($request->getMethod() === 'POST') {
+            $shoppingList = new ShoppingList();
+            $list = $request->request->all();
+        }
 
         if (count($list) > 0) {
             $em = $this->getDoctrine()->getManager();
@@ -86,14 +45,11 @@ class DefaultController extends AbstractController
             $em->flush();
             $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
             $response = $this->json($results);
-
-//            $response->headers->set('Access-Control-Allow-Origin', 'http://listazakupow.com.pl');
             $response->headers->set('Content-Type', 'application/json');
 
-
             return $response;
-        } else {
-            return new Response();
+        } elseif ($request->getMethod() === 'GET') {
+            return $this->redirect("localhost:" . $request->getPort());
         }
         return new Response();
     }
@@ -117,6 +73,14 @@ class DefaultController extends AbstractController
         } else {
             return $this->redirect("localhost:" . $request->getPort());
         }
+    }
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about(Request $request)
+    {
+            return $this->redirect("localhost:" . $request->getPort());
     }
 
 }
