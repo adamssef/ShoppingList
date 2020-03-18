@@ -14,32 +14,6 @@ image {
     max-width: 100%;
 }
 
-.inline {
-    display: inline;
-    text-align: center;
-}
-
-.block {
-    display: block
-}
-
-.topDown5pxMargin {
-    margin: 5px 0px 5px 0px;
-}
-
-.right25pxMargin {
-    margin-right: 25px;
-}
-
-.left25pxMargin {
-    margin-left: 25px;
-}
-
-/*.navbar {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*}*/
-
 nav {
     background-color: #242424;
 }
@@ -69,6 +43,27 @@ nav li.left {
 }
 
 
+.inline {
+    display: inline;
+    text-align: center;
+}
+
+.block {
+    display: block
+}
+
+.topDown5pxMargin {
+    margin: 5px 0px 5px 0px;
+}
+
+.right25pxMargin {
+    margin-right: 25px;
+}
+
+.left25pxMargin {
+    margin-left: 25px;
+}
+
 .navLink {
     color: #ffffff;
     text-decoration: none;
@@ -90,8 +85,6 @@ nav li.left {
 }
 
 .listContainer {
-    /*display: flex;*/
-
     margin-right: 0.15rem;
     text-align: center;
 
@@ -104,32 +97,20 @@ nav li.left {
     border-left: solid #c5c5c5;
     height: auto;
     flex-grow: inherit;
-    /*align-items: center;*/
     justify-content: center;
-    /*flex-grow: 2;*/
-    /*flex-basis:0;*/
     align-items: stretch;
     width: 95%;
     margin: auto auto 2px auto;
-
 }
 
 .listContainerElParagraph {
-    /*margin-top: 10px;*/
     flex-grow: 2;
     flex-basis: 0;
     border-right-style: solid;
     border-color: #00b4ef;
-]
-    /*display:block;*/
-height: inherit;
-    /*margin-bottom: 0;*/
+    height: inherit;
     margin: 0 auto;
     text-align: left;
-    /*text-align: center;*/
-
-    /*align-self: center;*/
-
 }
 
 .listContainerElButton {
@@ -140,9 +121,6 @@ height: inherit;
     display: block;
     margin: 0 auto;
     height: inherit;
-    /*align-self: center;*/
-
-    /*vertical-align: center;*/
 }
 
 .listContainerElElements {
@@ -175,10 +153,6 @@ ol li {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-/*.px10MarginLeft {*/
-/*    margin-left: 10px;*/
-/*}*/
 
 h2 {
     color: black;
@@ -257,6 +231,20 @@ ol li::before {
     margin: 0 auto;
     color:white;
     background-color: #242424;
+}
+
+.displayBlock {
+    display: block;
+
+}
+
+#createListImg {
+    width: 30%;
+    height: 30%;
+    margin-left: 25px;
+    margin-top: 50px;
+    float: left;
+    border-radius: 5px;
 }
 
 
