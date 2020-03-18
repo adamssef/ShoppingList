@@ -7,6 +7,8 @@ var HttpsProxyAgent = require('https-proxy-agent');
 
 const imgPath = require('../img/photo.jpg');
 
+
+
 class CreateList extends Component {
 
     //CONSTRUCTOR PART
@@ -170,7 +172,6 @@ class CreateList extends Component {
                     currentItems: [],
                     currentItemsCounter: 0
                 })
-                document.getElementById("defNavEl").classList.add("default")
             })
             .catch((error) => {
                 console.error('SAVE TO DB FETCH ERROR:', error);
@@ -181,9 +182,10 @@ class CreateList extends Component {
 //CONDITIONAL RENDER PART
 
     render() {
+
+        console.log(imgPath.default);
         //case 1: list is not active yet
         if (!this.state.isListActive) {
-            console.log("ActivateListMode is going on")
             return <>
                 <ActivateListMode onClickCreateList={(e) => {
                     this.createListOnClick(e)
@@ -193,7 +195,6 @@ class CreateList extends Component {
 
         //case 2: list is active but no list name has been added
         else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName === false) {
-            console.log("Name you list mode is going on")
             return <>
                 <NameYourListMode
                     proceedOnEnterPressNameMode={(e) => {
@@ -209,7 +210,6 @@ class CreateList extends Component {
 
         //case 3: list is active but no list name or product has been added
         else if(this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false){
-            console.log("first item mode is going on")
             return <>
                 <FirstItemMode
                     onClickPropsAdd={(e) => {
@@ -224,7 +224,6 @@ class CreateList extends Component {
 
         //case 4: list is active, named, and first product is already on the list
         else if (this.state.currentItemsCounter > 0) {
-            console.log("edition mode is going on")
             return <>
                 <EditionMode
                     onClickPropsAdd={e => {
@@ -258,9 +257,9 @@ class ActivateListMode extends Component {
         return <div>
             <button
                 onClick={this.props.onClickCreateList}
-                className={"btn-lg btn-success left25pxMargin"} autoFocus> Start
+                className={"btn-lg btn-success left25pxMargin block"} autoFocus> Start
             </button>
-            <img src={imgPath} alt={"image"}/>
+            <img src={imgPath.default} alt={"image"} id={"createListImg"}/>
         </div>
     }
 }
