@@ -6,8 +6,6 @@ class SavedLists extends Component {
     constructor(props) {
         super(props);
         this.state = {data: []};
-        //
-        // this.showListItems = this.showListItems.bind(this);
     }
 
     componentDidMount() {
@@ -17,7 +15,7 @@ class SavedLists extends Component {
         let request = new Request(targetUrl, {
             method: "POST",
             headers: {
-                "Access-Control-Request-Methods": "POST, GET",
+                "Access-Control-Request-Methods": "POST, GET, OPTIONS",
                 "Origin": `https://localhost:${port}`,
             },
             mode: "cors"
@@ -36,9 +34,7 @@ class SavedLists extends Component {
         let list = document.getElementById(listId);
 
         if (list.style.display === "") {
-            console.log(e.target.parentElement);
             let id = e.target.parentElement.parentElement.id;
-            console.log(id);
             let listItems = this.state.data[id].listItems;
             let listItemsOl = e.target.parentElement.parentElement.getElementsByTagName('OL')[0];
             for (let item in listItems) {
@@ -54,7 +50,6 @@ class SavedLists extends Component {
                 e.target.innerHTML = "pokaż!"
         } else {
             list.style.display = "block"
-            console.log(e.target.element);
             e.target.innerHTML = "ukryj"
         }
         ;
@@ -62,11 +57,6 @@ class SavedLists extends Component {
 
 
     render() {
-        // let handleClick = this.showListItems();
-
-        console.log(this.state.data);
-        // console.log(callback);
-        console.log("dupa");
         return <div>
             <h2>Twoje 10 ostatnio zapisanych list:</h2>
             <div className={"headingFlexContainer"}>
@@ -90,8 +80,6 @@ class SavedLists extends Component {
                 </div>;
             }, this)}</div>
         </div>
-
-        // return <button onClick={()=>this.showListItems()}>Click me bitch</button>
     }
 }
 
