@@ -27,7 +27,7 @@ Encore
     .addEntry('js/app', ['babel-polyfill','./assets/js/app.js'])
     //
     .addStyleEntry('css/app', './assets/css/app.css')
-    .addEntry('images/photo', './assets/img/photo.jpg')
+    // .addEntry('images/photo', './assets/img/photo.jpg')
 ;
 
 module.exports = Encore.getWebpackConfig();
