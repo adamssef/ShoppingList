@@ -14,7 +14,11 @@ import {
 class App extends Component {
 
     removeDefaultNavClass = (e)=>{
-        document.getElementById("defNavEl").classList.remove("default")
+        if(e.target.id !== 'defNavEl'){
+            document.getElementById("defNavEl").classList.remove("default")
+        } else {
+            document.getElementById("defNavEl").classList.add("default")
+        }
     }
 
 
