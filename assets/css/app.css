@@ -1,4 +1,6 @@
 /*LARGE SCREENS*/
+
+
 @media(min-width: 400.0001px) {
 
     /*nav link font size changes depending on the screen resolution*/
@@ -18,6 +20,10 @@
         border-radius: 5px;
     }
 
+
+    /*LIST HEADINGS*/
+
+
     /*font size of the header elements doubled for large screens*/
     .headingFlexContainer {
         text-align: center;
@@ -30,7 +36,7 @@
         font-size:200%;
         align-items: center;
         width: 95%;
-        margin: auto auto 2px auto;
+        /*margin: auto auto 2px auto;*/
     }
 
     /*so far no differences comparing to small screen*/
@@ -73,17 +79,85 @@
     .headingFlexElList {
         flex-grow: 6;
         flex-basis: 0;
-        border-right-style: solid;
-        border-color: #00b4ef;
+        border-right-style: none;
+        border-left-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
         color:white;
         background-color: #242424;
     }
+
+
+    /*LIST BODY*/
+
+
+    .listsWrapper {
+        /*margin-right: 5vw;*/
+        /*margin-left: 5vw;*/
+        text-align: center;
+    }
+
+    /*list elements - flex container*/
+    .listContainerEl {
+        text-align: center;
+        display: flex;
+        background-color: white;
+        border-left: solid #c5c5c5;
+        height: 7.5vh;
+        /*flex-grow: inherit;*/
+        justify-content: center;
+        align-items: stretch;
+        width: 95%;
+        /*margin: auto auto 0px auto;*/
+        flex-wrap: wrap-reverse;
+        margin: 0 0 0.3vh 0;
+    }
+    /*list elements - name column*/
+    .listContainerElParagraph {
+        flex-grow: 2;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-color: #00b4ef;
+        height: inherit;
+        margin: 0 auto;
+        text-align: left;
+        flex-shrink:0.6;
+    }
+    /*list elements - clumsy button*/
+    .listContainerElButton {
+        flex-grow: 1;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-right-color: #00b4ef;
+        display: block;
+        margin: 0 auto;
+        height: inherit;
+    }
+    /*list elements - shopping list: flex-grow set to 6 for large screens*/
+    .listContainerElElements {
+        flex-grow: 6;
+        flex-basis: 0;
+        margin: 0 auto;
+        height: auto;
+    }
+
+    /*list elements - creation date*/
+    .listCreationDateColumn {
+        flex-basis: 0;
+        flex-grow: 1;
+        border-right-style: solid;
+        border-right-color: #00b4ef;
+        display: block;
+        margin: 0 auto;
+        height: inherit;
+        color: rgba(72, 65, 75, 0.87);
+    }
 }
 
 
 /*SMALL SCREENS*/
+
+
 @media(max-width: 400px){
 
     /*nav link font size changes depending on the screen resolution*/
@@ -115,7 +189,7 @@
         font-size:100%;
         align-items: center;
         width: 95%;
-        margin: auto auto 2px auto;
+        /*margin: auto auto 2px auto;*/
     }
 
     /*so far no differences comparing to small screen*/
@@ -158,12 +232,79 @@
     .headingFlexElList {
         flex-grow: 4;
         flex-basis: 0;
+        border-right-style: none;
+        border-color: #00b4ef;
+        height: inherit;
+        margin: 0 auto;
+        color: white;
+        background-color: #242424;
+        display: none;
+
+    }
+
+    /*LIST ELEMENTS*/
+
+
+    .listsWrapper {
+        text-align: center;
+    }
+
+    /*list elements - flex container*/
+    .listContainerEl {
+        text-align: center;
+        display: flex;
+        background-color: white;
+        border-left: solid #c5c5c5;
+        height: auto;
+        padding-bottom: 0.3vh;
+        /*flex-grow: inherit;*/
+        justify-content: center;
+        align-items: stretch;
+        width: 95%;
+        flex-wrap: wrap-reverse;
+        margin: 0 0 0.3vh 0;
+    }
+    /*list elements - name column*/
+    .listContainerElParagraph {
+        flex-grow: 2;
+        flex-basis: 0;
         border-right-style: solid;
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
-        background-color: #242424;
+        text-align: left;
+        flex-shrink:0.6;
+    }
+    /*list elements - button*/
+    .listContainerElButton {
+        flex-grow: 1;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-right-color: #00b4ef;
+        display: block;
+        margin: 0 auto;
+        height: inherit;
+    }
+    /*list elements - shopping list: flex-grow set to 4 for small screens*/
+    .listContainerElElements {
+        flex-grow: 4;
+        flex-basis: 0;
+        /*margin: 0 auto;*/
+        height: auto;
+        display: none;
+
+    }
+
+    /*list elements - creation date*/
+    .listCreationDateColumn {
+        flex-basis: 0;
+        flex-grow: 1;
+        border-right-style: solid;
+        border-right-color: #00b4ef;
+        display: block;
+        margin: 0 auto;
+        height: inherit;
+        color: rgba(72, 65, 75, 0.87);
     }
 }
 
@@ -223,9 +364,9 @@ nav li.left {
     display: block
 }
 
-.topDown5pxMargin {
-    margin: 5px 0px 5px 0px;
-}
+/*.topDown5pxMargin {*/
+/*    margin: 5px 0px 5px 0px;*/
+/*}*/
 
 .right25pxMargin {
     margin-right: 25px;
@@ -251,63 +392,9 @@ nav li.left {
     color: #50c4a8;
 }
 
-.listContainer {
-    margin-right: 0.15rem;
-    text-align: center;
 
-}
 
-.listContainerEl {
-    text-align: center;
-    display: flex;
-    background-color: white;
-    border-left: solid #c5c5c5;
-    height: auto;
-    flex-grow: inherit;
-    justify-content: center;
-    align-items: stretch;
-    width: 95%;
-    margin: auto auto 2px auto;
-    flex-wrap: wrap-reverse;
-}
 
-.listContainerElParagraph {
-    flex-grow: 2;
-    flex-basis: 0;
-    border-right-style: solid;
-    border-color: #00b4ef;
-    height: inherit;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.listContainerElButton {
-    flex-grow: 1;
-    flex-basis: 0;
-    border-right-style: solid;
-    border-right-color: #00b4ef;
-    display: block;
-    margin: 0 auto;
-    height: inherit;
-}
-
-.listContainerElElements {
-    flex-grow: 6;
-    flex-basis: 0;
-    margin: 0 auto;
-    height: auto;
-}
-
-.listCreationDateColumn {
-    flex-basis: 0;
-    flex-grow: 1;
-    border-right-style: solid;
-    border-right-color: #00b4ef;
-    display: block;
-    margin: 0 auto;
-    height: inherit;
-    color: rgba(72, 65, 75, 0.87);
-}
 
 ol {
     width: auto;
@@ -317,10 +404,10 @@ ol li {
     text-align: left;
 }
 
-.px10MarginUpDown {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+/*.px10MarginUpDown {*/
+/*    margin-top: 10px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
 h2 {
     color: black;
@@ -342,64 +429,6 @@ h2 {
 ol li::before {
     color: #50c4a8;
 }
-
-/*.headingFlexContainer {*/
-/*    text-align: center;*/
-/*    display: flex;*/
-/*    background-color: white;*/
-/*    border-left: solid #c5c5c5;*/
-/*    height: auto;*/
-/*    flex-grow: inherit;*/
-/*    justify-content: center;*/
-/*    font-size:200%;*/
-/*    align-items: center;*/
-/*    width: 95%;*/
-/*    margin: auto auto 2px auto;*/
-/*}*/
-
-/*.headingFlexElName {*/
-/*    flex-grow: 2;*/
-/*    flex-basis: 0;*/
-/*    border-right-style: solid;*/
-/*    border-color: #00b4ef;*/
-/*    height: inherit;*/
-/*    margin: 0 auto;*/
-/*    color:white;*/
-/*    background-color: #242424;*/
-/*}*/
-
-/*.headingFlexElDate {*/
-/*    flex-grow: 1;*/
-/*    flex-basis: 0;*/
-/*    border-right-style: solid;*/
-/*    border-color: #00b4ef;*/
-/*    height: inherit;*/
-/*    margin: 0 auto;*/
-/*    color:white;*/
-/*    background-color: #242424;*/
-/*}*/
-
-/*.headingFlexElAction {*/
-/*    flex-grow: 1;*/
-/*    flex-basis: 0;*/
-/*    border-right-style: solid;*/
-/*    border-color: #00b4ef;*/
-/*    height: inherit;*/
-/*    margin: 0 auto;*/
-/*    color:white;*/
-/*    background-color: #242424;*/
-/*}*/
-
-/*.headingFlexElList {*/
-/*    flex-grow: 6;*/
-/*    flex-basis: 0;*/
-/*    border-right-style: solid;*/
-/*    border-color: #00b4ef;*/
-/*    height: inherit;*/
-/*    margin: 0 auto;*/
-/*    color:white;*/
-/*    background-color: #242424;*/
-/*}*/
 
 .displayBlock {
     display: block;
