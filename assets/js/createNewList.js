@@ -51,17 +51,9 @@ class CreateList extends Component {
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
-        console.log("proceedOnEnterPressNameMode has been called")
         if (event.key === "Enter") {
-            console.log(input);
-            console.log("proceedOnEnterPressNameMode has been called while enter pressed")
-            // this.setState({
-            //     listName: input
-            // });
             event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);
         }
-
-        console.log(this.state.listName);
     }
 
     proceedOnBtnClickNameMode(event) {
@@ -78,9 +70,6 @@ class CreateList extends Component {
 
     proceedOnEnterPressFirstItemMode(event) {
         let inputField = event.target.value;
-        // let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
-        console.log(inputField)
-        // console.log(btn)
         let set = new Set(this.state.currentItems);
         if (event.key === "Enter") {
             if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField))
@@ -96,7 +85,6 @@ class CreateList extends Component {
     }
 
     addItemOnClick(e) {
-        console.log("addItemOnClick has been called")
         let inputField = e.target.previousSibling.value;
         let set = new Set(this.state.currentItems);
 
@@ -142,17 +130,15 @@ class CreateList extends Component {
 
         const formData = new FormData();
         for (let i = 0; i < itemObject.length; i++) {
-            formData.append(`shoppingItem${i}`, itemObject[i])
-        }
-        ;
+            formData.append(i, itemObject[i])
+        };
 
         formData.append('name', this.state.listName);
 
 
         let port = location.port;
-        // let targetUrl = `https://localhost:${port}/save`;
+
         let targetUrl = `https://localhost:${port}/save`;
-        // let targetUrl = `http://listazakupow.com.pl/save`;
 
         let request = new Request(targetUrl, {
             body: formData,
@@ -182,8 +168,6 @@ class CreateList extends Component {
 //CONDITIONAL RENDER PART
 
     render() {
-
-        console.log(imgPath.default);
         //case 1: list is not active yet
         if (!this.state.isListActive) {
             return <>
