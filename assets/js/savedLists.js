@@ -146,7 +146,7 @@ class SavedLists extends Component {
 class AllListsDisplayMode extends Component {
     render() {
         return <div id={"savedListsWrapper"}>
-            <h2>Twoje 10 ostatnio zapisanych list:</h2>
+            <div className={"h2FlexContainer"}><h2>Twoje 10 ostatnio zapisanych list:</h2></div>
             <div className={"headingFlexContainer"}>
                 <div className={"headingFlexElName"}>Nazwa</div>
                 <div className={"headingFlexElDate"}>Data</div>

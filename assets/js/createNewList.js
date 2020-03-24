@@ -241,9 +241,9 @@ class ActivateListMode extends Component {
         return <div>
             <button
                 onClick={this.props.onClickCreateList}
-                className={"btn-lg btn-success left25pxMargin block"} autoFocus> Start
+                className={"btn-lg btn-success block activateBtn"} autoFocus> Start
             </button>
-            <img src={imgPath.default} alt={"image"} id={"createListImg"}/>
+            <div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/></div>
         </div>
     }
 }
