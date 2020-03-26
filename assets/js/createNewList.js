@@ -136,16 +136,14 @@ class CreateList extends Component {
         formData.append('name', this.state.listName);
 
 
-        let port = location.port;
-
-        let targetUrl = `https://localhost:${port}/save`;
+        let targetUrl = `${location.origin}/save`;
 
         let request = new Request(targetUrl, {
             body: formData,
             method: "POST",
             headers: {
                 "Access-Control-Request-Method": "POST, GET, OPTIONS",
-                "Origin": `https://localhost:${port}`,
+                "Origin": location.origin,
             }
         })
         fetch(request)
