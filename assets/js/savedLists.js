@@ -20,13 +20,12 @@ class SavedLists extends Component {
         //event listening to window width changes
         window.addEventListener('resize', this.updateDimensions);
 
-        let port = location.port;
-        let targetUrl = `https://localhost:${port}/saved`;
+        let targetUrl = `${location.origin}/saved`;
         let request = new Request(targetUrl, {
             method: "POST",
             headers: {
                 "Access-Control-Request-Methods": "POST, GET, OPTIONS",
-                "Origin": `https://localhost:${port}`,
+                "Origin": location.origin,
             },
             mode: "cors"
         });
@@ -47,9 +46,6 @@ class SavedLists extends Component {
     };
 
     switchToSingleDisplayMode = (e) => {
-        var currentLocation = this.props.location.pathname
-        console.log(currentLocation);
-
         let listId = e.target.parentElement.parentElement.id;
         console.log(listId);
 
