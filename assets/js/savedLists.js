@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
+import { useLocation } from 'react-router-dom'
 
 
 class SavedLists extends Component {
@@ -46,6 +47,8 @@ class SavedLists extends Component {
     };
 
     switchToSingleDisplayMode = (e) => {
+        var currentLocation = this.props.location.pathname
+        console.log(currentLocation);
 
         let listId = e.target.parentElement.parentElement.id;
         console.log(listId);
@@ -69,9 +72,15 @@ class SavedLists extends Component {
                 // console.log(listItemsOl)
                 for (let item in listItems) {
                     console.log(listItems[item]);
+                    let div = document.createElement('div');
                     let li = document.createElement('li');
+                    let input = document.createElement("input");
+                    input.type = "checkbox";
+                    li.classList.add('liSavedLists')
                     li.innerHTML = listItems[item];
+                    li.appendChild(input);
                     listItemsOl.appendChild(li);
+
                 }
 
 
@@ -110,16 +119,16 @@ class AllListsDisplayMode extends Component {
         return <>
             <div className={"h2FlexContainer"}><h2>Twoje 10 ostatnio zapisanych list:</h2></div>
             <div className={"headingFlexContainer"}>
-                <div className={"headingFlexElName"}>Nazwa</div>
-                <div className={"headingFlexElDate"}>Data</div>
-                <div className={"headingFlexElAction"}>Akcja</div>
-                <div className={"headingFlexElList"}>Twoje zakupy</div>
+                <div className={"headingFlexElName"}><span className={"headingElFlexItem"}>Nazwa</span></div>
+                <div className={"headingFlexElDate"}><span className={"headingElFlexItem"}>Data</span></div>
+                <div className={"headingFlexElAction"}><span className={"headingElFlexItem"}>Akcja</span></div>
+                <div className={"headingFlexElList"}><span className={"headingElFlexItem"}>Twoje zakupy</span></div>
             </div>
             <div className={"listsWrapper"}>{this.props.dataState.map(function (item, index) {
                 return <div className="listContainerEl" key={item.id} id={index}>
 
-                    <div className={"listContainerElParagraph"}><p
-                        className={"listIndex"}> {index + 1}</p><p className={"listIndex2"}> {item.name}</p></div>
+                    <div className={"listContainerElName"}><p
+                        className={"listIndex"}> {index + 1+'.'}</p><p className={"listIndex2"}> {item.name}</p></div>
                     <div className={"listCreationDateColumn"}>{item.creationDate.substring(0, 10)}</div>
                     <div className={"listContainerElButton"}>
                         <button id ={"listBtn"}className={"btn-sm btn-success"} onClick={this.props.stateSwitch}>pokaż!</button>
