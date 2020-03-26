@@ -1,13 +1,11 @@
 /*LARGE SCREENS*/
-
-
-@media(min-width: 475.0001px) {
+@media (min-width: 475.0001px) {
 
     /*nav link font size changes depending on the screen resolution*/
     .navLink {
         color: #ffffff;
         text-decoration: none;
-        font-size: 200%;
+        font-size: 150%;
     }
 
     /*image should take less space when on large screen*/
@@ -15,8 +13,6 @@
         position: relative;
         width: 40%;
         height: 40%;
-        /*margin-left: 25px;*/
-        /*margin-top: 50px;*/
         border-radius: 80px;
         opacity: 0.45;
         -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
@@ -26,8 +22,6 @@
 
 
     /*LIST HEADINGS*/
-
-
     /*font size of the header elements doubled for large screens*/
     .headingFlexContainer {
         text-align: center;
@@ -39,9 +33,13 @@
         justify-content: center;
         align-items: center;
         justify-items: center;
-        font-size:200%;
+        font-size: 2.1vw;
         width: 95%;
         margin: 0 auto;
+    }
+
+    .headingFlexElItem {
+        flex-basis: auto;
     }
 
     /*so far no differences comparing to small screen*/
@@ -52,8 +50,10 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
+        display:flex;
+        justify-content: center;
     }
 
     /*so far no differences comparing to small screen*/
@@ -64,8 +64,10 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
+        display:flex;
+        justify-content: center;
     }
 
     /*so far no differences comparing to small screen*/
@@ -76,29 +78,31 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
+        display:flex;
+        justify-content: center;
     }
 
     /*so far no differences comparing to small screen*/
     .headingFlexElList {
-        flex-grow: 6;
+        flex-grow: 3.25;
         flex-basis: 0;
         border-right-style: none;
         border-left-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
+        display:flex;
+        justify-content: center;
     }
 
 
     /*LIST BODY*/
-
-
     .listsWrapper {
         text-align: center;
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
@@ -117,47 +121,62 @@
         flex-wrap: wrap-reverse;
         margin: 0 0 2px 0;
     }
+
     /*list elements - name column*/
-    .listContainerElParagraph {
+    .listContainerElName {
+        display: flex;
+        align-items: center;
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
         border-color: #00b4ef;
         margin: 0 auto;
         text-align: left;
-        flex-shrink:0.6;
+        font-size: 1.9vw;
     }
+
+    .listCreationDateColumn {
+        display: flex;
+        align-items: center;
+        flex-basis: 0;
+        flex-grow: 1;
+        border-right-style: solid;
+        border-right-color: #00b4ef;
+        margin: 0 auto;
+        justify-content: center;
+        color: rgba(72, 65, 75, 0.87);
+        font-size: 1.9vw;
+    }
+
     /*list elements - clumsy button*/
     .listContainerElButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
         border-right-color: #00b4ef;
-        display: block;
         height: available;
     }
+
     /*list elements - shopping list: flex-grow set to 6 for large screens*/
     .listContainerElElements {
-        flex-grow: 6;
+        display: flex;
+        align-items: center;
+        flex-grow: 3.25;
         flex-basis: 0;
         margin: 0 auto;
-        /*height: inherit;*/
     }
 
     /*list elements - creation date*/
-    .listCreationDateColumn {
-        flex-basis: 0;
-        flex-grow: 1;
-        border-right-style: solid;
-        border-right-color: #00b4ef;
-        display: block;
-        margin: 0 auto;
-        /*height: inherit;*/
-        color: rgba(72, 65, 75, 0.87);
-    }
+
 
     #listBtn {
         margin: 2px 0 2px 0;
+        width: 75%;
+        text-align: center;
+        font-size: 1.9vw;
     }
 
     .activateBtn {
@@ -174,18 +193,22 @@
     }
 
     .h2FlexContainer {
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
         margin: 3vh 0 3vh 0;
+    }
+
+    .liSavedLists {
+        display: flex;
+        justify-content: flex-end;
     }
 }
 
 
 /*SMALL SCREENS*/
 
-
-@media(max-width: 475px){
+@media (max-width: 475px) {
 
     /*nav link font size changes depending on the screen resolution*/
     .navLink {
@@ -199,8 +222,6 @@
         position: relative;
         width: 40%;
         height: 40%;
-        /*margin-left: 25px;*/
-        /*margin-top: 50px;*/
         border-radius: 80px;
         opacity: 0.45;
         -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
@@ -219,7 +240,7 @@
         justify-content: center;
         align-items: center;
         justify-items: center;
-        font-size:100%;
+        font-size: 100%;
         width: 95%;
         margin: 0 auto;
     }
@@ -232,7 +253,7 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
     }
 
@@ -244,7 +265,7 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
     }
 
@@ -256,7 +277,7 @@
         border-color: #00b4ef;
         height: inherit;
         margin: 0 auto;
-        color:white;
+        color: white;
         background-color: #242424;
     }
 
@@ -275,11 +296,10 @@
     }
 
     /*LIST ELEMENTS*/
-
     /*same configuration as for large screens*/
     .listsWrapper {
         text-align: center;
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
@@ -302,7 +322,7 @@
 
 
     /*list elements - name column*/
-    .listContainerElParagraph {
+    .listContainerElName {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
@@ -310,9 +330,9 @@
         height: inherit;
         margin: 0 auto;
         text-align: left;
-        flex-shrink:0.6;
-
+        flex-shrink: 0.6;
     }
+
     /*list elements - button*/
     .listContainerElButton {
         flex-grow: 1;
@@ -323,11 +343,11 @@
         margin: 0 auto;
         height: inherit;
     }
+
     /*list elements - shopping list: flex-grow set to 4 for small screens*/
     .listContainerElElements {
         flex-grow: 4;
         flex-basis: 0;
-        /*margin: 0 auto;*/
         height: auto;
         display: none;
 
@@ -345,7 +365,7 @@
         color: rgba(72, 65, 75, 0.87);
     }
 
-    .singleListViewContainer{
+    .singleListViewContainer {
         display: flex;
         border-style: solid;
         border-width: 1px 1px 0 1px;
@@ -355,18 +375,18 @@
         justify-content: center;
         align-items: center;
         width: 90vw;
-        height:100%;
+        height: 100%;
         /*align-content: space-evenly;*/
     }
 
     .singleListItem {
-        display:flex;
+        display: flex;
         background-color: white;
         width: 89vw;
         height: 4vh;
         padding-left: 10px;
         padding-right: 10px;
-        border-style:solid;
+        border-style: solid;
         border-width: 0 0 1px 0;
         justify-content: center;
         align-items: center;
@@ -398,10 +418,16 @@
         height: 50px;
         margin: 50px 0 20px 50px;
     }
+
+
+    #listBtn {
+        width: 75%;
+        text-align: center;
+    }
 }
 
 /*GENERAL*/
-*,*:before, *:after {
+*, *:before, *:after {
     box-sizing: inherit;
 }
 
@@ -411,6 +437,7 @@ html {
 
 body {
     background-color: #c5c5c5;
+    min-width:300px;
 }
 
 image {
@@ -462,6 +489,7 @@ h2 {
     margin: 0 auto;
     text-align: center;
 }
+
 .inline {
     display: inline;
     text-align: center;
@@ -471,15 +499,9 @@ h2 {
     display: block;
 }
 
-/*.topDown5pxMargin {*/
-/*    margin: 5px 0px 5px 0px;*/
-/*}*/
-
 .right25pxMargin {
     margin-right: 25px;
 }
-
-
 
 
 .navLink:hover {
@@ -497,18 +519,18 @@ h2 {
 }
 
 
-
-
-
-
 .listIndex {
     color: #50c4a8;
     display: inline;
+    margin-bottom: 0;
+    margin-left: 2%;
 }
 
 .listIndex2 {
     color: black;
     display: inline;
+    margin-bottom: 0;
+    margin-left: 3px;
 }
 
 
