@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
-import { useLocation } from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 
 
 class SavedLists extends Component {
@@ -42,7 +42,7 @@ class SavedLists extends Component {
     }
 
     updateDimensions = () => {
-        this.setState({ width: window.innerWidth });
+        this.setState({width: window.innerWidth});
     };
 
     switchToSingleDisplayMode = (e) => {
@@ -56,11 +56,10 @@ class SavedLists extends Component {
                 currentlyDisplayedListId: listId,
             });
 
-        //if the above condition is not met than large devices mode is applied
+            //if the above condition is not met than large devices mode is applied
         } else {
             let list = document.getElementById(listId);
             let listColumn = list.children[3].children[0];
-            console.log(listColumn);
 
             // console.log(list);
             if (listColumn.style.display === "") {
@@ -84,27 +83,40 @@ class SavedLists extends Component {
                 }
                 listColumn.style.display = "flex";
                 listColumn.classList.add("olStyle")
-                e.target.innerHTML = "ukryj"
-            }
-            else if (listColumn.style.display === "flex") {
-                    listColumn.style.display = "none";
-                    e.target.innerHTML = "pokaż!";
+                e.target.innerHTML = "ukryj";
+            } else if (listColumn.style.display === "flex") {
+                listColumn.style.display = "none";
+                e.target.innerHTML = "pokaż!";
             } else {
                 listColumn.style.display = "flex";
-                listColumn.style.width = "100%";
                 e.target.innerHTML = "ukryj";
             }
         }
     };
 
+    back = () => {
+        this.setState({
+            allListsDisplayMode: true,
+            singleListDisplayMode: false,
+            currentlyDisplayedListId: null,
+        })
+    }
+
     render() {
         if ((this.state.allListsDisplayMode && !this.state.singleListDisplayMode) || window.innerWidth > 475.0000) {
-            return <AllListsDisplayMode dataState={this.state.data} stateSwitch={e => {
-                this.switchToSingleDisplayMode(e)
-            }}/>
+            return <AllListsDisplayMode
+                dataState={this.state.data}
+                stateSwitch={e => {
+                        this.switchToSingleDisplayMode(e)
+                    }
+                }
+            />
         } else if (!this.state.allListsDisplayMode && this.state.singleListDisplayMode) {
             console.log("SingleDisplayMode On!")
-            return <SingleListDisplayMode currentList={this.state.data[this.state.currentlyDisplayedListId]}/>
+            return <SingleListDisplayMode
+                currentList={this.state.data[this.state.currentlyDisplayedListId]}
+                backOnClick={e=>{this.back(e)}}
+            />
         }
     }
 }
@@ -123,10 +135,12 @@ class AllListsDisplayMode extends Component {
                 return <div className="listContainerEl" key={item.id} id={index}>
 
                     <div className={"listContainerElName"}><p
-                        className={"listIndex"}> {index + 1+'.'}</p><p className={"listIndex2"}> {item.name}</p></div>
+                        className={"listIndex"}> {index + 1 + '.'}</p><p className={"listIndex2"}> {item.name}</p></div>
                     <div className={"listCreationDateColumn"}>{item.creationDate.substring(0, 10)}</div>
                     <div className={"listContainerElButton"}>
-                        <button id ={"listBtn"}className={"btn-sm btn-success"} onClick={this.props.stateSwitch}>pokaż!</button>
+                        <button id={"listBtn"} className={"btn-sm btn-success"}
+                                onClick={this.props.stateSwitch}>pokaż!
+                        </button>
                     </div>
                     <div className="listContainerElElements">
                         <ol id={`list` + index}></ol>
@@ -141,14 +155,15 @@ class SingleListDisplayMode extends Component {
     render() {
         let arrOfProducts = Object.values(this.props.currentList)[1];
 
-        return <div>
+        return <div className={"singleListViewGeneralContainer"}>
             <h2>Zapisane zakupy:</h2>
             <div className={"singleListViewContainer"}>{arrOfProducts.map((item, index) => {
                 return <div className={"singleListItem"} key={index}><span className={'span'}>{item}</span><input
                     type='checkbox' className={'checkbox'}/></div>
             })
             }</div>
-        </div>
+            <button onClick={this.props.backOnClick} id={"backBtn"}>Wróć</button>
+        </div>;
     }
 }
 
