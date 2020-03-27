@@ -38,7 +38,7 @@ class SavedLists extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.updateDimensions);
+        window.removeEventListener("resize", this.updateDimensions);
     }
 
     updateDimensions = () => {
@@ -47,51 +47,54 @@ class SavedLists extends Component {
 
     switchToSingleDisplayMode = (e) => {
         let listId = e.target.parentElement.parentElement.id;
-        console.log(listId);
 
+        //if  device width is less than 475 the display mode for small devices is applied
         if (window.innerWidth <= 475) {
             this.setState({
                 singleListDisplayMode: true,
                 allListsDisplayMode: false,
                 currentlyDisplayedListId: listId,
             });
-        } else {
-            // let listId = e.target.parentElement.nextSibling.children[0].id;
 
+        //if the above condition is not met than large devices mode is applied
+        } else {
             let list = document.getElementById(listId);
             let listColumn = list.children[3].children[0];
+            console.log(listColumn);
 
             // console.log(list);
             if (listColumn.style.display === "") {
                 let listItems = this.state.data[listId].listItems;
                 let listItemsOl = e.target.parentElement.parentElement.getElementsByTagName('OL')[0];
-                // console.log(listItemsOl)
                 for (let item in listItems) {
-                    console.log(listItems[item]);
-                    let div = document.createElement('div');
-                    let li = document.createElement('li');
+                    let div = document.createElement("div");
+                    let li = document.createElement("li");
                     let input = document.createElement("input");
+                    let span = document.createElement("span");
+                    span.classList.add('listItemSpan');
+
+
                     input.type = "checkbox";
-                    li.classList.add('liSavedLists')
-                    li.innerHTML = listItems[item];
+                    input.classList.add("liSavedListsInput")
+                    li.classList.add("liSavedListsContainer")
+                    span.innerHTML = listItems[item];
+                    li.appendChild(span);
                     li.appendChild(input);
                     listItemsOl.appendChild(li);
-
                 }
-
-
-                listColumn.style.display = "block";
+                listColumn.style.display = "flex";
+                listColumn.classList.add("olStyle")
                 e.target.innerHTML = "ukryj"
             }
-            else if (listColumn.style.display === "block") {
+            else if (listColumn.style.display === "flex") {
                     listColumn.style.display = "none";
                     e.target.innerHTML = "pokaż!";
             } else {
-                listColumn.style.display = "block";
+                listColumn.style.display = "flex";
+                listColumn.style.width = "100%";
                 e.target.innerHTML = "ukryj";
             }
         }
-
     };
 
     render() {
@@ -106,10 +109,6 @@ class SavedLists extends Component {
     }
 }
 
-// class singleListDisplayMode extends Component {
-//
-// }
-//
 class AllListsDisplayMode extends Component {
     render() {
         return <>
