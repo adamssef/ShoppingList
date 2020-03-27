@@ -8,7 +8,6 @@ var HttpsProxyAgent = require('https-proxy-agent');
 const imgPath = require('../img/photo.jpg');
 
 
-
 class CreateList extends Component {
 
     //CONSTRUCTOR PART
@@ -47,6 +46,7 @@ class CreateList extends Component {
                 isListActive: true
             })
     };
+
     //NAME YOUR LIST MODE METHODS
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
@@ -131,7 +131,8 @@ class CreateList extends Component {
         const formData = new FormData();
         for (let i = 0; i < itemObject.length; i++) {
             formData.append(i, itemObject[i])
-        };
+        }
+        ;
 
         formData.append('name', this.state.listName);
 
@@ -182,7 +183,7 @@ class CreateList extends Component {
                     proceedOnEnterPressNameMode={(e) => {
                         this.proceedOnEnterPressNameMode(e)
                     }}
-                    proceedOnBtnClick={(e)=>{
+                    proceedOnBtnClick={(e) => {
                         this.proceedOnBtnClickNameMode(e)
                     }
                     }
@@ -191,14 +192,15 @@ class CreateList extends Component {
         }
 
         //case 3: list is active but no list name or product has been added
-        else if(this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false){
+        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false) {
             return <>
                 <FirstItemMode
                     onClickPropsAdd={(e) => {
                         this.addItemOnClick(e)
                     }}
-                    proceedOnEnterPress={(e)=>{
-                        this.proceedOnEnterPressFirstItemMode(e)}
+                    proceedOnEnterPress={(e) => {
+                        this.proceedOnEnterPressFirstItemMode(e)
+                    }
                     }
                 />
             </>
@@ -225,7 +227,6 @@ class CreateList extends Component {
                         this.proceedOnEnterPressFirstItemMode(e)
                     }}
                 />
-
             </>
         }
     }
@@ -241,16 +242,22 @@ class ActivateListMode extends Component {
                 onClick={this.props.onClickCreateList}
                 className={"btn-lg btn-success block activateBtn"} autoFocus> Start
             </button>
-            <div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/></div>
+            <div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/>
+            </div>
         </div>
     }
 }
 
 class NameYourListMode extends Component {
     render() {
-        return <div>
-            <h2>Nazwij swoją listę</h2>
-            <NameYourListInput proceedOnEnterPressNameMode={this.props.proceedOnEnterPressNameMode} proceedOnBtnClick={this.props.proceedOnBtnClick}/>
+        return <div className={'nameYourListMode'}>
+            <div className={'nameYourListModeBox1'}></div>
+            <div className={'nameYourListModeBox2'}>
+                <h2>Nazwij swoją listę</h2>
+                <NameYourListInput proceedOnEnterPressNameMode={this.props.proceedOnEnterPressNameMode}
+                                   proceedOnBtnClick={this.props.proceedOnBtnClick}/>
+            </div>
+            <div className={'nameYourListModeBox3'}></div>
         </div>
     }
 }
@@ -258,30 +265,40 @@ class NameYourListMode extends Component {
 
 class FirstItemMode extends Component {
     render() {
-        return <div>
-            <h2>Dodaj zakup do listy</h2>
-            <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress} onClickPropsAdd={this.props.onClickPropsAdd}/>
+        return <div className={'nameYourListMode'}>
+            <div className={'nameYourListModeBox1'}></div>
+            <div className={'nameYourListModeBox2'}>
+                <h2>Dodaj zakup do listy</h2>
+                <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress}
+                                   onClickPropsAdd={this.props.onClickPropsAdd}/>
+            </div>
+            <div className={'nameYourListModeBox3'}></div>
+
         </div>
     }
 }
 
 class EditionMode extends Component {
     render() {
-        return <div>
-            <h2>Skomponuj swoją listę!</h2>
-            <ShoppingListInput onClickPropsAdd={this.props.onClickPropsAdd} proceedOnEnterPress={this.props.proceedOnEnterPress}/>
-            <ShoppingListDraft
-                currentItems={this.props.currentItems}
-                onClickPropsDelete={this.props.onClickPropsDelete}
-            />
-            <button
-                className={"btn-sm btn-success"}
-                style={{marginRight: "5px"}}
-                onClick={(e) => {
-                    this.props.onClickPropsSave(e);
-                }}>Zapisz listę
-            </button>
-            <button className={"btn-sm btn-danger"} onClick={this.props.onClickClearList}>Wyczyść listę</button>
+        return <div className={'nameYourListMode'}>
+            <div className={'nameYourListModeBox1'}></div>
+            <div className={'nameYourListModeBox2'}>
+                <h2>Skomponuj swoją listę!</h2>
+                <ShoppingListInput onClickPropsAdd={this.props.onClickPropsAdd}
+                                   proceedOnEnterPress={this.props.proceedOnEnterPress}/>
+                <ShoppingListDraft
+                    currentItems={this.props.currentItems}
+                    onClickPropsDelete={this.props.onClickPropsDelete}
+                />
+                <button
+                    className={"btn-sm btn-success editionModeBtn"}
+                    onClick={(e) => {
+                        this.props.onClickPropsSave(e);
+                    }}>Zapisz listę
+                </button>
+                <button className={"btn-sm btn-danger editionModeBtn"} onClick={this.props.onClickClearList}>Wyczyść listę</button>
+            </div>
+            <div className={'nameYourListModeBox3'}></div>
         </div>
     }
 }
@@ -304,11 +321,11 @@ class ShoppingListDraft extends Component {
 class ShoppingListItem extends Component {
     render() {
         return <>
-            <li style={{marginTop: "5px"}}>
+            <li style={{marginTop: "5px"}} className={"liItem"}>
                 <span className={"itemName"}>{this.props.itemContent}</span>
                 <button
-                    className={"btn-sm btn-warning"}
-                    style={{position: 'relative', left: '10px'}}
+                    className={"btn-sm btn-warning itemBtn"}
+                    // style={{position: 'relative', left: '10px'}}
                     onClick={(e) => {
                         this.props.onClickPropsDelete(e);
                     }}
@@ -323,8 +340,8 @@ class ShoppingListItem extends Component {
 
 class NameYourListInput extends Component {
     render() {
-        return <div className={"left25pxMargin"}>
-            <input id="listNameInput" type="text" placeholder={"nazwij swoją listę"}
+        return <div className={"inputContainer"}>
+            <input type="text" placeholder={"nazwij swoją listę"}
                    onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
             <button className={"btn-sm btn-success"} id="addNameBtn" onClick={this.props.proceedOnBtnClick}>Dodaj
             </button>
@@ -335,7 +352,7 @@ class NameYourListInput extends Component {
 class ShoppingListInput extends Component {
 
     render() {
-        return <div className={"left25pxMargin"}>
+        return <div className={"inputContainer"}>
             <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
             <button className={"btn-sm btn-success"} onClick={this.props.onClickPropsAdd} id="addItemBtn">Dodaj</button>
         </div>

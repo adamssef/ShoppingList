@@ -47,7 +47,7 @@
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -61,7 +61,7 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -75,7 +75,7 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -89,7 +89,7 @@
         flex-grow: 3.25;
         flex-basis: 0;
         border-right-style: none;
-        border-left-color: #00b4ef;
+        border-left-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -129,10 +129,10 @@
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         margin: 0 auto;
         text-align: left;
-        font-size: 1.9vw;
+        font-size: 1.5vw;
     }
 
     .listCreationDateColumn {
@@ -141,11 +141,11 @@
         flex-basis: 0;
         flex-grow: 1;
         border-right-style: solid;
-        border-right-color: #00b4ef;
+        border-right-color: lightblue;
         margin: 0 auto;
         justify-content: center;
         color: rgba(72, 65, 75, 0.87);
-        font-size: 1.9vw;
+        font-size: 1.5vw;
     }
 
     /*list elements - clumsy button*/
@@ -156,27 +156,30 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-right-color: #00b4ef;
+        border-right-color: lightblue;
         height: available;
+        font-size: 1.5vw;
     }
 
     /*list elements - shopping list: flex-grow set to 6 for large screens*/
     .listContainerElElements {
         display: flex;
         align-items: center;
+        justify-content: flex-start;
         flex-grow: 3.25;
         flex-basis: 0;
         margin: 0 auto;
+        /*width: 75%;*/
     }
 
     /*list elements - creation date*/
 
 
     #listBtn {
-        margin: 2px 0 2px 0;
+        margin: 4px 0 4px 0;
         width: 75%;
         text-align: center;
-        font-size: 1.9vw;
+        font-size: 1.5vw;
     }
 
     .activateBtn {
@@ -199,10 +202,95 @@
         margin: 3vh 0 3vh 0;
     }
 
-    .liSavedLists {
+    .liSavedListsContainer {
         display: flex;
-        justify-content: flex-end;
+        margin-bottom: 2vh;
     }
+
+
+    .olStyle {
+        flex-direction: column;
+        padding-inline-start: 0;
+        max-width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-left: 5%;
+        list-style-type: decimal;
+    }
+
+    .listItemSpan {
+        margin-right: 1vw;
+        font-size: 2.5vh;
+    }
+
+
+    .liSavedListsInput {
+        align-self: center;
+        margin-left: auto;
+        transform: scale(2.0);
+    }
+
+    .inputContainer {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nameYourListMode {
+        display: flex;
+        margin-top: 5vh;
+    }
+
+    .nameYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .nameYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 15vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-style: solid;
+        border-width: 1px;
+        background-color: #50c4a8;
+    }
+
+    .nameYourListModeBox3 {
+        flex-grow: 3;
+    }
+
+    .editionModeBtn {
+        width: 20%;
+        align-self: center;
+        margin-bottom: 3px;
+    }
+
+    #listDraft {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+    .liItem {
+        margin-bottom: 5px;
+    }
+
+    .itemName {
+        margin-right: 5px;
+    }
+
+    .itemBtn {
+        margin-right: 7px;
+    }
+
+    input[type='checkbox']{
+        outline: 2px solid lightblue;
+        box-shadow: none;
+        font-size: 2em;
+    }
+
+
 }
 
 
@@ -250,7 +338,7 @@
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -262,7 +350,7 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -274,7 +362,7 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -286,7 +374,7 @@
         flex-grow: 4;
         flex-basis: 0;
         border-right-style: none;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         color: white;
@@ -326,7 +414,7 @@
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: #00b4ef;
+        border-color: lightblue;
         height: inherit;
         margin: 0 auto;
         text-align: left;
@@ -338,7 +426,7 @@
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-right-color: #00b4ef;
+        border-right-color: lightblue;
         display: block;
         margin: 0 auto;
         height: inherit;
@@ -350,7 +438,6 @@
         flex-basis: 0;
         height: auto;
         display: none;
-
     }
 
     /*list elements - creation date*/
@@ -358,7 +445,7 @@
         flex-basis: 0;
         flex-grow: 1;
         border-right-style: solid;
-        border-right-color: #00b4ef;
+        border-right-color: lightblue;
         display: block;
         margin: 0 auto;
         height: inherit;
@@ -424,6 +511,15 @@
         width: 75%;
         text-align: center;
     }
+
+    input[type='checkbox']{
+        width: 30px !important;
+        height: 30px !important;
+        margin: 5px;
+        outline: 2px solid lightblue;
+        box-shadow: none;
+        font-size: 2em;
+    }
 }
 
 /*GENERAL*/
@@ -481,6 +577,8 @@ ol {
 
 ol li {
     text-align: left;
+    list-style-type: decimal;
+    list-style: decimal;
 }
 
 h2 {
@@ -540,8 +638,9 @@ ol li::before {
 
 .displayBlock {
     display: block;
-
 }
+
+
 
 
 
