@@ -205,6 +205,7 @@
     .liSavedListsContainer {
         display: flex;
         margin-bottom: 2vh;
+        flex-wrap: initial;
     }
 
 
@@ -219,8 +220,9 @@
     }
 
     .listItemSpan {
-        margin-right: 1vw;
-        font-size: 2.5vh;
+        margin-right: 2vw;
+        flex-shrink: 2;
+        font-size: 1.5vw;
     }
 
 
@@ -228,6 +230,7 @@
         align-self: center;
         margin-left: auto;
         transform: scale(2.0);
+        flex-shrink: 2;
     }
 
     .inputContainer {
@@ -251,9 +254,10 @@
         max-width: 70%;
         display: flex;
         flex-direction: column;
-        border-style: solid;
+        /*border-style: wave;*/
         border-width: 1px;
-        background-color: #50c4a8;
+        border-radius: 10px;
+        background-color: white;
     }
 
     .nameYourListModeBox3 {
@@ -290,7 +294,9 @@
         font-size: 2em;
     }
 
-
+    #addNameBtn {
+        margin-left: 1vw;
+    }
 }
 
 
@@ -479,6 +485,12 @@
         align-items: center;
     }
 
+    .singleListViewGeneralContainer {
+        display: flex;
+        flex-direction: column;
+        margin-right: 5vw;
+    }
+
     .checkbox {
         justify-self: flex-end;
     }
@@ -510,16 +522,23 @@
     #listBtn {
         width: 75%;
         text-align: center;
+        margin: 1vh;
     }
 
     input[type='checkbox']{
-        width: 30px !important;
-        height: 30px !important;
-        margin: 5px;
         outline: 2px solid lightblue;
         box-shadow: none;
-        font-size: 2em;
+        font-size: 3em;
+        transform: scale(1.5);
     }
+
+    #backBtn {
+        align-self: center;
+        margin-left: auto;
+        margin-top: 2vh;
+    }
+
+
 }
 
 /*GENERAL*/
