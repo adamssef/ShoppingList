@@ -1,7 +1,24 @@
+
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
+
+
 import CreateList from "./createNewList";
 import SavedLists from "./savedLists";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+require('../images/photo.jpg');
+require('../css/app.css');
+
+const $ = require('jquery');
+// this "modifies" the jquery module: adding behavior to it
+// the bootstrap module doesn't export/return anything
+import 'bootstrap';
+
+
+
+
+const imgPath = require('../images/photo.jpg');
 
 import {
     BrowserRouter as Router,
@@ -12,6 +29,9 @@ import {
 
 
 class App extends Component {
+    componentDidMount() {
+        document.getElementById('root').style = {backgroundImage: "url('images/photo.1af09e53.jpg')"}
+    }
 
     removeDefaultNavClass = (e)=>{
         if(e.target.id !== 'defNavEl'){
@@ -29,11 +49,12 @@ class App extends Component {
                 <nav>
                     <ul>
                         <li className={"inline left main"} >
-                            <Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Stwórz nową listę</Link>
+                            <Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>
                         </li>
                         <li className={"inline main"}>
                             <Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>
                         </li>
+                        <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"inline right about"}>
                             <Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>
                         </li>

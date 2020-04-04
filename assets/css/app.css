@@ -1,53 +1,99 @@
-/*LARGE SCREENS*/
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 
-@media (min-width: 475.0001px) {
-    /*GENERAL*/
+/*html, body, #root, #rootFillDiv>div {*/
+/*    height: 100vh;*/
+/*}*/
+
+body {
+    background-color: #d9d9d9;
+}
+
+button:focus {
+    outline: none;
+}
+
+/*X-LARGE SCREEENS*/
+@media (min-width: 1000.000000000000000001px) {
     *, *:before, *:after {
         box-sizing: inherit;
+    }
+
+
+    body {
+        min-width: 300px;
+
     }
 
     html {
         box-sizing: border-box;
     }
 
-    body {
-        background-color: #c5c5c5;
-        min-width:300px;
+    h2 {
+        color: #242424;
+        font-family: OCR A Std, monospace;
+        margin: 0 auto;
+        text-align: center;
     }
 
     image {
         max-width: 100%;
     }
 
+    input[type='checkbox']{
+        outline: 2px solid lightblue;
+        box-shadow: none;
+        font-size: 2em;
+    }
+
     nav {
-        background-color: #242424;
+        background-color: white;
+        height: 5vh;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        font-family: 'Cabin Condensed', sans-serif;
+        box-sizing: border-box;
+    }
+
+    nav li.about {
+        flex-grow: 4;
+        flex-basis: 0;
+        margin-left: auto;
+    }
+
+
+    nav li.freeSpaceNavLi {
+        flex-basis:0;
+        flex-grow:14;
+        list-style-type: none;
+    }
+
+
+    nav li.left {
+        border-right: 0.15rem solid white;
+    }
+
+    nav li.main {
+        flex-grow: 3.3;
+        flex-basis: 0;
+        flex-shrink: 0.5;
+    }
+
+
+
+    nav li.right {
+        border-left: 0.15rem solid white;
     }
 
     nav ul {
         display: flex;
         padding: 0;
         text-transform: uppercase;
-        align-items: stretch;
+        align-items: center;
         margin: 0 auto;
-    }
-
-    nav li.main {
-        flex-grow: 5;
-        flex-basis: 0;
-    }
-
-    nav li.about {
-        flex-grow: 1.5;
-        flex-basis: 0;
-    }
-
-    nav li.right {
-        border-left: 0.15rem solid white;
-    }
-
-    nav li.left {
-        border-right: 0.15rem solid white;
+        height: 100%
     }
 
 
@@ -57,77 +103,21 @@
 
     ol li {
         text-align: left;
-        list-style-type: decimal;
         list-style: decimal;
     }
 
-    h2 {
-        color: black;
-        font-family: OCR A Std, monospace;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .inline {
-        display: inline;
-        text-align: center;
-    }
-
-    .block {
-        display: block;
-    }
-
-    .right25pxMargin {
-        margin-right: 25px;
-    }
-
-
-    .navLink:hover {
-        color: #50c4a8;
-        text-decoration: none;
-    }
-
-    .navLink:focus {
-        color: #50c4a8;
-        outline: none;
-    }
-
-    .default {
-        color: #50c4a8;
-    }
-
-
-    .listIndex {
-        color: #50c4a8;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 2%;
-    }
-
-    .listIndex2 {
-        color: black;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 3px;
-    }
-
-
     ol li::before {
-        color: #50c4a8;
+        color: #7FD4BF;
     }
 
-    .displayBlock {
-        display: block;
+    #addNameBtn {
+        margin-left: 1vw;
     }
 
-    /*nav link font size changes depending on the screen resolution*/
-    .navLink {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 150%;
+    #addItemBtn {
+        margin-left: 1vw
     }
 
-    /*image should take less space when on large screen*/
     #createListImg {
         position: relative;
         width: 40%;
@@ -139,9 +129,73 @@
         z-index: -1;
     }
 
+    #listBtn {
+        margin: 4px 0 4px 0;
+        width: 75%;
+        text-align: center;
+        font-size: 1.5vw;
+    }
 
-    /*LIST HEADINGS*/
-    /*font size of the header elements doubled for large screens*/
+    #listDraft {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+    .activateBtn {
+        width: 115px;
+        height: 86px;
+        display: block;
+        text-align: center;
+        opacity: 115%;
+        z-index: 1;
+        background-color: #D9D9D9;
+        font-family: OCR A Std, monospace;
+        font-size: 120%;
+        margin-top: 2vh;
+        color: #e06800;
+        border-radius: 8px;
+    }
+
+    .activateListModeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+
+
+
+    .block {
+        display: block;
+    }
+
+    .default {
+        color: #50c4a8;
+    }
+
+    .displayBlock {
+        display: block;
+    }
+
+
+    .editionModeBtn {
+        align-self: center;
+        margin-bottom: 3px;
+        display: inline-block;
+        width: 48%;
+        text-align: center;
+        font-size: 90%;
+    }
+
+    .editionModeBtnContainer {
+        width: 30vw;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+
     .headingFlexContainer {
         text-align: center;
         display: flex;
@@ -217,6 +271,47 @@
         justify-content: center;
     }
 
+    .h2FlexContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 3vh 0 3vh 0;
+    }
+
+    .inline {
+        display: inline;
+        text-align: center;
+    }
+
+    .inputContainer {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .itemBtn {
+        margin-right: 7px;
+    }
+
+    .itemName {
+        margin-right: 5px;
+        font-family: 'Indie Flower', cursive;
+        font-size: 1.5vw;
+    }
+
+    .listIndex {
+        color: #50c4a8;
+        display: inline;
+        margin-bottom: 0;
+        margin-left: 2%;
+    }
+
+    .listIndex2 {
+        color: black;
+        display: inline;
+        margin-bottom: 0;
+        margin-left: 3px;
+    }
 
     /*LIST BODY*/
     .listsWrapper {
@@ -291,7 +386,196 @@
         /*width: 75%;*/
     }
 
-    /*list elements - creation date*/
+
+    .liItem {
+        margin-bottom: 5px;
+    }
+
+    .listItemSpan {
+        margin-right: 2vw;
+        flex-shrink: 2;
+        font-size: 1.5vw;
+    }
+
+    .liSavedListsContainer {
+        display: flex;
+        margin-bottom: 2vh;
+        flex-wrap: initial;
+    }
+
+    .liSavedListsInput {
+        align-self: center;
+        margin-left: auto;
+        transform: scale(2.0);
+        flex-shrink: 2;
+    }
+
+    .nameYourListMode {
+        display: flex;
+        margin-top: 5vh;
+    }
+
+    .nameYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .nameYourListModeBox2 {
+        flex-grow: 6;
+        min-height: 25vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding-top: 2vh;
+    }
+
+    .nameYourListModeBox3 {
+        flex-grow: 3;
+    }
+
+
+    .navLink {
+        color: #4B4B4B;
+        text-decoration: none;
+        font-size: 130%;
+        text-transform: capitalize;
+    }
+
+    .navLink:focus {
+        color: #50c4a8;
+        outline: none;
+    }
+
+    .navLink:hover {
+        color: #50c4a8;
+        text-decoration: none;
+    }
+
+    .olStyle {
+        flex-direction: column;
+        padding-inline-start: 0;
+        max-width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-left: 5%;
+        list-style-type: decimal;
+    }
+
+    .right25pxMargin {
+        margin-right: 25px;
+    }
+
+
+}
+
+
+/*LARGE SCREENS*/
+
+
+@media (min-width: 475.0000000000001px) and (max-width:1000px){
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        background-color: #d9d9d9;
+        min-width:300px;
+    }
+
+    html {
+        box-sizing: border-box;
+    }
+
+    h2 {
+        color: #242424;
+        font-family: OCR A Std, monospace;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 150%;
+    }
+
+
+    image {
+        max-width: 100%;
+    }
+
+    nav {
+        background-color: white;
+        font-family: 'Cabin Condensed', sans-serif;
+        height: 5vh;
+    }
+
+    nav li.about {
+        flex-grow: 4;
+        flex-basis: 0;
+    }
+
+    nav li.freeSpaceNavLi {
+        flex-basis:0;
+        flex-grow:10;
+        list-style-type: none;
+    }
+
+    nav li.left {
+        border-right: 0.15rem solid white;
+    }
+
+    nav li.main {
+        flex-grow: 5;
+        flex-basis: 0;
+        flex-shrink: 0.5
+    }
+
+    nav li.right {
+        border-left: 0.15rem solid white;
+    }
+
+    nav ul {
+        display: flex;
+        padding: 0;
+        text-transform: uppercase;
+        align-items: center;
+        margin: 0 auto;
+        height: 100%
+    }
+
+
+    ol {
+        width: auto;
+    }
+
+    ol li {
+        text-align: left;
+        list-style: decimal;
+    }
+
+
+    ol li::before {
+        color: #7FD4BF;
+    }
+
+    #addItemBtn {
+        margin-left: 1vw;
+    }
+
+    #addNameBtn {
+        margin-left: 1vw;
+    }
+
+    #createListImg {
+        position: relative;
+        width: 40%;
+        height: 40%;
+        border-radius: 80px;
+        opacity: 0.45;
+        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(50%);
+        z-index: -1;
+    }
+
 
 
     #listBtn {
@@ -302,10 +586,235 @@
     }
 
     .activateBtn {
-        width: 150px;
+        width: 100px;
         height: 75px;
-        margin: 50px 0 20px 50px;
+        display: block;
+        text-align: center;
+        opacity: 115%;
+        z-index: 1;
+        background-color: #D9D9D9;
+        font-family: OCR A Std, monospace;
+        font-size: 120%;
+        margin-top: 2vh;
+        color: #e06800;
+        border-radius: 8px;
     }
+
+    .block {
+        display: block;
+    }
+
+    .default {
+        color: #50c4a8;
+    }
+
+    .displayBlock {
+        display: block;
+    }
+
+    .editionModeBtn {
+        align-self: center;
+        margin-bottom: 3px;
+        display: inline-block;
+        width: 48%;
+        text-align: center;
+        font-size: 90%;
+    }
+
+    .editionModeBtnContainer {
+        width: 30vw;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .headingFlexContainer {
+        text-align: center;
+        display: flex;
+        background-color: white;
+        border-left: solid #c5c5c5;
+        height: auto;
+        flex-grow: inherit;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        font-size: 2.1vw;
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .headingFlexElItem {
+        flex-basis: auto;
+    }
+
+    /*so far no differences comparing to small screen*/
+    .headingFlexElName {
+        flex-grow: 2;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-color: lightblue;
+        height: inherit;
+        margin: 0 auto;
+        color: white;
+        background-color: #242424;
+        display:flex;
+        justify-content: center;
+    }
+
+    /*so far no differences comparing to small screen*/
+    .headingFlexElDate {
+        flex-grow: 1;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-color: lightblue;
+        height: inherit;
+        margin: 0 auto;
+        color: white;
+        background-color: #242424;
+        display:flex;
+        justify-content: center;
+    }
+
+    /*so far no differences comparing to small screen*/
+    .headingFlexElAction {
+        flex-grow: 1;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-color: lightblue;
+        height: inherit;
+        margin: 0 auto;
+        color: white;
+        background-color: #242424;
+        display:flex;
+        justify-content: center;
+    }
+
+    /*so far no differences comparing to small screen*/
+    .headingFlexElList {
+        flex-grow: 3.25;
+        flex-basis: 0;
+        border-right-style: none;
+        border-left-color: lightblue;
+        height: inherit;
+        margin: 0 auto;
+        color: white;
+        background-color: #242424;
+        display:flex;
+        justify-content: center;
+    }
+
+    .inline {
+        display: inline;
+        text-align: center;
+    }
+
+    .listIndex {
+        color: #50c4a8;
+        display: inline;
+        margin-bottom: 0;
+        margin-left: 2%;
+    }
+
+    .listIndex2 {
+        color: black;
+        display: inline;
+        margin-bottom: 0;
+        margin-left: 3px;
+    }
+
+    /*LIST BODY*/
+    .listsWrapper {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /*list elements - flex container*/
+    .listContainerEl {
+        text-align: center;
+        display: flex;
+        background-color: white;
+        border-left: solid #c5c5c5;
+        height: auto;
+        justify-content: center;
+        align-items: stretch;
+        justify-items: center;
+        width: 95%;
+        flex-wrap: wrap-reverse;
+        margin: 0 0 2px 0;
+    }
+
+    /*list elements - name column*/
+    .listContainerElName {
+        display: flex;
+        align-items: center;
+        flex-grow: 2;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-color: lightblue;
+        margin: 0 auto;
+        text-align: left;
+        font-size: 1.5vw;
+    }
+
+    .listCreationDateColumn {
+        display: flex;
+        align-items: center;
+        flex-basis: 0;
+        flex-grow: 1;
+        border-right-style: solid;
+        border-right-color: lightblue;
+        margin: 0 auto;
+        justify-content: center;
+        color: rgba(72, 65, 75, 0.87);
+        font-size: 1.5vw;
+    }
+
+    /*list elements - clumsy button*/
+    .listContainerElButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-right-color: lightblue;
+        height: available;
+        font-size: 1.5vw;
+    }
+
+    /*list elements - shopping list: flex-grow set to 6 for large screens*/
+    .listContainerElElements {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-grow: 3.25;
+        flex-basis: 0;
+        margin: 0 auto;
+        /*width: 75%;*/
+    }
+
+    .navLink {
+        color: #4B4B4B;
+        text-decoration: none;
+        font-size: 115%;
+        text-transform: capitalize;
+    }
+
+    .navLink:focus {
+        color: #50c4a8;
+        outline: none;
+    }
+
+    .navLink:hover {
+        color: #50c4a8;
+        text-decoration: none;
+    }
+
+    .right25pxMargin {
+        margin-right: 25px;
+    }
+
 
     .activateListModeContainer {
         display: flex;
@@ -369,24 +878,26 @@
 
     .nameYourListModeBox2 {
         flex-grow: 4;
-        min-height: 15vh;
+        min-height: 20vh;
         max-width: 70%;
         display: flex;
         flex-direction: column;
         border-width: 1px;
         border-radius: 10px;
         background-color: white;
+        align-items: center;
+        padding-top: 2vh;
     }
 
     .nameYourListModeBox3 {
         flex-grow: 3;
     }
 
-    .editionModeBtn {
-        width: 20%;
-        align-self: center;
-        margin-bottom: 3px;
-    }
+    /*.editionModeBtn {*/
+    /*    width: 20%;*/
+    /*    align-self: center;*/
+    /*    margin-bottom: 3px;*/
+    /*}*/
 
     #listDraft {
         display: flex;
@@ -412,9 +923,7 @@
         font-size: 2em;
     }
 
-    #addNameBtn {
-        margin-left: 1vw;
-    }
+
 }
 
 
@@ -434,23 +943,43 @@
         box-sizing: border-box;
     }
 
+
     body {
-        background-color: #c5c5c5;
+        background-color: #d9d9d9;
         min-width:300px;
     }
 
-    image {
-        max-width: 100%;
+    h2 {
+        color: #242424;
+        font-family: OCR A Std, monospace;
+        /*margin: 0 auto;*/
+        text-align: center;
+        font-size: 5vw;
+        margin: 1vh 1vh 1vh 1vh;
     }
+
+    input[type=text] {
+        width: 35vw;
+        font-size: smaller;
+    }
+
+
+    input[type='checkbox']{
+        outline: 2px solid lightblue;
+        box-shadow: none;
+        font-size: 3em;
+        transform: scale(1.5);
+    }
+
 
     nav {
         background-color: #242424;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     nav ul {
         display: flex;
         padding: 0;
-        text-transform: uppercase;
         align-items: stretch;
         margin: 0 auto;
     }
@@ -480,15 +1009,61 @@
 
     ol li {
         text-align: left;
-        list-style-type: decimal;
         list-style: decimal;
     }
+    ol li::before {
+        color: #7FD4BF;
+    }
 
-    h2 {
-        color: black;
-        font-family: OCR A Std, monospace;
-        margin: 0 auto;
+
+    #addItemBtn {
+        margin-left: 1vw;
+    }
+
+    #addNameBtn {
+        margin-left: 1vw;
+    }
+
+
+    #backBtn {
+        align-self: center;
+        margin-left: auto;
+        margin-top: 2vh;
+    }
+
+    .activateBtn {
+        width: 100px;
+        height: 75px;
+        display: block;
         text-align: center;
+        opacity: 115%;
+        z-index: 1;
+        background-color: #D9D9D9;
+        font-family: OCR A Std, monospace;
+        font-size: 120%;
+        margin-top: 2vh;
+        color: #e06800;
+        border-radius: 8px;
+    }
+
+    .activateBtn:focus {
+        outline:none;
+    }
+    .activateListModeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+
+
+    .block {
+        display: block;
+    }
+
+    .default {
+        color: #50c4a8;
     }
 
     .inline {
@@ -496,12 +1071,10 @@
         text-align: center;
     }
 
-    .block {
-        display: block;
-    }
 
-    .right25pxMargin {
-        margin-right: 25px;
+    .itemBtn {
+        margin-left: 7px;
+        padding: 2px 4px 2px 4px;
     }
 
 
@@ -515,9 +1088,11 @@
         outline: none;
     }
 
-    .default {
-        color: #50c4a8;
+    .right25pxMargin {
+        margin-right: 25px;
     }
+
+
 
 
     .listIndex {
@@ -535,17 +1110,13 @@
     }
 
 
-    ol li::before {
-        color: #50c4a8;
-    }
-
     .displayBlock {
         display: block;
     }
 
     /*nav link font size changes depending on the screen resolution*/
     .navLink {
-        color: #ffffff;
+        color: #FFFFFF;
         text-decoration: none;
         font-size: 100%;
     }
@@ -626,6 +1197,12 @@
         background-color: #242424;
         display: none;
 
+    }
+
+    .itemName {
+        margin-right: 5px;
+        font-family: 'Indie Flower', cursive;
+        font-size: 5vw;
     }
 
     /*LIST ELEMENTS*/
@@ -744,18 +1321,6 @@
         margin: 3vh 0 3vh 0;
     }
 
-    .activateListModeContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .activateBtn {
-        width: 100px;
-        height: 50px;
-        margin: 50px 0 20px 50px;
-    }
 
 
     #listBtn {
@@ -764,17 +1329,40 @@
         margin: 1vh;
     }
 
-    input[type='checkbox']{
-        outline: 2px solid lightblue;
-        box-shadow: none;
-        font-size: 3em;
-        transform: scale(1.5);
+
+
+    .nameYourListMode {
+        display: flex;
+        margin-top: 5vh;
+        min-height: 27vh;
     }
 
-    #backBtn {
-        align-self: center;
-        margin-left: auto;
-        margin-top: 2vh;
+    .nameYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .nameYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 20vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding-top: 2vh;
+    }
+
+    .nameYourListModeBox3 {
+        flex-grow: 3;
+    }
+
+
+    .liItem {
+        margin-bottom: 5px;
+        display:flex;
+        flex-wrap: wrap;
     }
 }
 
