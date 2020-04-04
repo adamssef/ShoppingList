@@ -1,11 +1,16 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 
+require('../css/app.css');
+const $ = require('jquery');
+// this "modifies" the jquery module: adding behavior to it
+// the bootstrap module doesn't export/return anything
+require('bootstrap');
 var url = require('url');
 var https = require('https');
 var HttpsProxyAgent = require('https-proxy-agent');
 
-const imgPath = require('../img/photo.jpg');
+const imgPath = require('../images/photo.jpg');
 
 
 class CreateList extends Component {
@@ -26,8 +31,9 @@ class CreateList extends Component {
 
     //COMPONENT LIFECYCLE METHODS
     componentDidMount() {
-        console.log("Mounted!");
-
+        console.log("Mounteddddd!");
+        // document.body.style.backgroundImage = "url('../img/photo.jpg')";
+        // document.getElementsByTagName('BODY').style.backgroundImage.url('../img/photo.jpg');
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -169,11 +175,11 @@ class CreateList extends Component {
     render() {
         //case 1: list is not active yet
         if (!this.state.isListActive) {
-            return <>
+            return <div id={'root2'}>
                 <ActivateListMode onClickCreateList={(e) => {
                     this.createListOnClick(e)
                 }}/>
-            </>
+            </div>
         }
 
         //case 2: list is active but no list name has been added
@@ -237,13 +243,18 @@ class CreateList extends Component {
 
 class ActivateListMode extends Component {
     render() {
-        return <div>
-            <button
-                onClick={this.props.onClickCreateList}
-                className={"btn-lg btn-success block activateBtn"} autoFocus> Start
-            </button>
-            <div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/>
+        return <div className={'nameYourListMode'}>
+            <div className={'nameYourListModeBox1'}></div>
+            <div className={'nameYourListModeBox2'}>
+                <h2>Stwórz nową listę!</h2>
+                <button
+                    onClick={this.props.onClickCreateList}
+                    className={"activateBtn"} autoFocus> Start
+                </button>
             </div>
+            {/*<div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/>*/}
+            {/*</div>*/}
+            <div className={'nameYourListModeBox3'}></div>
         </div>
     }
 }
@@ -268,7 +279,7 @@ class FirstItemMode extends Component {
         return <div className={'nameYourListMode'}>
             <div className={'nameYourListModeBox1'}></div>
             <div className={'nameYourListModeBox2'}>
-                <h2>Dodaj zakup do listy</h2>
+                <h2>Dodaj zakupy do listy</h2>
                 <ShoppingListInput proceedOnEnterPress={this.props.proceedOnEnterPress}
                                    onClickPropsAdd={this.props.onClickPropsAdd}/>
             </div>
@@ -283,20 +294,22 @@ class EditionMode extends Component {
         return <div className={'nameYourListMode'}>
             <div className={'nameYourListModeBox1'}></div>
             <div className={'nameYourListModeBox2'}>
-                <h2>Skomponuj swoją listę!</h2>
+                <h2>Dodaj zakupy do listy</h2>
                 <ShoppingListInput onClickPropsAdd={this.props.onClickPropsAdd}
                                    proceedOnEnterPress={this.props.proceedOnEnterPress}/>
                 <ShoppingListDraft
                     currentItems={this.props.currentItems}
                     onClickPropsDelete={this.props.onClickPropsDelete}
                 />
-                <button
-                    className={"btn-sm btn-success editionModeBtn"}
-                    onClick={(e) => {
-                        this.props.onClickPropsSave(e);
-                    }}>Zapisz listę
-                </button>
-                <button className={"btn-sm btn-danger editionModeBtn"} onClick={this.props.onClickClearList}>Wyczyść listę</button>
+                <div className={'editionModeBtnContainer'}>
+                    <button
+                        className={"btn-sm btn-success editionModeBtn"}
+                        onClick={(e) => {
+                            this.props.onClickPropsSave(e);
+                        }}>Zachowaj
+                    </button>
+                    <button className={"btn-sm btn-danger editionModeBtn"} onClick={this.props.onClickClearList}>Wyczyść</button>
+                </div>
             </div>
             <div className={'nameYourListModeBox3'}></div>
         </div>

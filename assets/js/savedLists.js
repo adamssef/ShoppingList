@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import {useLocation} from 'react-router-dom'
-
+require('../css/app.css');
 
 class SavedLists extends Component {
     constructor(props) {

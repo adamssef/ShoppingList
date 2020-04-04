@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Wygodna lista zakupów dla każdego!" />
-    <meta name="keywords" content="lista, zakupów, shopping list, shopping, groceries list" />
+    <meta name="keywords" content="lista, zakupów, shopping list, shopping, groceries list, shopping list app" />
     <meta name="author" content="AY Solutions" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        {{ encore_entry_link_tags('css/app') }}
+{#        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">#}
+        {{ encore_entry_link_tags('app') }}
+{#        <style>#}
+{#        #}{#body {{background-image: url({ assets('build/images/photo.1af09e53.jpg') }})}#}
+{#    </style>#}
+
     {% endblock %}
 
 </head>
 <body>
-{% block body %}{% endblock %}
+{% block body %}
+
+{% endblock %}
 {% block javascripts %}
 
     <!-- Include the compiled script-->
-    {{ encore_entry_script_tags('js/app') }}
+    {{ encore_entry_script_tags('app') }}
 
 {% endblock %}
 </body>
