@@ -252,8 +252,6 @@ class ActivateListMode extends Component {
                     className={"activateBtn"} autoFocus> Start
                 </button>
             </div>
-            {/*<div className={"activateListModeContainer"}><img src={imgPath.default} alt={"image"} id={"createListImg"}/>*/}
-            {/*</div>*/}
             <div className={'nameYourListModeBox3'}></div>
         </div>
     }
@@ -291,9 +289,9 @@ class FirstItemMode extends Component {
 
 class EditionMode extends Component {
     render() {
-        return <div className={'nameYourListMode'}>
-            <div className={'nameYourListModeBox1'}></div>
-            <div className={'nameYourListModeBox2'}>
+        return <div className={'editYourListMode'}>
+            <div className={'editYourListModeBox1'}></div>
+            <div className={'editYourListModeBox2'}>
                 <h2>Dodaj zakupy do listy</h2>
                 <ShoppingListInput onClickPropsAdd={this.props.onClickPropsAdd}
                                    proceedOnEnterPress={this.props.proceedOnEnterPress}/>
@@ -338,11 +336,10 @@ class ShoppingListItem extends Component {
                 <span className={"itemName"}>{this.props.itemContent}</span>
                 <button
                     className={"btn-sm btn-warning itemBtn"}
-                    // style={{position: 'relative', left: '10px'}}
                     onClick={(e) => {
                         this.props.onClickPropsDelete(e);
                     }}
-                >Usuń
+                >&#10007;
                 </button>
             </li>
         </>
@@ -356,7 +353,7 @@ class NameYourListInput extends Component {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"nazwij swoją listę"}
                    onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
-            <button className={"btn-sm btn-success"} id="addNameBtn" onClick={this.props.proceedOnBtnClick}>Dodaj
+            <button className={"btn-sm btn-success addBtn"} onClick={this.props.proceedOnBtnClick}>&#x2795;
             </button>
         </div>
     }
@@ -367,7 +364,7 @@ class ShoppingListInput extends Component {
     render() {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
-            <button className={"btn-sm btn-success"} onClick={this.props.onClickPropsAdd} id="addItemBtn">Dodaj</button>
+            <button className={"btn-sm btn-success addBtn"} onClick={this.props.onClickPropsAdd}>&#x2795;</button>
         </div>
     }
 }

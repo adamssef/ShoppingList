@@ -124,7 +124,7 @@ class SavedLists extends Component {
 class AllListsDisplayMode extends Component {
     render() {
         return <>
-            <div className={"h2FlexContainer"}><h2>Twoje 10 ostatnio zapisanych list:</h2></div>
+            <div className={"h2FlexContainer"}><h2>Ostatnie listy:</h2></div>
             <div className={"headingFlexContainer"}>
                 <div className={"headingFlexElName"}><span className={"headingElFlexItem"}>Nazwa</span></div>
                 <div className={"headingFlexElDate"}><span className={"headingElFlexItem"}>Data</span></div>
@@ -134,8 +134,9 @@ class AllListsDisplayMode extends Component {
             <div className={"listsWrapper"}>{this.props.dataState.map(function (item, index) {
                 return <div className="listContainerEl" key={item.id} id={index}>
 
-                    <div className={"listContainerElName"}><p
-                        className={"listIndex"}> {index + 1 + '.'}</p><p className={"listIndex2"}> {item.name}</p></div>
+                    <div className={"listContainerElName"}>
+                        {/*<p className={"listIndex"}> {index + 1 + '.'}</p>*/}
+                        <p className={"listIndex2"}> {item.name}</p></div>
                     <div className={"listCreationDateColumn"}>{item.creationDate.substring(0, 10)}</div>
                     <div className={"listContainerElButton"}>
                         <button id={"listBtn"} className={"btn-sm btn-success"}

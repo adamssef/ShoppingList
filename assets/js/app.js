@@ -78,7 +78,7 @@ class App extends Component {
 // }
 
 function About() {
-    return <h2>Tu znajdzie się krótka strona About</h2>
+    return <h2>work in progress...</h2>
 }
 
 // function SavedLists() {

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Condensed:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 
 /*html, body, #root, #rootFillDiv>div {*/
@@ -32,9 +33,10 @@ button:focus {
 
     h2 {
         color: #242424;
-        font-family: OCR A Std, monospace;
+        font-family: 'Courgette', cursive;
         margin: 0 auto;
         text-align: center;
+        font-size: 3em;
     }
 
     image {
@@ -46,6 +48,17 @@ button:focus {
         box-shadow: none;
         font-size: 2em;
     }
+
+    input[type=text] {
+        font-size: 2em;
+        font-family: 'Courgette', cursive;
+    }
+
+    input[type=text]::placeholder {
+        font-family: 'Cabin Condensed', sans-serif;
+    }
+
+
 
     nav {
         background-color: white;
@@ -110,51 +123,39 @@ button:focus {
         color: #7FD4BF;
     }
 
-    #addNameBtn {
-        margin-left: 1vw;
-    }
-
-    #addItemBtn {
-        margin-left: 1vw
-    }
-
-    #createListImg {
-        position: relative;
-        width: 40%;
-        height: 40%;
-        border-radius: 80px;
-        opacity: 0.45;
-        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-        filter: grayscale(50%);
-        z-index: -1;
-    }
-
     #listBtn {
         margin: 4px 0 4px 0;
-        width: 75%;
+        width: auto;
         text-align: center;
         font-size: 1.5vw;
+        font-family: 'Cabin Condensed', sans-serif;
+        background-color: #50c4a8;
+        padding: 4px 4px;
+        border-radius: 8px;
+        border-width: 0;
     }
 
     #listDraft {
         display: flex;
         flex-wrap: wrap;
         list-style: none;
+        word-break:break-all;
+        width: 60vw;
     }
 
     .activateBtn {
-        width: 115px;
-        height: 86px;
+        width: 140px;
+        height: 105px;
         display: block;
         text-align: center;
-        opacity: 115%;
         z-index: 1;
         background-color: #D9D9D9;
-        font-family: OCR A Std, monospace;
-        font-size: 120%;
-        margin-top: 2vh;
+        font-family: 'Fredoka One', cursive;
+        font-size: 2em;
+        margin: 2vh 0;
         color: #e06800;
         border-radius: 8px;
+        font-weight: normal;
     }
 
     .activateListModeContainer {
@@ -165,7 +166,9 @@ button:focus {
     }
 
 
-
+    .addBtn {
+        margin-left: 0.7em;
+    }
 
     .block {
         display: block;
@@ -195,6 +198,32 @@ button:focus {
         justify-content: space-evenly;
     }
 
+    .editYourListMode {
+        display: flex;
+        margin-top: 5vh;
+    }
+
+    .editYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .editYourListModeBox2 {
+        flex-grow: 6;
+        min-height: 25vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding: 1.5vh 0;
+    }
+
+    .editYourListModeBox3 {
+        flex-grow: 3;
+    }
+
 
     .headingFlexContainer {
         text-align: center;
@@ -209,10 +238,12 @@ button:focus {
         font-size: 2.1vw;
         width: 95%;
         margin: 0 auto;
+        border-width: thin;
     }
 
     .headingFlexElItem {
         flex-basis: auto;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -220,13 +251,15 @@ button:focus {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -234,27 +267,31 @@ button:focus {
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
     .headingFlexElAction {
-        flex-grow: 1;
+        flex-grow: .5;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color:#e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -262,13 +299,15 @@ button:focus {
         flex-grow: 3.25;
         flex-basis: 0;
         border-right-style: none;
-        border-left-color: lightblue;
+        border-left-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     .h2FlexContainer {
@@ -284,19 +323,24 @@ button:focus {
     }
 
     .inputContainer {
-        margin-top: 2vh;
+        margin: 2vh 0;
         display: flex;
         justify-content: center;
     }
 
     .itemBtn {
-        margin-right: 7px;
+        margin: 0 7px;
+        padding: 3px 6px;
+        border-radius: 8px;
+        font-size: 1.6rem;
     }
 
     .itemName {
         margin-right: 5px;
-        font-family: 'Indie Flower', cursive;
+        font-family: 'Courgette', cursive;
         font-size: 1.5vw;
+        flex-basis: 400px;
+        flex-grow: 1;
     }
 
     .listIndex {
@@ -304,6 +348,7 @@ button:focus {
         display: inline;
         margin-bottom: 0;
         margin-left: 2%;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     .listIndex2 {
@@ -311,6 +356,8 @@ button:focus {
         display: inline;
         margin-bottom: 0;
         margin-left: 3px;
+        font-family: 'Cabin Condensed', sans-serif;
+        padding-left: 1em;
     }
 
     /*LIST BODY*/
@@ -327,6 +374,7 @@ button:focus {
         display: flex;
         background-color: white;
         border-left: solid #c5c5c5;
+        border-width: thin;
         height: auto;
         justify-content: center;
         align-items: stretch;
@@ -343,7 +391,8 @@ button:focus {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         margin: 0 auto;
         text-align: left;
         font-size: 1.5vw;
@@ -355,11 +404,13 @@ button:focus {
         flex-basis: 0;
         flex-grow: 1;
         border-right-style: solid;
-        border-right-color: lightblue;
+        border-right-color: #e06800;
+        border-width: thin;
         margin: 0 auto;
         justify-content: center;
         color: rgba(72, 65, 75, 0.87);
         font-size: 1.5vw;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*list elements - clumsy button*/
@@ -367,10 +418,11 @@ button:focus {
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-grow: 1;
+        flex-grow: .5;
         flex-basis: 0;
         border-right-style: solid;
-        border-right-color: lightblue;
+        border-right-color: #e06800;
+        border-width: thin;
         height: available;
         font-size: 1.5vw;
     }
@@ -384,17 +436,24 @@ button:focus {
         flex-basis: 0;
         margin: 0 auto;
         /*width: 75%;*/
+
     }
 
 
     .liItem {
-        margin-bottom: 5px;
+        border-radius: 10px;
+        background-color: #e06800;;
+        margin: 5px 2px;
+        padding: 6px 8px 6px 15px;
     }
 
     .listItemSpan {
         margin-right: 2vw;
         flex-shrink: 2;
         font-size: 1.5vw;
+        word-break: break-all;
+        flex-grow:8;
+        font-family: 'Courgette', cursive;
     }
 
     .liSavedListsContainer {
@@ -404,7 +463,7 @@ button:focus {
     }
 
     .liSavedListsInput {
-        align-self: center;
+        align-self: flex-end;
         margin-left: auto;
         transform: scale(2.0);
         flex-shrink: 2;
@@ -440,7 +499,7 @@ button:focus {
     .navLink {
         color: #4B4B4B;
         text-decoration: none;
-        font-size: 130%;
+        font-size: 1.5em;
         text-transform: capitalize;
     }
 
@@ -457,7 +516,7 @@ button:focus {
     .olStyle {
         flex-direction: column;
         padding-inline-start: 0;
-        max-width: 100%;
+        width: 85%;
         margin-top: 5%;
         margin-bottom: 5%;
         margin-left: 5%;
@@ -472,9 +531,9 @@ button:focus {
 }
 
 
+
+
 /*LARGE SCREENS*/
-
-
 @media (min-width: 475.0000000000001px) and (max-width:1000px){
     *, *:before, *:after {
         box-sizing: inherit;
@@ -491,16 +550,21 @@ button:focus {
 
     h2 {
         color: #242424;
-        font-family: OCR A Std, monospace;
+        font-family: 'Courgette', cursive;
         margin: 0 auto;
         text-align: center;
-        font-size: 150%;
+        font-size: 2em;
     }
 
-
-    image {
-        max-width: 100%;
+    input[type=text] {
+        font-size: 1.5em;
+        font-family: 'Courgette', cursive;
     }
+
+    input[type=text]::placeholder {
+        font-family: 'Cabin Condensed', sans-serif;
+    }
+
 
     nav {
         background-color: white;
@@ -557,32 +621,26 @@ button:focus {
         color: #7FD4BF;
     }
 
-    #addItemBtn {
-        margin-left: 1vw;
-    }
-
-    #addNameBtn {
-        margin-left: 1vw;
-    }
-
-    #createListImg {
-        position: relative;
-        width: 40%;
-        height: 40%;
-        border-radius: 80px;
-        opacity: 0.45;
-        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-        filter: grayscale(50%);
-        z-index: -1;
-    }
-
-
 
     #listBtn {
         margin: 4px 0 4px 0;
-        width: 75%;
+        width: auto;
         text-align: center;
         font-size: 1.5vw;
+        font-family: 'Cabin Condensed', sans-serif;
+        background-color: #50c4a8;
+        padding: 4px 4px;
+        border-radius: 8px;
+        border-width: 0;
+    }
+
+
+    #listDraft {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        word-break:break-all;
+        width: 60vw;
     }
 
     .activateBtn {
@@ -590,14 +648,24 @@ button:focus {
         height: 75px;
         display: block;
         text-align: center;
-        opacity: 115%;
         z-index: 1;
         background-color: #D9D9D9;
-        font-family: OCR A Std, monospace;
+        font-family: 'Fredoka One', cursive;
         font-size: 120%;
-        margin-top: 2vh;
+        margin: 2vh 0;
         color: #e06800;
         border-radius: 8px;
+    }
+
+    .activateListModeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .addBtn {
+        margin-left: 0.5em;
     }
 
     .block {
@@ -627,11 +695,38 @@ button:focus {
         justify-content: space-evenly;
     }
 
+    .editYourListMode {
+        display: flex;
+        margin-top: 5vh;
+    }
+
+    .editYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .editYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 20vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding: 1.5vh 0;
+    }
+
+    .editYourListModeBox3 {
+        flex-grow: 3;
+    }
+
     .headingFlexContainer {
         text-align: center;
         display: flex;
         background-color: white;
         border-left: solid #c5c5c5;
+        border-width: thin;
         height: auto;
         flex-grow: inherit;
         justify-content: center;
@@ -644,6 +739,7 @@ button:focus {
 
     .headingFlexElItem {
         flex-basis: auto;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -651,13 +747,15 @@ button:focus {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -665,27 +763,31 @@ button:focus {
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
     .headingFlexElAction {
-        flex-grow: 1;
+        flex-grow: .5;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -693,18 +795,71 @@ button:focus {
         flex-grow: 3.25;
         flex-basis: 0;
         border-right-style: none;
-        border-left-color: lightblue;
+        border-left-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display:flex;
         justify-content: center;
+        font-family: 'Cabin Condensed', sans-serif;
+    }
+
+    .h2FlexContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 3vh 0 3vh 0;
     }
 
     .inline {
         display: inline;
         text-align: center;
+    }
+
+    .inputContainer {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .itemName {
+        margin-right: 5px;
+        font-family: 'Courgette', cursive;
+        width: auto;
+        display:inline-block;
+    }
+
+
+
+    .itemBtn {
+        margin: 0 7px;
+        display: inline-block;
+        padding: 3px 6px;
+        border-radius: 8px;
+    }
+
+
+    .liItem {
+        border-radius: 10px;
+        background-color: lightblue;
+        margin: 5px 2px;
+        padding: 6px 8px 6px 15px;
+    }
+
+
+    .liSavedListsContainer {
+        display: flex;
+        margin-bottom: 2vh;
+        flex-wrap: initial;
+    }
+
+    .liSavedListsInput {
+        align-self: flex-end;
+        margin-left: auto;
+        transform: scale(2.0);
+        flex-shrink: 2;
     }
 
     .listIndex {
@@ -719,15 +874,21 @@ button:focus {
         display: inline;
         margin-bottom: 0;
         margin-left: 3px;
+        padding-left: 1em;
     }
 
-    /*LIST BODY*/
-    .listsWrapper {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .listItemSpan {
+        margin-right: 2vw;
+        flex-shrink: 2;
+        font-size: 1.5vw;
+        word-break: break-all;
+        flex-grow:8;
+        font-family: 'Courgette', cursive;
     }
+
+
+    /*LIST BODY*/
+
 
     /*list elements - flex container*/
     .listContainerEl {
@@ -735,6 +896,7 @@ button:focus {
         display: flex;
         background-color: white;
         border-left: solid #c5c5c5;
+        border-width: thin;
         height: auto;
         justify-content: center;
         align-items: stretch;
@@ -751,7 +913,8 @@ button:focus {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         margin: 0 auto;
         text-align: left;
         font-size: 1.5vw;
@@ -763,11 +926,13 @@ button:focus {
         flex-basis: 0;
         flex-grow: 1;
         border-right-style: solid;
-        border-right-color: lightblue;
+        border-right-color: #e06800;
+        border-width: thin;
         margin: 0 auto;
         justify-content: center;
         color: rgba(72, 65, 75, 0.87);
         font-size: 1.5vw;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*list elements - clumsy button*/
@@ -775,10 +940,11 @@ button:focus {
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-grow: 1;
+        flex-grow: .5;
         flex-basis: 0;
         border-right-style: solid;
-        border-right-color: lightblue;
+        border-right-color: #e06800;
+        border-width: thin;
         height: available;
         font-size: 1.5vw;
     }
@@ -792,6 +958,41 @@ button:focus {
         flex-basis: 0;
         margin: 0 auto;
         /*width: 75%;*/
+    }
+
+    .listsWrapper {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .nameYourListMode {
+        display: flex;
+        margin-top: 5vh;
+    }
+
+    .nameYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .nameYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 20vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        border-width: thin;
+        background-color: white;
+        align-items: center;
+        padding-top: 2vh;
+    }
+
+    .nameYourListModeBox3 {
+        flex-grow: 3;
     }
 
     .navLink {
@@ -811,123 +1012,24 @@ button:focus {
         text-decoration: none;
     }
 
-    .right25pxMargin {
-        margin-right: 25px;
-    }
-
-
-    .activateListModeContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .h2FlexContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 3vh 0 3vh 0;
-    }
-
-    .liSavedListsContainer {
-        display: flex;
-        margin-bottom: 2vh;
-        flex-wrap: initial;
-    }
-
-
     .olStyle {
         flex-direction: column;
         padding-inline-start: 0;
-        max-width: 100%;
+        width: 85%;
         margin-top: 5%;
         margin-bottom: 5%;
         margin-left: 5%;
         list-style-type: decimal;
     }
 
-    .listItemSpan {
-        margin-right: 2vw;
-        flex-shrink: 2;
-        font-size: 1.5vw;
+    .right25pxMargin {
+        margin-right: 25px;
     }
-
-
-    .liSavedListsInput {
-        align-self: center;
-        margin-left: auto;
-        transform: scale(2.0);
-        flex-shrink: 2;
-    }
-
-    .inputContainer {
-        margin-top: 2vh;
-        display: flex;
-        justify-content: center;
-    }
-
-    .nameYourListMode {
-        display: flex;
-        margin-top: 5vh;
-    }
-
-    .nameYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .nameYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70%;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        background-color: white;
-        align-items: center;
-        padding-top: 2vh;
-    }
-
-    .nameYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-    /*.editionModeBtn {*/
-    /*    width: 20%;*/
-    /*    align-self: center;*/
-    /*    margin-bottom: 3px;*/
-    /*}*/
-
-    #listDraft {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-    }
-
-    .liItem {
-        margin-bottom: 5px;
-    }
-
-    .itemName {
-        margin-right: 5px;
-    }
-
-    .itemBtn {
-        margin-right: 7px;
-    }
-
-    input[type='checkbox']{
-        outline: 2px solid lightblue;
-        box-shadow: none;
-        font-size: 2em;
-    }
-
-
 }
 
 
 /*SMALL SCREENS*/
+
 
 
 
@@ -936,7 +1038,7 @@ button:focus {
 
     /*GENERAL*/
     *, *:before, *:after {
-        box-sizing: inherit;
+        box-sizing: border-box;
     }
 
     html {
@@ -951,7 +1053,7 @@ button:focus {
 
     h2 {
         color: #242424;
-        font-family: OCR A Std, monospace;
+        font-family: 'Courgette', cursive;
         /*margin: 0 auto;*/
         text-align: center;
         font-size: 5vw;
@@ -960,12 +1062,17 @@ button:focus {
 
     input[type=text] {
         width: 35vw;
-        font-size: smaller;
+        font-size: 1.05em;
+        font-family: 'Courgette', cursive;
+    }
+
+    input[type=text]::placeholder {
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
 
     input[type='checkbox']{
-        outline: 2px solid lightblue;
+        outline: 2px solid #e06800;;
         box-shadow: none;
         font-size: 3em;
         transform: scale(1.5);
@@ -1015,6 +1122,10 @@ button:focus {
         color: #7FD4BF;
     }
 
+    ul li {
+        display:flex;
+    }
+
 
     #addItemBtn {
         margin-left: 1vw;
@@ -1031,17 +1142,37 @@ button:focus {
         margin-top: 2vh;
     }
 
+    #listBtn {
+        width: auto;
+        text-align: center;
+        margin: 1vh;
+        font-family: 'Cabin Condensed', sans-serif;
+        background-color: #50c4a8;
+        padding: 4px 4px;
+        border-radius: 8px;
+        border-width: 0;
+    }
+
+    #listDraft {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        width: 80%;
+        flex-direction: column;
+        word-break:break-all;
+        padding-inline-start: 0;
+    }
+
     .activateBtn {
         width: 100px;
         height: 75px;
         display: block;
         text-align: center;
-        opacity: 115%;
         z-index: 1;
         background-color: #D9D9D9;
-        font-family: OCR A Std, monospace;
+        font-family: 'Fredoka One', cursive;
         font-size: 120%;
-        margin-top: 2vh;
+        margin: 2vh 0;
         color: #e06800;
         border-radius: 8px;
     }
@@ -1075,63 +1206,52 @@ button:focus {
     .itemBtn {
         margin-left: 7px;
         padding: 2px 4px 2px 4px;
+        display: inline-block;
+        border-radius: 8px;
+        height:2em;
     }
 
-
-    .navLink:hover {
-        color: #50c4a8;
-        text-decoration: none;
+    .checkbox {
+        justify-self: flex-end;
+        flex-grow: 5;
+        align-self: flex-end;
     }
-
-    .navLink:focus {
-        color: #50c4a8;
-        outline: none;
-    }
-
-    .right25pxMargin {
-        margin-right: 25px;
-    }
-
-
-
-
-    .listIndex {
-        color: #50c4a8;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 2%;
-    }
-
-    .listIndex2 {
-        color: black;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 3px;
-    }
-
 
     .displayBlock {
         display: block;
     }
 
     /*nav link font size changes depending on the screen resolution*/
-    .navLink {
-        color: #FFFFFF;
-        text-decoration: none;
-        font-size: 100%;
+
+
+    .editYourListModeBox1 {
+        flex-grow: 3;
     }
 
-    /*image should take less space when on large screen*/
-    #createListImg {
-        position: relative;
-        width: 40%;
-        height: 40%;
-        border-radius: 80px;
-        opacity: 0.45;
-        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-        filter: grayscale(50%);
-        z-index: -1;
+    .editYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 20vh;
+        max-width: 70vw;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding: 1.5vh 0;
+        /*flex-wrap: wrap;*/
     }
+
+    .editYourListModeBox3 {
+        flex-grow: 3;
+    }
+
+    .editYourListMode {
+        display: flex;
+        margin-top: 5vh;
+        min-height: 27vh;
+    }
+
 
     /*font size of the header elements doubled for large screens*/
     .headingFlexContainer {
@@ -1139,6 +1259,7 @@ button:focus {
         display: flex;
         background-color: white;
         border-left: solid #c5c5c5;
+        border-width: thin;
         height: auto;
         flex-grow: inherit;
         justify-content: center;
@@ -1154,11 +1275,13 @@ button:focus {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -1166,23 +1289,27 @@ button:focus {
         flex-grow: 1;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
     .headingFlexElAction {
-        flex-grow: 1;
+        flex-grow: .75;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
+        font-family: 'Cabin Condensed', sans-serif;
     }
 
     /*so far no differences comparing to small screen*/
@@ -1190,36 +1317,51 @@ button:focus {
         flex-grow: 4;
         flex-basis: 0;
         border-right-style: none;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
         display: none;
+        font-family: 'Cabin Condensed', sans-serif;
+    }
 
+    .h2FlexContainer {
+        width: 100%;
+        margin: 3vh 0 3vh 0;
     }
 
     .itemName {
         margin-right: 5px;
-        font-family: 'Indie Flower', cursive;
+        font-family: 'Courgette', cursive;
         font-size: 5vw;
+        /*width: 40vw;*/
+        /*flex-basis: 300px;*/
+        align-self: flex-start;
+        flex-grow: 1;
     }
+
+
+    .liItem {
+        display:flex;
+        align-self: flex-start;
+        border-radius: 10px;
+        background-color: lightblue;
+        margin: 5px 2px;
+        padding: 6px 8px 6px 15px;
+    }
+
+
 
     /*LIST ELEMENTS*/
     /*same configuration as for large screens*/
-    .listsWrapper {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /*list elements - flex container*/
     .listContainerEl {
         text-align: center;
         display: flex;
         background-color: white;
         border-left: solid #c5c5c5;
+        border-width: thin;
         height: auto;
         justify-content: center;
         align-items: stretch;
@@ -1230,29 +1372,55 @@ button:focus {
         padding-bottom: 0;
     }
 
+    .listContainerElButton {
+        flex-grow: .75;
+        flex-basis: 0;
+        border-right-style: solid;
+        border-right-color: #e06800;
+        border-width: thin;
+        display: block;
+        margin: 0 auto;
+        height: inherit;
+    }
 
-    /*list elements - name column*/
     .listContainerElName {
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
-        border-color: lightblue;
+        border-color: #e06800;
+        border-width: thin;
         height: inherit;
         margin: 0 auto;
         text-align: left;
         flex-shrink: 0.6;
     }
 
-    /*list elements - button*/
-    .listContainerElButton {
-        flex-grow: 1;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-right-color: lightblue;
-        display: block;
-        margin: 0 auto;
-        height: inherit;
+    .listIndex {
+        color: #50c4a8;
+        display: inline;
+        margin-bottom: 0;
+        margin-left: 2%;
     }
+
+    .listIndex2 {
+        color: black;
+        display: inline-block;
+        margin-bottom: 0;
+        margin-left: 3px;
+        width: 85%;
+        padding-left: .5em;
+        word-break: break-word;
+    }
+
+
+    .listsWrapper {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
 
     /*list elements - shopping list: flex-grow set to 4 for small screens*/
     .listContainerElElements {
@@ -1267,11 +1435,61 @@ button:focus {
         flex-basis: 0;
         flex-grow: 1;
         border-right-style: solid;
-        border-right-color: lightblue;
+        border-right-color: #e06800;
+        border-width: thin;
         display: block;
         margin: 0 auto;
         height: inherit;
         color: rgba(72, 65, 75, 0.87);
+        font-family: 'Cabin Condensed', sans-serif;
+    }
+
+    .nameYourListModeBox1 {
+        flex-grow: 3;
+    }
+
+    .nameYourListModeBox2 {
+        flex-grow: 4;
+        min-height: 20vh;
+        max-width: 70vw;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding-top: 2vh;
+        flex-wrap: wrap;
+    }
+
+    .nameYourListModeBox3 {
+        flex-grow: 3;
+    }
+
+    .nameYourListMode {
+        display: flex;
+        margin-top: 5vh;
+        min-height: 27vh;
+    }
+
+    .navLink {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-size: 100%;
+    }
+
+    .navLink:hover {
+        color: #50c4a8;
+        text-decoration: none;
+    }
+
+    .navLink:focus {
+        color: #50c4a8;
+        outline: none;
+    }
+
+    .right25pxMargin {
+        margin-right: 25px;
     }
 
     .singleListViewContainer {
@@ -1288,81 +1506,30 @@ button:focus {
         /*align-content: space-evenly;*/
     }
 
-    .singleListItem {
-        display: flex;
-        background-color: white;
-        width: 89vw;
-        height: 4vh;
-        padding-left: 10px;
-        padding-right: 10px;
-        border-style: solid;
-        border-width: 0 0 1px 0;
-        justify-content: center;
-        align-items: center;
-    }
-
     .singleListViewGeneralContainer {
         display: flex;
         flex-direction: column;
         margin-right: 5vw;
     }
 
-    .checkbox {
-        justify-self: flex-end;
+    .singleListItem {
+        display: flex;
+        /*flex-direction: column;*/
+        background-color: white;
+        width: 89vw;
+        /*height: 4vh;*/
+        padding: 2.2vh;
+        border-style: solid;
+        border-width: 0 0 1px 0;
+        justify-content: center;
+        align-items: center;
+        word-break: break-all;
     }
 
     .span {
         display: block;
         width: inherit;
-    }
-
-    .h2FlexContainer {
-        width: 100%;
-        margin: 3vh 0 3vh 0;
-    }
-
-
-
-    #listBtn {
-        width: 75%;
-        text-align: center;
-        margin: 1vh;
-    }
-
-
-
-    .nameYourListMode {
-        display: flex;
-        margin-top: 5vh;
-        min-height: 27vh;
-    }
-
-    .nameYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .nameYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70%;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        background-color: white;
-        align-items: center;
-        padding-top: 2vh;
-    }
-
-    .nameYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-
-    .liItem {
-        margin-bottom: 5px;
-        display:flex;
-        flex-wrap: wrap;
+        flex-grow: 8;
     }
 }
 
