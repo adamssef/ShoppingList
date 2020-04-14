@@ -34,14 +34,12 @@ class App extends Component {
     }
 
     removeDefaultNavClass = (e)=>{
-        if(e.target.id !== 'defNavEl'){
+        if(e.target.id !== 'defNavEl' && !e.target.classList.contains('')){
             document.getElementById("defNavEl").classList.remove("default")
         } else {
             document.getElementById("defNavEl").classList.add("default")
         }
     }
-
-
 
     render() {
         return <Router>
