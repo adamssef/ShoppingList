@@ -21,7 +21,6 @@ button:focus {
         box-sizing: inherit;
     }
 
-
     body {
         min-width: 300px;
 
@@ -174,9 +173,9 @@ button:focus {
         display: block;
     }
 
-    .default {
-        color: #50c4a8;
-    }
+    /*.default {*/
+    /*    color: #50c4a8;*/
+    /*}*/
 
     .displayBlock {
         display: block;
@@ -405,7 +404,7 @@ button:focus {
         flex-grow: 1;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         margin: 0 auto;
         justify-content: center;
         color: rgba(72, 65, 75, 0.87);
@@ -422,7 +421,7 @@ button:focus {
         flex-basis: 0;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         height: available;
         font-size: 1.5vw;
     }
@@ -501,6 +500,10 @@ button:focus {
         text-decoration: none;
         font-size: 1.5em;
         text-transform: capitalize;
+    }
+
+    .navLink.default {
+        color: #50c4a8;
     }
 
     .navLink:focus {
@@ -672,9 +675,9 @@ button:focus {
         display: block;
     }
 
-    .default {
-        color: #50c4a8;
-    }
+    /*.default {*/
+    /*    color: #50c4a8;*/
+    /*}*/
 
     .displayBlock {
         display: block;
@@ -927,7 +930,7 @@ button:focus {
         flex-grow: 1;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         margin: 0 auto;
         justify-content: center;
         color: rgba(72, 65, 75, 0.87);
@@ -944,7 +947,7 @@ button:focus {
         flex-basis: 0;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         height: available;
         font-size: 1.5vw;
     }
@@ -1002,6 +1005,10 @@ button:focus {
         text-transform: capitalize;
     }
 
+    .navLink.default {
+        color: #50c4a8;
+    }
+
     .navLink:focus {
         color: #50c4a8;
         outline: none;
@@ -1041,14 +1048,18 @@ button:focus {
         box-sizing: border-box;
     }
 
-    html {
-        box-sizing: border-box;
-    }
 
+    /*a.navLink {*/
+    /*    color: #4B4B4B;*/
+    /*}*/
 
     body {
         background-color: #d9d9d9;
         min-width:300px;
+    }
+
+    html {
+        box-sizing: border-box;
     }
 
     h2 {
@@ -1377,7 +1388,7 @@ button:focus {
         flex-basis: 0;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         display: block;
         margin: 0 auto;
         height: inherit;
@@ -1436,7 +1447,7 @@ button:focus {
         flex-grow: 1;
         border-right-style: solid;
         border-right-color: #e06800;
-        border-width: thin;
+        border-right-width: thin;
         display: block;
         margin: 0 auto;
         height: inherit;
