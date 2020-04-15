@@ -47,6 +47,7 @@ class SavedLists extends Component {
 
     switchToSingleDisplayMode = (e) => {
         let listId = e.target.parentElement.parentElement.id;
+        console.log(listId);
 
         //if  device width is less than 475 the display mode for small devices is applied
         if (window.innerWidth <= 475) {
@@ -59,7 +60,8 @@ class SavedLists extends Component {
             //if the above condition is not met than large devices mode is applied
         } else {
             let list = document.getElementById(listId);
-            let listColumn = list.children[3].children[0];
+            console.log(list);
+            let listColumn = list.children[2].children[0];
 
             // console.log(list);
             if (listColumn.style.display === "") {
@@ -128,21 +130,19 @@ class AllListsDisplayMode extends Component {
             <div className={"headingFlexContainer"}>
                 <div className={"headingFlexElName"}><span className={"headingElFlexItem"}>Nazwa</span></div>
                 <div className={"headingFlexElDate"}><span className={"headingElFlexItem"}>Data</span></div>
-                <div className={"headingFlexElAction"}><span className={"headingElFlexItem"}>Akcja</span></div>
                 <div className={"headingFlexElList"}><span className={"headingElFlexItem"}>Twoje zakupy</span></div>
             </div>
             <div className={"listsWrapper"}>{this.props.dataState.map(function (item, index) {
                 return <div className="listContainerEl" key={item.id} id={index}>
 
                     <div className={"listContainerElName"}>
-                        {/*<p className={"listIndex"}> {index + 1 + '.'}</p>*/}
-                        <p className={"listIndex2"}> {item.name}</p></div>
-                    <div className={"listCreationDateColumn"}>{item.creationDate.substring(0, 10)}</div>
-                    <div className={"listContainerElButton"}>
-                        <button id={"listBtn"} className={"btn-sm btn-success"}
+                        <p className={"listIndex2"}> {item.name}</p>
+                        <button id={"listBtn"}
+                                className={"btn-sm btn-success"}
                                 onClick={this.props.stateSwitch}>pokaż!
                         </button>
                     </div>
+                    <div className={"listCreationDateColumn"}>{item.creationDate.substring(0, 10)}</div>
                     <div className="listContainerElElements">
                         <ol id={`list` + index}></ol>
                     </div>
