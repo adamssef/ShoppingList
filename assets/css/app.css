@@ -123,8 +123,8 @@ button:focus {
     }
 
     #listBtn {
-        margin: 4px 0 4px 0;
-        width: auto;
+        margin: 4px 2em 4px 0;
+        width: 3em;
         text-align: center;
         font-size: 1.5vw;
         font-family: 'Cabin Condensed', sans-serif;
@@ -132,6 +132,8 @@ button:focus {
         padding: 4px 4px;
         border-radius: 8px;
         border-width: 0;
+        justify-self: flex-start;
+        align-self: flex-start;
     }
 
     #listDraft {
@@ -357,6 +359,7 @@ button:focus {
         margin-left: 3px;
         font-family: 'Cabin Condensed', sans-serif;
         padding-left: 1em;
+        align-self: flex-start;
     }
 
     /*LIST BODY*/
@@ -387,6 +390,7 @@ button:focus {
     .listContainerElName {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
@@ -626,8 +630,8 @@ button:focus {
 
 
     #listBtn {
-        margin: 4px 0 4px 0;
-        width: auto;
+        margin: 4px 2em 4px 0;
+        width: 3em;
         text-align: center;
         font-size: 1.5vw;
         font-family: 'Cabin Condensed', sans-serif;
@@ -635,6 +639,8 @@ button:focus {
         padding: 4px 4px;
         border-radius: 8px;
         border-width: 0;
+        justify-self: flex-start;
+        align-self: flex-start;
     }
 
 
@@ -878,6 +884,7 @@ button:focus {
         margin-bottom: 0;
         margin-left: 3px;
         padding-left: 1em;
+        align-self: flex-start;
     }
 
     .listItemSpan {
@@ -913,6 +920,7 @@ button:focus {
     .listContainerElName {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         flex-grow: 2;
         flex-basis: 0;
         border-right-style: solid;
