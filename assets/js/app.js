@@ -63,25 +63,17 @@ class App extends Component {
             renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={CreateList}/>
-                    <Route path="/saved" component={SavedLists}/>
-                    <Route path="/about" component={About}/>
+                    <Route exact path="/saved" component={SavedLists}/>
+                    <Route exact path="/about" component={About}/>
                 </Switch>
             </div>
         </Router>
     }
 }
 
-// function CreateNewList(props) {
-//     return <CreateList/>
-// }
 
 function About() {
     return <h2>work in progress...</h2>
 }
-
-// function SavedLists() {
-//     return <h2>Tu znajdą się wcześniej zapisane listy pobrane z bazy</h2>
-// }
-
 
 ReactDOM.render(<App/>, document.getElementById('root'));
