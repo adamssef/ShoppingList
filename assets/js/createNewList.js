@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import ReactDOM from 'react-dom';
+import {ReactDOM} from 'react-dom';
+import {withRouter} from 'react-router-dom';//thanks to withRouter I can access match
 
 require('../css/app.css');
 const $ = require('jquery');
-// this "modifies" the jquery module: adding behavior to it
-// the bootstrap module doesn't export/return anything
+
 require('bootstrap');
 var url = require('url');
 var https = require('https');
@@ -25,18 +25,16 @@ class CreateList extends Component {
             inputFieldState: "",
             listName: false
         }
-
-
     }
 
     //COMPONENT LIFECYCLE METHODS
     componentDidMount() {
-        console.log("Mounteddddd!");
-        // document.body.style.backgroundImage = "url('../img/photo.jpg')";
-        // document.getElementsByTagName('BODY').style.backgroundImage.url('../img/photo.jpg');
+        console.log("CREATE: Mounted!");
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log(this.props.appStateProps);
+
         if (prevState.listName !== this.state.listName) {
             console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
         }
@@ -369,4 +367,4 @@ class ShoppingListInput extends Component {
     }
 }
 
-export default CreateList;
+export default withRouter(CreateList);
