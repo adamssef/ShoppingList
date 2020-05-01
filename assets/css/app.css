@@ -122,7 +122,7 @@ button:focus {
         color: #7FD4BF;
     }
 
-    #listBtn {
+    .listBtn {
         margin: 4px 2em 4px 0;
         width: 3em;
         text-align: center;
@@ -134,6 +134,7 @@ button:focus {
         border-width: 0;
         justify-self: flex-start;
         align-self: flex-start;
+        color:white;
     }
 
     #listDraft {
@@ -629,7 +630,7 @@ button:focus {
     }
 
 
-    #listBtn {
+    .listBtn {
         margin: 4px 2em 4px 0;
         width: 3em;
         text-align: center;
@@ -641,6 +642,7 @@ button:focus {
         border-width: 0;
         justify-self: flex-start;
         align-self: flex-start;
+        color:white;
     }
 
 
@@ -684,7 +686,6 @@ button:focus {
     /*.default {*/
     /*    color: #50c4a8;*/
     /*}*/
-
     .displayBlock {
         display: block;
     }
@@ -1161,7 +1162,7 @@ button:focus {
         margin-top: 2vh;
     }
 
-    #listBtn {
+    .listBtn {
         width: auto;
         text-align: center;
         margin: 1vh;
@@ -1170,6 +1171,7 @@ button:focus {
         padding: 4px 4px;
         border-radius: 8px;
         border-width: 0;
+        color:white;
     }
 
     #listDraft {

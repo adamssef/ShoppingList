@@ -1,60 +1,155 @@
-
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 
 
 import CreateList from "./createNewList";
 import SavedLists from "./savedLists";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+    withRouter,
+    Router,
+    Switch,
+    Route,
+    Link,
+    NavLink
+} from "react-router-dom";
+import {createBrowserHistory} from "history";
+
+const history = createBrowserHistory();
+
+
 require('../images/photo.jpg');
 require('../css/app.css');
-
 const $ = require('jquery');
-// this "modifies" the jquery module: adding behavior to it
-// the bootstrap module doesn't export/return anything
+
 import 'bootstrap';
-
-
-
+import savedLists from "./savedLists";
 
 const imgPath = require('../images/photo.jpg');
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-
 
 class App extends Component {
-    componentDidMount() {
-        document.getElementById('root').style = {backgroundImage: "url('images/photo.1af09e53.jpg')"}
+    constructor(props) {
+        super(props);
+        this.singleListVerifier = this.singleListVerifier.bind(this);
+        this.refreshAttemptVerifier = this.refreshAttemptVerifier.bind(this);
+        this.state = {
+            createNewList: true,
+            savedLists: false,
+            about: false,
+            savedListsCounter: -1,
+            visited: false,
+            saveListsSingleListMode: false,
+            singleListRefreshAttempt: false
+        };
+
+
     }
 
-    removeDefaultNavClass = (e)=>{
-        if(e.target.id !== 'defNavEl' && !e.target.classList.contains('')){
+    componentDidMount() {
+        document.getElementById('root').style = {backgroundImage: "url('images/photo.1af09e53.jpg')"}
+        console.log("APP: I got mounted!")
+    }
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("APP: savedListsCounter state: " + this.state.savedListsCounter)
+        if (this.state.savedListsCounter === 1 && !this.state.visited) {
+            this.setState({
+                visited: true,
+            })
+        } else if (this.state.visited && this.state.saveListsCounter > 0) {
+            this.setState({
+                savedListsCounter: -1
+            })
+        }
+    }
+
+    removeDefaultNavClass = (e) => {
+        if (e.target.id !== 'defNavEl' && !e.target.classList.contains('')) {
             document.getElementById("defNavEl").classList.remove("default")
         } else {
             document.getElementById("defNavEl").classList.add("default")
         }
     }
 
+    stateUpdater = (e) => {
+        if (e.target.href === 'https://localhost:8000/about') {
+            this.setState({
+                createNewList: false,
+                savedLists: false,
+                about: true,
+                savedListsCounter: -1,
+                visited: false
+            })
+        } else if (e.target.href === 'https://localhost:8000/saved') {
+            this.setState({
+                createNewList: false,
+                savedLists: true,
+                about: false,
+                savedListsCounter: this.state.savedListsCounter + 1
+            })
+        } else if (e.target.href === 'https://localhost:8000/') {
+            this.setState({
+                createNewList: true,
+                savedLists: false,
+                about: false,
+                savedListsCounter: -1,
+                visited: false
+            })
+        }
+
+    }
+
+
+    comboFunctioner = (e) => {
+        this.removeDefaultNavClass(e);
+        this.stateUpdater(e);
+        this.refreshAttemptVerifier(e)
+    }
+
+    refreshAttemptVerifier = (e) => {
+        if(this.state.saveListsSingleListMode) {
+            this.setState({
+                singleListRefreshAttempt: true
+            })
+        }
+    }
+
+    singleListVerifier = (value) => {
+        if (value === true) {
+            this.setState({
+                saveListsSingleListMode: true,
+            })
+        } else if (!value) {
+            this.setState({
+                saveListsSingleListMode: false,
+                singleListRefreshAttempt: false
+            })
+        }
+    }
+
     render() {
-        return <Router>
+        return <Router history={history}>
             <div>
                 <nav>
                     <ul>
-                        <li className={"inline left main"} >
-                            <Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>
+                        <li className={"inline left main"}>
+                            <NavLink to="/" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
+                                     id={"defNavEl"}>Nowa lista</NavLink>
+                            {/*<Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>*/}
                         </li>
                         <li className={"inline main"}>
-                            <Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>
+                            <NavLink to="/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
+                                listy</NavLink>
+                            {/*<Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>*/}
                         </li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
+                        <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"inline right about"}>
-                            <Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>
+                            <NavLink to="/about" className={"navLink"} onClick={e => this.comboFunctioner(e)}>O
+                                mnie</NavLink>
+                            {/*<Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>*/}
                         </li>
                     </ul>
                 </nav>
@@ -63,14 +158,18 @@ class App extends Component {
             renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={CreateList}/>
-                    <Route exact path="/saved" component={SavedLists}/>
+                    <Route exact path="/saved" render={() => <SavedLists
+                        stateProps={this.state.savedListsCounter}
+                        singleListVerifier={this.singleListVerifier}
+                        appProps={this.state}
+                    />}/>
+                    {/*<Route exact path="/saved" render={() => <SavedLists title={`Props through render`} />} />*/}
                     <Route exact path="/about" component={About}/>
                 </Switch>
             </div>
         </Router>
     }
 }
-
 
 function About() {
     return <h2>work in progress...</h2>
