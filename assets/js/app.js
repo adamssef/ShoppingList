@@ -134,12 +134,12 @@ class App extends Component {
             <div>
                 <nav>
                     <ul>
-                        <li className={"inline left main"}>
+                        <li className={"inline left create"}>
                             <NavLink to="/" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
                                      id={"defNavEl"}>Nowa lista</NavLink>
                             {/*<Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>*/}
                         </li>
-                        <li className={"inline main"}>
+                        <li className={"inline saved-lists"}>
                             <NavLink to="/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
                                 listy</NavLink>
                             {/*<Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>*/}

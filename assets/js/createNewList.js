@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';//thanks to withRouter I can access 
 
 require('../css/app.css');
 const $ = require('jquery');
+import Swal from 'sweetalert2'
 
 require('bootstrap');
 var url = require('url');
@@ -54,6 +55,7 @@ class CreateList extends Component {
     //NAME YOUR LIST MODE METHODS
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
+        console.log(input)
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         if (event.key === "Enter") {
             event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);
@@ -61,12 +63,22 @@ class CreateList extends Component {
     }
 
     proceedOnBtnClickNameMode(event) {
-        let input = event.currentTarget.previousSibling.value
+        let input = event.currentTarget.previousSibling.value;
 
-        let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
-        this.setState({
-            listName: input
-        });
+        if (input.length >= 5) {
+            let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
+            this.setState({
+                listName: input
+            });
+        } else {
+            Swal.fire({
+                title: 'halo halo!',
+                text: 'Coś tu nie gra:-( Nazwa musi być ciut dluższa!',
+                icon: 'info',
+                confirmButtonText: 'Ok, postaram się'
+            })
+        }
+
 
     }
 
@@ -76,7 +88,7 @@ class CreateList extends Component {
         let inputField = event.target.value;
         let set = new Set(this.state.currentItems);
         if (event.key === "Enter") {
-            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField))
+            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
                 this.setState({
                     currentItems: this.state.currentItems.concat(inputField),
                     currentItemsCounter: this.state.currentItemsCounter + 1,
@@ -84,7 +96,15 @@ class CreateList extends Component {
                 });
 
 
-            event.target.value = this.state.inputFieldState;
+                event.target.value = this.state.inputFieldState;
+            } else {
+                Swal.fire({
+                    title: 'halo halo!',
+                    text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
+                    icon: 'info',
+                    confirmButtonText: 'Ok, postaram się'
+                })
+            }
         }
     }
 
@@ -93,14 +113,22 @@ class CreateList extends Component {
         let set = new Set(this.state.currentItems);
 
 
-        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField))
+        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
             this.setState({
                 currentItems: this.state.currentItems.concat(inputField),
                 currentItemsCounter: this.state.currentItemsCounter + 1,
                 inputFieldState: ""
             });
 
-        e.target.previousSibling.value = this.state.inputFieldState;
+            e.target.previousSibling.value = this.state.inputFieldState;
+        } else {
+            Swal.fire({
+                title: 'halo halo!',
+                text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
+                icon: 'info',
+                confirmButtonText: 'Ok, postaram się'
+            })
+        }
     }
 
     deleteItemOnClick(e) {
@@ -304,7 +332,9 @@ class EditionMode extends Component {
                             this.props.onClickPropsSave(e);
                         }}>Zachowaj
                     </button>
-                    <button className={"btn-sm btn-danger editionModeBtn"} onClick={this.props.onClickClearList}>Wyczyść</button>
+                    <button className={"btn-sm btn-danger editionModeBtn"}
+                            onClick={this.props.onClickClearList}>Wyczyść
+                    </button>
                 </div>
             </div>
             <div className={'nameYourListModeBox3'}></div>
@@ -351,7 +381,7 @@ class NameYourListInput extends Component {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"nazwij swoją listę"}
                    onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
-            <button className={"btn-sm btn-success addBtn"} onClick={this.props.proceedOnBtnClick}>&#x2795;
+            <button className={"addBtn"} onClick={this.props.proceedOnBtnClick}>&#x2795;
             </button>
         </div>
     }
@@ -362,7 +392,7 @@ class ShoppingListInput extends Component {
     render() {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
-            <button className={"btn-sm btn-success addBtn"} onClick={this.props.onClickPropsAdd}>&#x2795;</button>
+            <button className={"addBtn"} onClick={this.props.onClickPropsAdd}>&#x2795;</button>
         </div>
     }
 }
