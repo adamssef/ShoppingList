@@ -43,6 +43,7 @@
         "net": "^1.0.2",
         "popper.js": "^1.16.1",
         "source-map": "^0.7.3",
+        "sweetalert2": "^9.10.12",
         "tls": "0.0.1",
         "whatwg-fetch": "^3.0.0"
     }
