@@ -54,7 +54,7 @@ class DefaultController extends AbstractController
         return new Response();
     }
 
-    /**we
+    /**
      * @Route("/saved", name="saved")
      */
     public function saved(Request $request)
