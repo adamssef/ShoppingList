@@ -87,10 +87,18 @@ button:focus {
         border-right: 0.15rem solid white;
     }
 
-    nav li.main {
-        flex-grow: 3.3;
+    nav li.create {
+        flex-grow: 4.5;
         flex-basis: 0;
         flex-shrink: 0.5;
+    }
+
+    nav li.saved-lists {
+        flex-grow: 6;
+        flex-basis: 0;
+        flex-shrink: 0.5;
+        display:flex;
+        justify-content: left;
     }
 
 
@@ -170,6 +178,7 @@ button:focus {
 
     .addBtn {
         margin-left: 0.7em;
+        background-color: #50c4a8;
     }
 
     .block {
@@ -587,7 +596,7 @@ button:focus {
 
     nav li.freeSpaceNavLi {
         flex-basis:0;
-        flex-grow:10;
+        flex-grow:8;
         list-style-type: none;
     }
 
@@ -595,10 +604,17 @@ button:focus {
         border-right: 0.15rem solid white;
     }
 
-    nav li.main {
-        flex-grow: 5;
+    nav li.create {
+        flex-grow: 7;
         flex-basis: 0;
         flex-shrink: 0.5
+    }
+    nav li.saved-lists {
+        flex-grow: 11;
+        flex-basis: 0;
+        flex-shrink: 0.5;
+        display:flex;
+        justify-content: left;
     }
 
     nav li.right {
@@ -677,6 +693,7 @@ button:focus {
 
     .addBtn {
         margin-left: 0.5em;
+        background-color: #50c4a8;
     }
 
     .block {
@@ -1111,13 +1128,18 @@ button:focus {
         margin: 0 auto;
     }
 
-    nav li.main {
+    nav li.create {
+        flex-grow: 5;
+        flex-basis: 0;
+    }
+
+    nav li.saved-lists {
         flex-grow: 5;
         flex-basis: 0;
     }
 
     nav li.about {
-        flex-grow: 1.5;
+        flex-grow: 2;
         flex-basis: 0;
     }
 
@@ -1208,7 +1230,10 @@ button:focus {
         flex-direction: column;
     }
 
-
+    .addBtn {
+        margin-left: 0.7em;
+        background-color: #50c4a8;
+    }
 
     .block {
         display: block;
