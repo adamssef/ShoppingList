@@ -11,8 +11,6 @@ var url = require('url');
 var https = require('https');
 var HttpsProxyAgent = require('https-proxy-agent');
 
-const imgPath = require('../images/photo.jpg');
-
 
 class CreateList extends Component {
 
