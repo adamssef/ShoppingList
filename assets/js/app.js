@@ -13,12 +13,10 @@ import {
     Link,
     NavLink
 } from "react-router-dom";
-import {createBrowserHistory} from "history";
 
+import {createBrowserHistory} from "history";
 const history = createBrowserHistory();
 
-
-require('../images/photo.jpg');
 require('../css/app.css');
 const $ = require('jquery');
 
@@ -171,8 +169,11 @@ class App extends Component {
     }
 }
 
-function About() {
-    return <h2>work in progress...</h2>
-}
+class About extends Component {
+    render(){
+        return <h2>work in progress...</h2>
+    }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+}
+export  {App, About};
+// ReactDOM.render(<App/>, document.getElementById('root'));
