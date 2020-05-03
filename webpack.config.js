@@ -29,7 +29,7 @@ Encore
     // })
 
     // uncomment to define the assets of the project
-    .addEntry('app', ['babel-polyfill','./assets/js/app.js'])
+    .addEntry('index', ['babel-polyfill','./assets/js/index.js'])
     .configureLoaderRule('images', (loaderRule) => {
         loaderRule.options.esModule = false;
     })
