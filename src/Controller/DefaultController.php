@@ -49,7 +49,7 @@ class DefaultController extends AbstractController
 
             return $response;
         } elseif ($request->getMethod() === 'GET') {
-            return $this->redirect("localhost:" . $request->getPort());
+            return $this->redirect($request->server->get('HTTP_HOST'));
         }
         return new Response();
     }
@@ -71,7 +71,7 @@ class DefaultController extends AbstractController
 
             return $response;
         } else {
-            return $this->redirect("https://localhost:" . $request->getPort());
+            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
         }
     }
 
@@ -80,7 +80,7 @@ class DefaultController extends AbstractController
      */
     public function about(Request $request)
     {
-            return $this->redirect("https://localhost:" . $request->getPort());
+            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
     }
 
 }
