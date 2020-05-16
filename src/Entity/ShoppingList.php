@@ -23,7 +23,7 @@ class ShoppingList
 
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="text")
      */
     private $listItems = [];
 
@@ -42,12 +42,12 @@ class ShoppingList
         return $this->id;
     }
 
-    public function getListItems(): ?array
+    public function getListItems()
     {
         return $this->listItems;
     }
 
-    public function setListItems(array $listItems): self
+    public function setListItems( $listItems): self
     {
         $this->listItems = $listItems;
 
