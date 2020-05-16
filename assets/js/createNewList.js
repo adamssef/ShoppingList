@@ -86,7 +86,7 @@ class CreateList extends Component {
         let inputField = event.target.value;
         let set = new Set(this.state.currentItems);
         if (event.key === "Enter") {
-            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
+            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length > 0) {
                 this.setState({
                     currentItems: this.state.currentItems.concat(inputField),
                     currentItemsCounter: this.state.currentItemsCounter + 1,
@@ -111,7 +111,7 @@ class CreateList extends Component {
         let set = new Set(this.state.currentItems);
 
 
-        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
+        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length > 0) {
             this.setState({
                 currentItems: this.state.currentItems.concat(inputField),
                 currentItemsCounter: this.state.currentItemsCounter + 1,
@@ -158,13 +158,38 @@ class CreateList extends Component {
             itemObject.push(e.innerText);
         })
 
+        //NEW CODE TRY START
+
+        // const array = {};
+        // for (let i = 0; i < itemObject.length; i++) {
+        //    array[i] = itemObject[i];
+        // }
+        // console.log(array);
+        // console.log(JSON.stringify(array));
+        //
+        // let targetUrl = `${location.origin}/save`;
+        // let request = new Request(targetUrl, {
+        //     // body: formData,
+        //     method: "POST",
+        //     headers: {
+        //         "Access-Control-Request-Method": "POST, GET, OPTIONS",
+        //         "Origin": location.origin,
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(array) // body data type must match "Content-Type" header
+        // });
+
+        //NEW CODE END
+
+
+        //OLD CODE TO UNCOMMENT EASILY
         const formData = new FormData();
         for (let i = 0; i < itemObject.length; i++) {
             formData.append(i, itemObject[i])
         }
-        ;
 
         formData.append('name', this.state.listName);
+        console.log(formData.getAll(1));
 
 
         let targetUrl = `${location.origin}/save`;
@@ -176,7 +201,9 @@ class CreateList extends Component {
                 "Access-Control-Request-Method": "POST, GET, OPTIONS",
                 "Origin": location.origin,
             }
-        })
+        });
+        //OLD CODE TO UNCOMMENT EASILY END
+
         fetch(request)
             .then((response) => response.json())
 
