@@ -20,7 +20,7 @@ class ShoppingListRepository extends ServiceEntityRepository
     }
 
 
-    public function listAllShoppingLists()
+    public function getLastTenLists()
     {
         $dql = 'SELECT s FROM App\Entity\ShoppingList s ORDER BY s.id DESC';
         return $result = $this->getEntityManager()->getRepository(ShoppingList::class)->createQueryBuilder('s')

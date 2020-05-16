@@ -43,7 +43,7 @@ class DefaultController extends AbstractController
 
             $em->persist($shoppingList);
             $em->flush();
-            $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+            $results = $em->getRepository(ShoppingList::class)->getLastTenLists();
             $response = $this->json($results);
             $response->headers->set('Content-Type', 'application/json');
 
@@ -61,7 +61,7 @@ class DefaultController extends AbstractController
     {
         if ($request->getMethod() === "POST") {
             $em = $this->getDoctrine()->getManager();
-            $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+            $results = $em->getRepository(ShoppingList::class)->getLastTenLists();
 
             $response = $this->json($results);
 
