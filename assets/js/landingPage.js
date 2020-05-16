@@ -25,6 +25,89 @@ class LandingPageContent extends Component {
     }
 }
 
+class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    formSend(e){
+        e.preventDefault();
+        alert('dupa');
+    }
+
+    render() {
+        return <form>
+            <label htmlFor={"login"}>Login</label>
+            <input type={"text"} name={"login"} autoComplete={"username"}/>
+            <label htmlFor={"password"} >Hasło</label>
+            <input type={"password"} name={"password"} autoComplete={"current-password"}/>
+            <input onClick={this.formSendLogin} type={"submit"} value={"wyślij"}/>
+        </form>
+    }
+}
+
+class RegisterPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    formSendRegister(e){
+        e.preventDefault();
+        let login = document.getElementsByName('login')[0].value;
+        let password = document.getElementsByName("password")[0].value
+        let cpassword = document.getElementsByName("cpassword")[0].value;
+        let loginDetails = {"login":login, "password":password};
+        if (cpassword !== password) {
+            console.log("Hasła różnią się");
+        } else {
+            const formData = new FormData();
+
+
+            for (let [key, value] of Object.entries(loginDetails)) {
+                formData.append(key, value);
+            }
+
+            let targetUrl = `${location.origin}/register`;
+
+            let request = new Request(targetUrl, {
+                body: formData,
+                method: "POST",
+                headers: {
+                    "Access-Control-Request-Method": "POST, GET, OPTIONS",
+                    "Origin": location.origin,
+                }
+            });
+
+            fetch(request)
+                .then((response) => response.json())
+
+                .then((response) => {
+                   console.log("Response successfully returned")
+                })
+                .catch((error) => {
+                    console.error('REGISTRATION ERROR:', error);
+                });
+
+
+        }
+
+    }
+
+    render() {
+        return <form>
+            <label htmlFor={"login"}>Podaj nazwę użytkownika</label>
+            <input type={"text"} name={"login"} autoComplete={"username"}/>
+            <label htmlFor={"password"}>Podaj hasło</label>
+            <input type={"password"} name={"password"} autoComplete={"new-password"}/>
+            <label htmlFor={"cpassword"}>Podaj hasło</label>
+            <input type={"password"} name={"cpassword"} autoComplete={"new-password"}/>
+            <input onClick={this.formSendRegister} type={"submit"} value={"wyślij"}/>
+        </form>
+    }
+}
+
+
+
 class LandingPage extends Component {
     render() {
         return <Router history={history}>
@@ -40,6 +123,10 @@ class LandingPage extends Component {
                         <li className={"inline saved-lists"}>
                             <NavLink to="/register">REGISTER</NavLink>
                         </li>
+                        <li className={"inline saved-lists"}>
+                            <NavLink to="/app">APP</NavLink>
+                        </li>
+
                     </ul>
                 </nav>
 
@@ -47,9 +134,10 @@ class LandingPage extends Component {
             renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={LandingPageContent}/>
-                    <Route exact path="/login" render={() => <App/>}/>
+                    <Route exact path="/login" render={() => <LoginPage/>}/>
                     {/*<Route exact path="/saved" render={() => <SavedLists title={`Props through render`} />} />*/}
-                    {/*<Route exact path="/register" component={About}/>*/}
+                    <Route exact path="/register" component={RegisterPage}/>
+                    <Route exact path="/app" component={App}/>
                 </Switch>
             </div>
         </Router>
