@@ -11,10 +11,6 @@ import {
 import {App, About} from "./app.js";
 import LandingPage from "./landingPage";
 
-class LandingPage1 extends Component {
-    render(){
-        return <LandingPage/>
-    }
-}
 
-ReactDOM.render(<LandingPage1/>, document.getElementById('root'));
+
+ReactDOM.render(<LandingPage/>, document.getElementById('root'));
