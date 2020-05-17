@@ -573,12 +573,12 @@ button:focus {
         font-size: 2em;
     }
 
-    input[type=text] {
+    input.create-list [type=text] {
         font-size: 1.5em;
         font-family: 'Courgette', cursive;
     }
 
-    input[type=text]::placeholder {
+    input.create-list[type=text]::placeholder {
         font-family: 'Cabin Condensed', sans-serif;
     }
 
