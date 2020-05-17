@@ -405,8 +405,8 @@ class NameYourListInput extends Component {
     render() {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"nazwij swoją listę"}
-                   onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
-            <button className={"addBtn"} onClick={this.props.proceedOnBtnClick}>&#x2795;
+                   onKeyPress={this.props.proceedOnEnterPressNameMode} className={"create-list"} autoFocus/>
+            <button className={"addBtn app"} onClick={this.props.proceedOnBtnClick}>&#x2795;
             </button>
         </div>
     }
@@ -416,7 +416,7 @@ class ShoppingListInput extends Component {
 
     render() {
         return <div className={"inputContainer"}>
-            <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
+            <input className={"create-list"} type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
             <button className={"addBtn"} onClick={this.props.onClickPropsAdd}>&#x2795;</button>
         </div>
     }
