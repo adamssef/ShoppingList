@@ -234,7 +234,7 @@ class SingleListDisplayMode extends Component {
             <h2>Zapisane zakupy:</h2>
             <div className={"singleListViewContainer"}>{arrOfProducts.map((item, index) => {
                 return <div className={"singleListItem"} key={index}><span className={'span'}>{item}</span><input
-                    type='checkbox' className={'checkbox'}/></div>
+                    type='checkbox' className={'checkbox saved'}/></div>
             })
             }</div>
             <button onClick={this.props.backOnClick} id={"backBtn"}>Wróć</button>
