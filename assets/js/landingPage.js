@@ -114,18 +114,18 @@ class LandingPage extends Component {
             <div>
                 <nav>
                     <ul>
-                        <li className={"inline left create"}>
-                            <NavLink to="/">WELCOME</NavLink>
-                        </li>
+                        {/*<li className={"inline left create"}>*/}
+                        {/*    <NavLink to="/">WELCOME</NavLink>*/}
+                        {/*</li>*/}
                         <li className={"inline saved-lists"}>
                             <NavLink to="/login">LOGIN</NavLink>
                         </li>
                         <li className={"inline saved-lists"}>
                             <NavLink to="/register">REGISTER</NavLink>
                         </li>
-                        <li className={"inline saved-lists"}>
-                            <NavLink to="/app">APP</NavLink>
-                        </li>
+                        {/*<li className={"inline saved-lists"}>*/}
+                        {/*    <NavLink to="/app">APP</NavLink>*/}
+                        {/*</li>*/}
 
                     </ul>
                 </nav>
@@ -133,11 +133,11 @@ class LandingPage extends Component {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route exact path="/" component={LandingPageContent}/>
+                    {/*<Route exact path="/" component={LandingPageContent}/>*/}
                     <Route exact path="/login" render={() => <LoginPage/>}/>
                     {/*<Route exact path="/saved" render={() => <SavedLists title={`Props through render`} />} />*/}
                     <Route exact path="/register" component={RegisterPage}/>
-                    <Route exact path="/app" component={App}/>
+                    {/*<Route exact path="/app" component={App}/>*/}
                 </Switch>
             </div>
         </Router>
