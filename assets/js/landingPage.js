@@ -54,10 +54,11 @@ class RegisterPage extends Component {
 
     formSendRegister(e) {
         e.preventDefault();
-        let login = document.getElementsByName('login')[0].value;
+        let login = document.getElementsByName('email')[0].value;
+        let fName = document.getElementsByName('fName')[0].value;
         let password = document.getElementsByName("password")[0].value
         let cpassword = document.getElementsByName("cpassword")[0].value;
-        let loginDetails = {"login": login, "password": password};
+        let loginDetails = {"login": login, "password": password, "fName": fName};
         if (cpassword !== password) {
             console.log("Hasła różnią się");
         } else {
@@ -66,7 +67,10 @@ class RegisterPage extends Component {
 
             for (let [key, value] of Object.entries(loginDetails)) {
                 formData.append(key, value);
+                console.log(value);
             }
+
+
 
             let targetUrl = `${location.origin}/register`;
 
@@ -98,9 +102,14 @@ class RegisterPage extends Component {
         return <div className={"landing-page-container"}>
             <form className={"registerForm"}>
                 <div className={"reg-form-div-el"}>
-                    <label className={"reg-form-label"}htmlFor={"login"}>Utwórz login</label>
+                    <label className={"reg-form-label"}htmlFor={"email"}>Email</label>
                     <div className={"reg-form-space-div"}></div>
-                    <input type={"text"} name={"login"} autoComplete={"username"} className={"reg-form-input"}/>
+                    <input type={"text"} name={"email"} autoComplete={"email"} className={"reg-form-input"}/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"}htmlFor={"fName"}>Imię</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"text"} name={"fName"} autoComplete={"given-name"} className={"reg-form-input"}/>
                 </div>
                 <div className={"reg-form-div-el"}>
                     <label className={"reg-form-label"} htmlFor={"password"}>Utwórz hasło</label>
