@@ -354,6 +354,12 @@ button:focus {
         flex-grow: 1;
     }
 
+    .landing-page-container {
+        margin-top: 5vh;
+        display:flex;
+        justify-content: center;
+    }
+
     .listIndex {
         color: #50c4a8;
         display: inline;
@@ -455,7 +461,7 @@ button:focus {
 
     .liItem {
         border-radius: 10px;
-        background-color: #e06800;;
+        background-color: #add8e6;
         margin: 5px 2px;
         padding: 6px 8px 6px 15px;
     }
@@ -538,6 +544,40 @@ button:focus {
         margin-bottom: 5%;
         margin-left: 5%;
         list-style-type: decimal;
+    }
+
+
+    .registerForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2vh;
+        background-color: white;
+        width: 30vw;
+        border-radius:10px;
+        align-content: space-evenly;
+    }
+
+    .reg-form-div-el {
+        display: flex;
+        width: 100%;
+        flex-grow:10;
+        flex-basis:0;
+    }
+
+    .reg-form-input {
+        flex-basis:0;
+        flex-grow: 10;
+    }
+
+    .reg-form-label {
+        flex-basis:0;
+        flex-grow:3;
+    }
+
+    .reg-form-space-div {
+        flex-basis:0;
+        flex-grow: 1;
     }
 
     .right25pxMargin {
@@ -867,6 +907,11 @@ button:focus {
         border-radius: 8px;
     }
 
+    .landing-page-container {
+        margin-top: 5vh;
+        display:flex;
+        justify-content: center;
+    }
 
     .liItem {
         border-radius: 10px;
@@ -1057,6 +1102,36 @@ button:focus {
 
     .right25pxMargin {
         margin-right: 25px;
+    }
+
+
+    .registerForm {
+        padding: 2vh;
+        background-color: white;
+        width: 60vw;
+        border-radius:10px;
+    }
+
+    .reg-form-div-el {
+        display: flex;
+        width: 100%;
+        flex-grow:10;
+        flex-basis:0;
+    }
+
+    .reg-form-input {
+        flex-basis:0;
+        flex-grow: 10;
+    }
+
+    .reg-form-label {
+        flex-basis:0;
+        flex-grow:3;
+    }
+
+    .reg-form-space-div {
+        flex-basis:0;
+        flex-grow: 1;
     }
 }
 
@@ -1388,6 +1463,12 @@ button:focus {
         flex-grow: 1;
     }
 
+    .landing-page-container {
+        margin-top: 5vh;
+        display:flex;
+        justify-content: center;
+    }
+
 
     .liItem {
         display:flex;
@@ -1537,6 +1618,36 @@ button:focus {
     .right25pxMargin {
         margin-right: 25px;
     }
+
+    .registerForm {
+        padding: 2vh;
+        background-color: white;
+        width: 80vw;
+        border-radius:10px;
+    }
+
+    .reg-form-div-el {
+        display: flex;
+        width: 100%;
+        flex-grow:10;
+        flex-basis:0;
+    }
+
+    .reg-form-input {
+        flex-basis:0;
+        flex-grow: 10;
+    }
+
+    .reg-form-label {
+        flex-basis:0;
+        flex-grow:3;
+    }
+
+    .reg-form-space-div {
+        flex-basis:0;
+        flex-grow: 1;
+    }
+
 
     .singleListViewContainer {
         display: flex;

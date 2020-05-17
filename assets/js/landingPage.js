@@ -17,6 +17,7 @@ require('../css/app.css');
 
 
 import {createBrowserHistory} from "history";
+
 const history = createBrowserHistory();
 
 class LandingPageContent extends Component {
@@ -30,7 +31,7 @@ class LoginPage extends Component {
         super(props);
     }
 
-    formSend(e){
+    formSend(e) {
         e.preventDefault();
         alert('dupa');
     }
@@ -39,7 +40,7 @@ class LoginPage extends Component {
         return <form>
             <label htmlFor={"login"}>Login</label>
             <input type={"text"} name={"login"} autoComplete={"username"}/>
-            <label htmlFor={"password"} >Hasło</label>
+            <label htmlFor={"password"}>Hasło</label>
             <input type={"password"} name={"password"} autoComplete={"current-password"}/>
             <input onClick={this.formSendLogin} type={"submit"} value={"wyślij"}/>
         </form>
@@ -51,12 +52,12 @@ class RegisterPage extends Component {
         super(props);
     }
 
-    formSendRegister(e){
+    formSendRegister(e) {
         e.preventDefault();
         let login = document.getElementsByName('login')[0].value;
         let password = document.getElementsByName("password")[0].value
         let cpassword = document.getElementsByName("cpassword")[0].value;
-        let loginDetails = {"login":login, "password":password};
+        let loginDetails = {"login": login, "password": password};
         if (cpassword !== password) {
             console.log("Hasła różnią się");
         } else {
@@ -82,7 +83,7 @@ class RegisterPage extends Component {
                 .then((response) => response.json())
 
                 .then((response) => {
-                   console.log("Response successfully returned")
+                    console.log("Response successfully returned")
                 })
                 .catch((error) => {
                     console.error('REGISTRATION ERROR:', error);
@@ -94,18 +95,29 @@ class RegisterPage extends Component {
     }
 
     render() {
-        return <form>
-            <label htmlFor={"login"}>Podaj nazwę użytkownika</label>
-            <input type={"text"} name={"login"} autoComplete={"username"}/>
-            <label htmlFor={"password"}>Podaj hasło</label>
-            <input type={"password"} name={"password"} autoComplete={"new-password"}/>
-            <label htmlFor={"cpassword"}>Podaj hasło</label>
-            <input type={"password"} name={"cpassword"} autoComplete={"new-password"}/>
-            <input onClick={this.formSendRegister} type={"submit"} value={"wyślij"}/>
-        </form>
+        return <div className={"landing-page-container"}>
+            <form className={"registerForm"}>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"}htmlFor={"login"}>Utwórz login</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"text"} name={"login"} autoComplete={"username"} className={"reg-form-input"}/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"password"}>Utwórz hasło</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"password"} name={"password"} autoComplete={"new-password"}  className={"reg-form-input"}/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"password"} name={"cpassword"} autoComplete={"new-password"} className={"reg-form-input"}/>
+                </div>
+                <input onClick={this.formSendRegister} type={"submit"} value={"wyślij"}/>
+            </form>
+        </div>
+
     }
 }
-
 
 
 class LandingPage extends Component {
