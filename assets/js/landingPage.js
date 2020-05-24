@@ -58,7 +58,7 @@ class RegisterPage extends Component {
         let fName = document.getElementsByName('fName')[0].value;
         let password = document.getElementsByName("password")[0].value
         let cpassword = document.getElementsByName("cpassword")[0].value;
-        let loginDetails = {"login": login, "password": password, "fName": fName};
+        let loginDetails = {"email": login, "password": password, "fName": fName};
         if (cpassword !== password) {
             console.log("Hasła różnią się");
         } else {

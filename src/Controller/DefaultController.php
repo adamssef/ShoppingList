@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\ShoppingList;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Response;
@@ -84,21 +85,23 @@ class DefaultController extends AbstractController
     public function register(Request $request)
     {
         if ($request->getMethod() === 'POST') {
-            $shoppingList = new ShoppingList();
-            $list = $request->request->all();
+            $user = new User;
+            $regData = $request->request->all();
+            // var_dump($regData);
+            // die();
         }
 
-        if (count($list) > 0) {
+        if (count($regData) > 0) {
             $em = $this->getDoctrine()->getManager();
-            $shoppingList->setCreationDate(new \DateTime());
-            $shoppingList->setName($list['name']);
-            unset($list['name']);
-            $shoppingList->setListItems($list);
+            $user->setRegDate();
+            $user->setFirstName($regData['fName']);
+            $user->setEmail($regData['email']);
+//            $user->setPassword()
 
-            $em->persist($shoppingList);
+            $em->persist($user);
             $em->flush();
-            $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
-            $response = $this->json($results);
+            // $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+            $response = $this->json($regData);
             $response->headers->set('Content-Type', 'application/json');
 
             return $response;
