@@ -158,29 +158,6 @@ class CreateList extends Component {
             itemObject.push(e.innerText);
         })
 
-        //NEW CODE TRY START
-
-        // const array = {};
-        // for (let i = 0; i < itemObject.length; i++) {
-        //    array[i] = itemObject[i];
-        // }
-        // console.log(array);
-        // console.log(JSON.stringify(array));
-        //
-        // let targetUrl = `${location.origin}/save`;
-        // let request = new Request(targetUrl, {
-        //     // body: formData,
-        //     method: "POST",
-        //     headers: {
-        //         "Access-Control-Request-Method": "POST, GET, OPTIONS",
-        //         "Origin": location.origin,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(array) // body data type must match "Content-Type" header
-        // });
-
-        //NEW CODE END
-
 
         //OLD CODE TO UNCOMMENT EASILY
         const formData = new FormData();
@@ -189,7 +166,7 @@ class CreateList extends Component {
         }
 
         formData.append('name', this.state.listName);
-        console.log(formData.getAll(1));
+
 
 
         let targetUrl = `${location.origin}/save`;
