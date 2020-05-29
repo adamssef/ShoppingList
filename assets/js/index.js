@@ -9,11 +9,11 @@ import {
     NavLink
 } from "react-router-dom";
 import {App, About} from "./app.js";
-import LandingPage from "./landingPage";
+import LandingPage from "./app";
 
 class LandingPage1 extends Component {
     render(){
-        return <LandingPage/>
+        return <App/>
     }
 }
 

@@ -7,13 +7,6 @@ import {About, App} from "./app";
 //thanks to withRouter I can access match
 
 require('../css/app.css');
-// const $ = require('jquery');
-// import Swal from 'sweetalert2'
-
-// require('bootstrap');
-// var url = require('url');
-// var https = require('https');
-// var HttpsProxyAgent = require('https-proxy-agent');
 
 
 import {createBrowserHistory} from "history";

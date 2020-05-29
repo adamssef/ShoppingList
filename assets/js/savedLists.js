@@ -19,10 +19,6 @@ class SavedLists extends Component {
     }
 
     componentDidMount() {
-
-        console.log("SAVED:Mounted too!")
-        console.log(this.props.stateProps)
-        // console.log(this.props.match)
         //event listening to window width changes
         window.addEventListener('resize', this.updateDimensions);
         let targetUrl = `${location.origin}/saved`;
@@ -49,20 +45,6 @@ class SavedLists extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // if(this.state.singleListDisplayMode) {
-        //     console.log("I am triggered!")
-        //     this.props.singleListVerifier(false);
-        // }
-        console.log("ComponentDidUpdate: updated")
-        console.log(`Stan countera didUpdate: ${this.state.counter}`)
-        // console.log(this.props.stateProps)
-        // if (this.state.singleListDisplayMode && this.state.counter === ) {
-        //     console.log("działam")
-        //     this.setState({
-        //         counter: this.state.counter+1,
-        //     })
-        // }
-
         if (this.props.appProps.singleListRefreshAttempt && this.state.singleListDisplayMode) {
             this.setState({
                 allListsDisplayMode: true,
@@ -75,7 +57,6 @@ class SavedLists extends Component {
     }
 
     componentWillUnmount() {
-        console.log("unmounted")
         window.removeEventListener("resize", this.updateDimensions);
         this.setState({
             visited: false
@@ -102,7 +83,6 @@ class SavedLists extends Component {
             //if the above condition is not met than large devices mode is applied
         } else {
             //BELOW CODE RENDERS LIST FOR LARGE SCREENS > 475 device width
-            console.log("switchToSingleDisplayMode secondConditions: everything what is not <=475")
             let list = document.getElementById(listId);
             let listColumn = list.children[2].children[0];
 
@@ -136,8 +116,7 @@ class SavedLists extends Component {
                 e.target.innerHTML = "ukryj";
             }
         }
-        console.log(this.state)
-    };
+        };
 
 
     back = () => {
@@ -153,7 +132,6 @@ class SavedLists extends Component {
     render() {
         if ((this.state.allListsDisplayMode && !this.state.singleListDisplayMode) || window.innerWidth > 475.0000) {
             //this covers "refresh experience" when user clicked again on the same link that has been currently active
-            console.log("Pierwszy warunek: renderuję AllListsDisplayMode")
             if (this.state.visited  && !this.state.singleListDisplayMode) {
                 let olElements = document.getElementsByTagName("OL");
                 [...olElements].map(element => {
@@ -170,7 +148,6 @@ class SavedLists extends Component {
                     this.comboFunctionerAllListsBtn(e)
                 }}/>
         } else if (!this.state.allListsDisplayMode && this.state.singleListDisplayMode)  {
-            console.log("drugi warunek: renderuję SingleList")
             return <SingleListDisplayMode
                 currentList={this.state.data[this.state.currentlyDisplayedListId]}
                 backOnClick={e => {
@@ -180,7 +157,6 @@ class SavedLists extends Component {
             />
         }
         else if (this.state.visited && this.state.singleListDisplayMode && !this.state.allListsDisplayMode) {
-            console.log("trzeci warunek");
             return <AllListsDisplayMode
                 dataState={this.state.data}
                 stateSwitch={e => {
@@ -195,7 +171,6 @@ class SavedLists extends Component {
 }
 
 class AllListsDisplayMode extends Component {
-
     render() {
         return <>
             <div className={"h2FlexContainer"}><h2>Ostatnie listy:</h2></div>
@@ -225,11 +200,9 @@ class AllListsDisplayMode extends Component {
 }
 
 class SingleListDisplayMode extends Component {
-
-
     render() {
-        let arrOfProducts = Object.values(this.props.currentList)[1];
-
+        let objOfProducts = Object.values(this.props.currentList)[1];
+        let arrOfProducts = Array.from(objOfProducts);
         return <div className={"singleListViewGeneralContainer"}>
             <h2>Zapisane zakupy:</h2>
             <div className={"singleListViewContainer"}>{arrOfProducts.map((item, index) => {
