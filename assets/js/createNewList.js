@@ -4,7 +4,13 @@ import {withRouter} from 'react-router-dom';//thanks to withRouter I can access 
 
 require('../css/app.css');
 const $ = require('jquery');
-import Swal from 'sweetalert2'
+
+// import sweetalert2 without inline styles
+import swal from 'sweetalert2/dist/sweetalert2.js';
+// import styles separately
+import 'sweetalert2/dist/sweetalert2.css';
+
+
 
 require('bootstrap');
 var url = require('url');
@@ -69,7 +75,7 @@ class CreateList extends Component {
                 listName: input
             });
         } else {
-            Swal.fire({
+            swal.fire({
                 title: 'halo halo!',
                 text: 'Coś tu nie gra:-( Nazwa musi być ciut dluższa!',
                 icon: 'info',
@@ -96,7 +102,7 @@ class CreateList extends Component {
 
                 event.target.value = this.state.inputFieldState;
             } else {
-                Swal.fire({
+                swal.fire({
                     title: 'halo halo!',
                     text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
                     icon: 'info',
@@ -120,7 +126,7 @@ class CreateList extends Component {
 
             e.target.previousSibling.value = this.state.inputFieldState;
         } else {
-            Swal.fire({
+            swal.fire({
                 title: 'halo halo!',
                 text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
                 icon: 'info',
@@ -358,7 +364,8 @@ class ShoppingListDraft extends Component {
 class ShoppingListItem extends Component {
     render() {
         return <>
-            <li style={{marginTop: "5px"}} className={"liItem"}>
+            <li className={"liItem"}>
+                {/*<li style={{marginTop: "5px"}} className={"liItem"}>*/}
                 <span className={"itemName"}>{this.props.itemContent}</span>
                 <button
                     className={"btn-sm btn-warning itemBtn"}
