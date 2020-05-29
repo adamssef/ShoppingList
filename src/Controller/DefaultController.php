@@ -29,30 +29,30 @@ class DefaultController extends AbstractController
     public function save(Request $request)
     {
 
-        if ($request->getMethod() === 'POST') {
+        if ($request->getMethod() !== 'POST') {
+            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+        }
+        else {
             $shoppingList = new ShoppingList();
             $list = $request->request->all();
         }
-
         if (count($list) > 0) {
             $em = $this->getDoctrine()->getManager();
             $shoppingList->setCreationDate(new \DateTime());
             $shoppingList->setName($list['name']);
             unset($list['name']);
+            $list = serialize($list);
             $shoppingList->setListItems($list);
-
             $em->persist($shoppingList);
             $em->flush();
-            $results = $em->getRepository(ShoppingList::class)->getLastTenLists();
-            $response = $this->json($results);
+            $response = $this->json([]);
             $response->headers->set('Content-Type', 'application/json');
 
             return $response;
-        } elseif ($request->getMethod() === 'GET') {
-            return $this->redirect($request->server->get('HTTP_HOST'));
         }
         return new Response();
     }
+
 
     /**
      * @Route("/saved", name="saved")

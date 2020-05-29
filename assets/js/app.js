@@ -46,12 +46,10 @@ class App extends Component {
 
     componentDidMount() {
         document.getElementById('root').style = {backgroundImage: "url('images/photo.1af09e53.jpg')"}
-        console.log("APP: I got mounted!")
     }
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("APP: savedListsCounter state: " + this.state.savedListsCounter)
         if (this.state.savedListsCounter === 1 && !this.state.visited) {
             this.setState({
                 visited: true,
@@ -135,25 +133,20 @@ class App extends Component {
                         <li className={"inline left create"}>
                             <NavLink to="/" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
                                      id={"defNavEl"}>Nowa lista</NavLink>
-                            {/*<Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>*/}
                         </li>
                         <li className={"inline saved-lists"}>
                             <NavLink to="/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
                                 listy</NavLink>
-                            {/*<Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>*/}
                         </li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"inline right about"}>
                             <NavLink to="/about" className={"navLink"} onClick={e => this.comboFunctioner(e)}>O
                                 mnie</NavLink>
-                            {/*<Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>*/}
                         </li>
                     </ul>
                 </nav>
 
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={CreateList}/>
                     <Route exact path="/saved" render={() => <SavedLists
@@ -161,7 +154,6 @@ class App extends Component {
                         singleListVerifier={this.singleListVerifier}
                         appProps={this.state}
                     />}/>
-                    {/*<Route exact path="/saved" render={() => <SavedLists title={`Props through render`} />} />*/}
                     <Route exact path="/about" component={About}/>
                 </Switch>
             </div>

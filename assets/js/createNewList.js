@@ -32,14 +32,8 @@ class CreateList extends Component {
         }
     }
 
-    //COMPONENT LIFECYCLE METHODS
-    componentDidMount() {
-        console.log("CREATE: Mounted!");
-    }
-
+    //COMPONENT LIFECYCLE METHOD
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.props.appStateProps);
-
         if (prevState.listName !== this.state.listName) {
             console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
         }
@@ -59,7 +53,6 @@ class CreateList extends Component {
     //NAME YOUR LIST MODE METHODS
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
-        console.log(input)
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         if (event.key === "Enter") {
             event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);

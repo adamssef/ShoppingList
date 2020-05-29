@@ -72,7 +72,6 @@ class SavedLists extends Component {
 
         //if  device width is less than 475 the display mode for small devices is applied
         if (window.innerWidth <= 475) {
-            console.log("switchToSingleDisplayMode first condition <= 475")
             this.setState({
                 singleListDisplayMode: true,
                 allListsDisplayMode: false,
