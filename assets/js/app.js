@@ -72,7 +72,7 @@ class App extends Component {
     }
 
     stateUpdater = (e) => {
-        if (e.target.href === 'https://localhost:8000/about') {
+        if (e.target.href === window.location.href + "about") {
             this.setState({
                 createNewList: false,
                 savedLists: false,
@@ -80,14 +80,14 @@ class App extends Component {
                 savedListsCounter: -1,
                 visited: false
             })
-        } else if (e.target.href === 'https://localhost:8000/saved') {
+        } else if (e.target.href === window.location.href + "saved") {
             this.setState({
                 createNewList: false,
                 savedLists: true,
                 about: false,
                 savedListsCounter: this.state.savedListsCounter + 1
             })
-        } else if (e.target.href === 'https://localhost:8000/') {
+        } else if (e.target.href === window.location.href) {
             this.setState({
                 createNewList: true,
                 savedLists: false,
@@ -175,5 +175,5 @@ class About extends Component {
     }
 
 }
-export  {App, About};
-// ReactDOM.render(<App/>, document.getElementById('root'));
+
+ReactDOM.render(<App/>, document.getElementById('root'));
