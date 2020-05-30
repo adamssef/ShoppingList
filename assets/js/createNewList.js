@@ -32,15 +32,6 @@ class CreateList extends Component {
         }
     }
 
-    //COMPONENT LIFECYCLE METHOD
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.listName !== this.state.listName) {
-            console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
-        }
-
-
-    }
-
 
     //ACTIVATE LIST MODE METHODS
     createListOnClick = () => {
