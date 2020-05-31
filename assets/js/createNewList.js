@@ -164,7 +164,6 @@ class CreateList extends Component {
             method: "POST",
             headers: {
                 "Access-Control-Request-Method": "POST, GET, OPTIONS",
-                "Origin": location.origin,
             }
         })
         fetch(request)
