@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\ShoppingList;
 use App\Entity\User;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Response;
@@ -18,9 +19,9 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request)
     {
-            return $this->render('default/index.html.twig', [
-                'controller_name' => 'DefaultController',
-            ]);
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
 
 
@@ -29,26 +30,27 @@ class DefaultController extends AbstractController
      */
     public function save(Request $request)
     {
-        if ($request->getMethod() === 'POST') {
+        //number of POST request elements
+        $reqQnt = count($request->request->all());
+        if ($request->getMethod() === 'POST' AND ($reqQnt > 1 AND $reqQnt <= 101) AND isset($request->request->all()['name'])) {
             $shoppingList = new ShoppingList();
-            $list = $request->request->all();
+
+            $postVars = $request->request->all();
+
+            $em = $this->getDoctrine()->getManager();
+            $shoppingList->setCreationDate(new DateTime());
+            $shoppingList->setName($postVars['name']);
+            unset($postVars['name']);
+            $postVars = serialize($postVars);
+            $shoppingList->setListItems($postVars);
+            $em->persist($shoppingList);
+            $em->flush();
+            $response = $this->json([]);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            return $this->redirect("./../");
         }
-            if (count($list) > 0) {
-                $em = $this->getDoctrine()->getManager();
-                $shoppingList->setCreationDate(new \DateTime());
-                $shoppingList->setName($list['name']);
-                unset($list['name']);
-                $list = serialize($list);
-                $shoppingList->setListItems($list);
-                $em->persist($shoppingList);
-                $em->flush();
-                $response = $this->json([]);
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            } elseif ($request->getMethod() === 'GET') {
-                return $this->redirect($request->server->get('HTTP_HOST'));
-            }
-        return new Response();
     }
 
     /**
@@ -67,7 +69,7 @@ class DefaultController extends AbstractController
 
             return $response;
         } else {
-            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+            return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
         }
     }
 
@@ -76,7 +78,7 @@ class DefaultController extends AbstractController
      */
     public function about(Request $request)
     {
-            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+        return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
     }
 
     /**
@@ -85,10 +87,8 @@ class DefaultController extends AbstractController
     public function register(Request $request)
     {
         if ($request->getMethod() === 'POST') {
-            $user = new User;
+            $user = new User();
             $regData = $request->request->all();
-            // var_dump($regData);
-            // die();
         }
 
         if (count($regData) > 0) {
@@ -110,8 +110,6 @@ class DefaultController extends AbstractController
         }
         return new Response();
     }
-
-
 
 
 }
