@@ -28,29 +28,31 @@ class DefaultController extends AbstractController
      */
     public function save(Request $request)
     {
+// OLD CODE
+//        if ($request->getMethod() !== 'POST') {
+//            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+//        }
+//        else {
+//            $shoppingList = new ShoppingList();
+//            $list = $request->request->all();
+//        }
+//        if (count($list) > 0) {
+//            $em = $this->getDoctrine()->getManager();
+//            $shoppingList->setCreationDate(new \DateTime());
+//            $shoppingList->setName($list['name']);
+//            unset($list['name']);
+//            $list = serialize($list);
+//            $shoppingList->setListItems($list);
+//            $em->persist($shoppingList);
+//            $em->flush();
+//            $response = $this->json([]);
+//            $response->headers->set('Content-Type', 'application/json');
+//
+//            return $response;
+//        }
+//        return new Response();
 
-        if ($request->getMethod() !== 'POST') {
-            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
-        }
-        else {
-            $shoppingList = new ShoppingList();
-            $list = $request->request->all();
-        }
-        if (count($list) > 0) {
-            $em = $this->getDoctrine()->getManager();
-            $shoppingList->setCreationDate(new \DateTime());
-            $shoppingList->setName($list['name']);
-            unset($list['name']);
-            $list = serialize($list);
-            $shoppingList->setListItems($list);
-            $em->persist($shoppingList);
-            $em->flush();
-            $response = $this->json([]);
-            $response->headers->set('Content-Type', 'application/json');
 
-            return $response;
-        }
-        return new Response();
     }
 
 
