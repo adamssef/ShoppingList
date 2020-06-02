@@ -1,25 +1,71 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\ShoppingList;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class DefaultController extends AbstractController
 {
+
     /**
-     * @Route("/")
+     * @param Request $request
+     * @param int $min
+     * @param int $max
+     * @return bool
+     * Checks whether the number of the request parameters is within the desired range
+     */
+    private static function reqParamCountValidator (Request $request, int $min, int $max )
+    {
+        $reqQnt = count($request->request->all());
+        if($reqQnt > $min && $reqQnt <= $max){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param string $param
+     * @return bool
+     * Checks whether the specific paramter has been defined within the request given
+     */
+    private static function paramIsSetValidator(Request $request, string $param)
+    {
+        if (isset($request->request->all()[$param])){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static function savedListInputValidator(Request $request)
+    {
+        $reqQnt = count($request->request->all());
+        // (1) check the number of request parameters sent
+        if ($request->isMethod('POST') && self::paramIsSetValidator($request, "name") && self::reqParamCountValidator($request, 1, 101)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * @Route("/", name="app_homepage")
      */
     public function index(Request $request)
     {
-            return $this->render('default/index.html.twig', [
-                'controller_name' => 'DefaultController',
-            ]);
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
 
 
@@ -28,31 +74,27 @@ class DefaultController extends AbstractController
      */
     public function save(Request $request)
     {
-// OLD CODE
-//        if ($request->getMethod() !== 'POST') {
-//            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
-//        }
-//        else {
-//            $shoppingList = new ShoppingList();
-//            $list = $request->request->all();
-//        }
-//        if (count($list) > 0) {
-//            $em = $this->getDoctrine()->getManager();
-//            $shoppingList->setCreationDate(new \DateTime());
-//            $shoppingList->setName($list['name']);
-//            unset($list['name']);
-//            $list = serialize($list);
-//            $shoppingList->setListItems($list);
-//            $em->persist($shoppingList);
-//            $em->flush();
-//            $response = $this->json([]);
-//            $response->headers->set('Content-Type', 'application/json');
-//
-//            return $response;
-//        }
-//        return new Response();
+        if (self::savedListInputValidator($request)) {
+            $shoppingList = new ShoppingList();
 
+            $postVars = $request->request->all();
 
+            $em = $this->getDoctrine()->getManager();
+            $shoppingList->setCreationDate(new DateTime());
+            $shoppingList->setName($postVars['name']);
+            unset($postVars['name']);
+
+            $postVars = serialize($postVars);
+
+            $shoppingList->setListItems($postVars);
+            $em->persist($shoppingList);
+            $em->flush();
+            $response = $this->json([]);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            return $this->redirect('https://localhost:8000/about');
+        }
     }
 
 
@@ -73,7 +115,7 @@ class DefaultController extends AbstractController
 
             return $response;
         } else {
-            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+            return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
         }
     }
 
@@ -82,7 +124,7 @@ class DefaultController extends AbstractController
      */
     public function about(Request $request)
     {
-            return $this->redirect("https://".$request->server->get('HTTP_HOST'));
+        return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
     }
 
 }
