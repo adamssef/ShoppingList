@@ -32,7 +32,12 @@ class DefaultController extends AbstractController
     {
         //number of POST request elements
         $reqQnt = count($request->request->all());
-        if ($request->getMethod() === 'POST' AND ($reqQnt > 1 AND $reqQnt <= 101) AND isset($request->request->all()['name'])) {
+        foreach ($request->request->all() as $key=>$value) {
+            if ($key !== "name" OR is_int($key) === false OR $key === 2) {
+                return $this->redirect("./..");
+            }
+        }
+        if ($request->getMethod() === 'POST' AND $reqQnt > 1 AND $reqQnt <= 101 AND isset($request->request->all()['name'])) {
             $shoppingList = new ShoppingList();
 
             $postVars = $request->request->all();
@@ -91,16 +96,16 @@ class DefaultController extends AbstractController
             $regData = $request->request->all();
         }
 
-        if (count($regData) > 0) {
+        if (count($regData) > 0 && filter_var($regData['email'], FILTER_VALIDATE_EMAIL) && ctype_alnum($regData['fName'])) {
             $em = $this->getDoctrine()->getManager();
             $user->setRegDate();
             $user->setFirstName($regData['fName']);
-            $user->setEmail($regData['email']);
-//            $user->setPassword()
+            $user->setEmail(filter_var($regData['email'], FILTER_SANITIZE_EMAIL));
+            $user->setPassword($regData['password']);
 
             $em->persist($user);
             $em->flush();
-            // $results = $em->getRepository(ShoppingList::class)->listAllShoppingLists();
+
             $response = $this->json($regData);
             $response->headers->set('Content-Type', 'application/json');
 
