@@ -7,13 +7,6 @@ import {About, App} from "./app";
 //thanks to withRouter I can access match
 
 require('../css/app.css');
-// const $ = require('jquery');
-// import Swal from 'sweetalert2'
-
-// require('bootstrap');
-// var url = require('url');
-// var https = require('https');
-// var HttpsProxyAgent = require('https-proxy-agent');
 
 
 import {createBrowserHistory} from "history";
@@ -73,6 +66,7 @@ class RegisterPage extends Component {
 
 
             let targetUrl = `${location.origin}/register`;
+            console.log(targetUrl);
 
             let request = new Request(targetUrl, {
                 body: formData,
@@ -129,25 +123,18 @@ class RegisterPage extends Component {
 }
 
 
-class LandingPage extends Component {
+class Homepage extends Component {
     render() {
         return <Router history={history}>
             <div>
                 <nav>
                     <ul>
-                        {/*<li className={"inline left create"}>*/}
-                        {/*    <NavLink to="/">WELCOME</NavLink>*/}
-                        {/*</li>*/}
                         <li className={"inline saved-lists"}>
                             <NavLink to="/login">LOGIN</NavLink>
                         </li>
                         <li className={"inline saved-lists"}>
                             <NavLink to="/register">REGISTER</NavLink>
                         </li>
-                        {/*<li className={"inline saved-lists"}>*/}
-                        {/*    <NavLink to="/app">APP</NavLink>*/}
-                        {/*</li>*/}
-
                     </ul>
                 </nav>
 
@@ -166,4 +153,4 @@ class LandingPage extends Component {
 }
 
 
-export default LandingPage;
+export default Homepage;
