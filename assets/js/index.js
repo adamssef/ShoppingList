@@ -9,8 +9,8 @@ import {
     NavLink
 } from "react-router-dom";
 import {App, About} from "./app.js";
-import LandingPage from "./landingPage";
+import Homepage from "./homepage.js";
 
 
 
-ReactDOM.render(<LandingPage/>, document.getElementById('root'));
+ReactDOM.render(<Homepage/>, document.getElementById('root'));
