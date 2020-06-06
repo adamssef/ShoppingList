@@ -10,7 +10,7 @@ savePost:
 saveGet:
   path: /save
   controller: App\Controller\DefaultController::saveGet
-  methods:  [GET]
+  methods:  [GET, HEAD, PUT, DELETE, CONNECT, TRACE, PATCH, VIEW, UNLINK, PURGE, LOCK, UNLOCK, LINK, PROPFIND]
 
 saved:
   path: /saved
