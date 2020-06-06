@@ -168,9 +168,7 @@ class CreateList extends Component {
         })
         fetch(request)
             .then((response) => response.json())
-
             .then((response) => {
-
                 this.setState({
                     isListActive: false,
                     currentItems: [],
