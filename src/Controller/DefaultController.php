@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends AbstractController
 {
@@ -70,11 +71,11 @@ class DefaultController extends AbstractController
 
 
     /**
-     * @Route("/save", name="save")
+     * @Route("/save", name="savePost")
      */
-    public function save(Request $request)
+    public function savePost(Request $request)
     {
-        //number of POST request elements
+        //number git of POST request elements
         $reqQnt = count($request->request->all());
 //        $redirection_path = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
         $isNameSet = false;
@@ -108,6 +109,16 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/save", name="saveGet")
+     */
+    public function saveGet()
+    {
+        $redirection_path = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+        return $this->redirect("$redirection_path");
+    }
+
+
+    /**
      * @Route("/saved", name="saved")
      */
 
@@ -134,7 +145,8 @@ class DefaultController extends AbstractController
      */
     public function about(Request $request)
     {
-        return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
+        $redirection_path = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+        return $this->redirect("$redirection_path");
     }
 
 }
