@@ -21,10 +21,10 @@ class DefaultController extends AbstractController
      * @return bool
      * Checks whether the number of the request parameters is within the desired range
      */
-    private static function reqParamCountValidator (Request $request, int $min, int $max )
+    private static function reqParamCountValidator(Request $request, int $min, int $max)
     {
         $reqQnt = count($request->request->all());
-        if($reqQnt > $min && $reqQnt <= $max){
+        if ($reqQnt > $min && $reqQnt <= $max) {
             return true;
         } else {
             return false;
@@ -39,7 +39,7 @@ class DefaultController extends AbstractController
      */
     private static function paramIsSetValidator(Request $request, string $param)
     {
-        if (isset($request->request->all()[$param])){
+        if (isset($request->request->all()[$param])) {
             return true;
         } else {
             return false;
@@ -74,7 +74,19 @@ class DefaultController extends AbstractController
      */
     public function save(Request $request)
     {
-        if (self::savedListInputValidator($request)) {
+        //number of POST request elements
+        $reqQnt = count($request->request->all());
+//        $redirection_path = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+        $isNameSet = false;
+        if($reqQnt <= 101){
+            foreach ($request->request->all() as $key => $value) {
+                if ($key === "name") {
+                    $isNameSet = true;
+                }
+            }
+        }
+
+        if ($isNameSet and $request->getMethod() === 'POST' and $reqQnt > 1 and $reqQnt <= 101 and isset($request->request->all()['name'])) {
             $shoppingList = new ShoppingList();
 
             $postVars = $request->request->all();
@@ -83,24 +95,22 @@ class DefaultController extends AbstractController
             $shoppingList->setCreationDate(new DateTime());
             $shoppingList->setName($postVars['name']);
             unset($postVars['name']);
-
             $postVars = serialize($postVars);
-
             $shoppingList->setListItems($postVars);
             $em->persist($shoppingList);
             $em->flush();
-            $response = $this->json([]);
+            $response = new JsonResponse();
             $response->headers->set('Content-Type', 'application/json');
             return $response;
         } else {
-            return $this->redirect('https://localhost:8000/about');
+            return new JsonResponse();
         }
     }
-
 
     /**
      * @Route("/saved", name="saved")
      */
+
     public function saved(Request $request)
     {
         if ($request->getMethod() === "POST") {
@@ -115,7 +125,7 @@ class DefaultController extends AbstractController
 
             return $response;
         } else {
-            return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
+            return new JsonResponse();
         }
     }
 
