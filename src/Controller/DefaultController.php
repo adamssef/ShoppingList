@@ -132,11 +132,12 @@ class DefaultController extends AbstractController
 
             $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', "http://localhost:" . $request->getPort());
-            $response->headers->set('Access-Control-Allow-Methods', 'GET,POST');
+            $response->headers->set('Access-Control-Allow-Methods', 'POST');
 
             return $response;
         } else {
-            return new JsonResponse();
+            $redirection_path = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+            return $this->redirect("$redirection_path");
         }
     }
 
