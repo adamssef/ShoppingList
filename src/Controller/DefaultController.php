@@ -7,13 +7,18 @@ use App\Entity\ShoppingList;
 use App\Entity\User;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Tests\Compiler\J;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 
 class DefaultController extends AbstractController
 {
+
     /**
      * @Route("/")
      */
@@ -24,7 +29,6 @@ class DefaultController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/save", name="save")
      */
@@ -32,12 +36,12 @@ class DefaultController extends AbstractController
     {
         //number of POST request elements
         $reqQnt = count($request->request->all());
-        foreach ($request->request->all() as $key=>$value) {
-            if ($key !== "name" OR is_int($key) === false OR $key === 2) {
+        foreach ($request->request->all() as $key => $value) {
+            if ($key !== "name" or is_int($key) === false or $key === 2) {
                 return $this->redirect("./..");
             }
         }
-        if ($request->getMethod() === 'POST' AND $reqQnt > 1 AND $reqQnt <= 101 AND isset($request->request->all()['name'])) {
+        if ($request->getMethod() === 'POST' and $reqQnt > 1 and $reqQnt <= 101 and isset($request->request->all()['name'])) {
             $shoppingList = new ShoppingList();
 
             $postVars = $request->request->all();
@@ -89,31 +93,44 @@ class DefaultController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request)
+    public function register(Request $request, Session $session)
     {
-        if ($request->getMethod() === 'POST') {
+        $session->start();
+        $allowedOrigin = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+//        var_dump($allowedOrigin);
+        //this scenario is accepted in a case where user agent renders the reg form and needs a token to be generated
+        if ($request->getMethod() === "GET" && is_null($session->get('regToken'))) {
+            $random = random_bytes(10);
+            $token = md5($random);
+
+            $session->set('regToken', $token);
+            $jsonResponse = new JsonResponse($token);
+            $jsonResponse->headers->set('Content-Type', 'application/json');
+            $jsonResponse->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
+            $jsonResponse->headers->set('Access-Control-Allow-Methods', 'GET');
+            return $jsonResponse;
+        } elseif ($request->getMethod() === "POST" && $session->get('regToken') === $request->get('regToken') && $session->get('regToken') !== null && is_string($session->get('regToken'))) {
             $user = new User();
             $regData = $request->request->all();
+            if (count($regData) > 0 && filter_var($regData['email'], FILTER_VALIDATE_EMAIL) && ctype_alnum($regData['fName'])) {
+                $em = $this->getDoctrine()->getManager();
+                $user->setRegDate();
+                $user->setFirstName($regData['fName']);
+                $user->setEmail(filter_var($regData['email'], FILTER_SANITIZE_EMAIL));
+                $user->setPassword($regData['password']);
+
+                $em->persist($user);
+                $em->flush();
+
+                $response = $this->json($regData);
+                $response->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->headers->set('Access-Control-Allow-Methods', 'POST');
+                $session->invalidate();
+                return $response;
+            }
         }
-
-        if (count($regData) > 0 && filter_var($regData['email'], FILTER_VALIDATE_EMAIL) && ctype_alnum($regData['fName'])) {
-            $em = $this->getDoctrine()->getManager();
-            $user->setRegDate();
-            $user->setFirstName($regData['fName']);
-            $user->setEmail(filter_var($regData['email'], FILTER_SANITIZE_EMAIL));
-            $user->setPassword($regData['password']);
-
-            $em->persist($user);
-            $em->flush();
-
-            $response = $this->json($regData);
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        } elseif ($request->getMethod() === 'GET') {
-            return $this->redirect($request->server->get('HTTP_HOST'));
-        }
-        return new Response();
+        return new JsonResponse('bad request');
     }
 
 

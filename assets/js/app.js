@@ -135,19 +135,16 @@ class App extends Component {
                         <li className={"inline left create"}>
                             <NavLink to="/" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
                                      id={"defNavEl"}>Nowa lista</NavLink>
-                            {/*<Link to="/" className={"navLink default"} onClick={e=>this.removeDefaultNavClass(e)} id={"defNavEl"}>Nowa lista</Link>*/}
                         </li>
                         <li className={"inline saved-lists"}>
                             <NavLink to="/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
                                 listy</NavLink>
-                            {/*<Link to="/saved" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>Zapisane listy</Link>*/}
                         </li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"inline right about"}>
                             <NavLink to="/about" className={"navLink"} onClick={e => this.comboFunctioner(e)}>O
                                 mnie</NavLink>
-                            {/*<Link to="/about" className={"navLink"} onClick={e=>this.removeDefaultNavClass(e)}>O mnie</Link>*/}
                         </li>
                     </ul>
                 </nav>
@@ -156,12 +153,14 @@ class App extends Component {
             renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={CreateList}/>
-                    <Route exact path="/saved" render={() => <SavedLists
-                        stateProps={this.state.savedListsCounter}
-                        singleListVerifier={this.singleListVerifier}
-                        appProps={this.state}
-                    />}/>
-                    {/*<Route exact path="/saved" render={() => <SavedLists title={`Props through render`} />} />*/}
+                    <Route exact path="/saved"
+                           render={() => <SavedLists
+                                stateProps={this.state.savedListsCounter}
+                                singleListVerifier={this.singleListVerifier}
+                                appProps={this.state}
+                            />
+                        }
+                    />
                     <Route exact path="/about" component={About}/>
                 </Switch>
             </div>
@@ -176,4 +175,3 @@ class About extends Component {
 
 }
 export  {App, About};
-// ReactDOM.render(<App/>, document.getElementById('root'));
