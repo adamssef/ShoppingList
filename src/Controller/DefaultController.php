@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
-
 class DefaultController extends AbstractController
 {
 
@@ -122,7 +121,7 @@ class DefaultController extends AbstractController
                 $em->persist($user);
                 $em->flush();
 
-                $response = $this->json($regData);
+                $response = $this->json("registration successful");
                 $response->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
                 $response->headers->set('Content-Type', 'application/json');
                 $response->headers->set('Access-Control-Allow-Methods', 'POST');
@@ -130,7 +129,7 @@ class DefaultController extends AbstractController
                 return $response;
             }
         }
-        return new JsonResponse('bad request');
+        return new JsonResponse($session->get('regToken') . "oraz" . $request->get('regToken'));
     }
 
 

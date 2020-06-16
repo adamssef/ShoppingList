@@ -62,15 +62,17 @@ class RegisterPage extends Component {
         let fName = document.getElementsByName('fName')[0].value;
         let password = document.getElementsByName("password")[0].value
         let cpassword = document.getElementsByName("cpassword")[0].value;
-        let loginDetails = {"email": login, "password": password, "fName": fName};
         let token = document.getElementsByName('regToken')[0].value;
+        let loginDetails = {"email": login, "password": password, "fName": fName, "regToken":token};
+
+        console.log(token);
         if (cpassword !== password) {
             console.log("Hasła różnią się");
         } else {
             const formData = new FormData();
             for (let [key, value] of Object.entries(loginDetails)) {
                 formData.append(key, value);
-                console.log(value);
+                console.log(key+" "+value);
             }
 
 
@@ -99,6 +101,25 @@ class RegisterPage extends Component {
 
     }
 
+    getToken = (request)=>{
+        if (this.props.token === null) {
+            fetch(request)
+                .then((response) => response.json())
+                .then(jsonResponse => {
+                    if(jsonResponse !== 'badRequest'){
+                        // this.props.parentTokenUpdater(jsonResponse);
+                        // sessionStorage.setItem('regToken', jsonResponse);
+                        document.getElementsByName('regToken')[0].value = jsonResponse;
+                        console.log(document.getElementsByName('regToken')[0]);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+        console.log(sessionStorage.getItem('regToken'));
+    }
+
     render() {
         let targetUrl = `${location.origin}/register`;
         console.log(targetUrl);
@@ -108,24 +129,10 @@ class RegisterPage extends Component {
             headers: {
                 "Access-Control-Request-Method": "GET",
                 "Origin": location.origin,
+                "Content-Type":"application/json"
             }
         })
-        console.log(this.props.token);
-        if (this.props.token === null) {
-            fetch(request)
-                .then((response) => response.json())
-                .then(jsonResponse => {
-                    console.log(jsonResponse);
-                    if(jsonResponse !== 'badRequest'){
-                    // this.props.parentTokenUpdater(jsonResponse);
-                    sessionStorage.setItem('regToken', jsonResponse);
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-        console.log(sessionStorage.getItem('regToken'));
+        this.getToken(request);
 
         return <div className={"landing-page-container"}>
             <form className={"registerForm"}>
@@ -151,7 +158,7 @@ class RegisterPage extends Component {
                     <input type={"password"} name={"cpassword"} autoComplete={"new-password"}
                            className={"reg-form-input"}/>
                 </div>
-                <input type={"hidden"} name={"regToken"} value={sessionStorage.getItem('regToken')}/>
+                <input type={"hidden"} name={"regToken"} value=""/>
                 <input onClick={this.formSendRegister} type={"submit"} value={"wyślij"}/>
             </form>
         </div>
