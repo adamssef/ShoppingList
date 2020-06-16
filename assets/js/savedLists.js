@@ -49,20 +49,6 @@ class SavedLists extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // if(this.state.singleListDisplayMode) {
-        //     console.log("I am triggered!")
-        //     this.props.singleListVerifier(false);
-        // }
-        console.log("ComponentDidUpdate: updated")
-        console.log(`Stan countera didUpdate: ${this.state.counter}`)
-        // console.log(this.props.stateProps)
-        // if (this.state.singleListDisplayMode && this.state.counter === ) {
-        //     console.log("działam")
-        //     this.setState({
-        //         counter: this.state.counter+1,
-        //     })
-        // }
-
         if (this.props.appProps.singleListRefreshAttempt && this.state.singleListDisplayMode) {
             this.setState({
                 allListsDisplayMode: true,
