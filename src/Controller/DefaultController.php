@@ -96,7 +96,6 @@ class DefaultController extends AbstractController
     {
         $session->start();
         $allowedOrigin = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
-//        var_dump($allowedOrigin);
         //this scenario is accepted in a case where user agent renders the reg form and needs a token to be generated
         if ($request->getMethod() === "GET" && is_null($session->get('regToken'))) {
             $random = random_bytes(10);
