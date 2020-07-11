@@ -455,7 +455,6 @@ button:focus {
         flex-basis: 0;
         margin: 0 auto;
         /*width: 75%;*/
-
     }
 
 
@@ -547,15 +546,24 @@ button:focus {
     }
 
 
-    .registerForm {
+    .reg-form {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 30vw;
-        border-radius:10px;
+        width: 45vw;
+        border-radius: 10px;
         align-content: space-evenly;
+        font-size: 1.5vw;
+    }
+
+    .reg-form-btn {
+        width: 25%;
+        font-size: 1.5vw;
+        margin-top: 30px;
+        padding:2px;
+        align-self:flex-end;
     }
 
     .reg-form-div-el {
@@ -565,20 +573,33 @@ button:focus {
         flex-basis:0;
     }
 
+    .reg-form-div-el >span {
+        width: 30%;
+        margin-left: 1vw;
+        display: none;
+    }
+
     .reg-form-input {
         flex-basis:0;
-        flex-grow: 10;
+        flex-grow: 7;
+        margin-bottom: 5px;
     }
 
     .reg-form-label {
         flex-basis:0;
-        flex-grow:3;
+        flex-grow:4;
     }
 
     .reg-form-space-div {
         flex-basis:0;
-        flex-grow: 1;
+        flex-grow: 0;
     }
+
+    .reg-form-notif-msg {
+        flex: 0 1 auto
+    }
+
+
 
     .right25pxMargin {
         margin-right: 25px;
@@ -1105,12 +1126,26 @@ button:focus {
     }
 
 
-    .registerForm {
+    .reg-form {
+        font-size: 2vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 60vw;
-        border-radius:10px;
+        width: 70vw;
+        border-radius: 10px;
+        align-content: space-evenly;
     }
+
+    .reg-form-btn {
+        width: 25%;
+        font-size: 2vw;
+        margin-top: 30px;
+        padding:2px;
+        align-self:flex-end;
+    }
+
 
     .reg-form-div-el {
         display: flex;
@@ -1119,19 +1154,27 @@ button:focus {
         flex-basis:0;
     }
 
+    .reg-form-div-el >span {
+        width: 30%;
+        margin-left: 1vw;
+        display: none;
+        font-size: 0.8rem;
+    }
+
     .reg-form-input {
         flex-basis:0;
-        flex-grow: 10;
+        flex-grow: 3.5;
+        margin-bottom: 5px;
     }
 
     .reg-form-label {
         flex-basis:0;
-        flex-grow:3;
+        flex-grow:1;
     }
 
     .reg-form-space-div {
         flex-basis:0;
-        flex-grow: 1;
+        flex-grow: 0.1;
     }
 }
 
@@ -1619,7 +1662,7 @@ button:focus {
         margin-right: 25px;
     }
 
-    .registerForm {
+    .regForm {
         padding: 2vh;
         background-color: white;
         width: 80vw;
