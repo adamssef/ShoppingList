@@ -39,7 +39,20 @@ class LoginPage extends Component {
     }
 }
 
-class RegisterPage extends Component {
+class FormUpperText extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return <div className={'text-box__reg-form-above'}>
+            <div className={'text-box__reg-form-above--title'}>Zarejestruj się.</div>
+            <div className={'text-box__reg-form-above--desc'}>Twórz proste i łatwe w użyciu listy zakupów.</div>
+        </div>
+    }
+}
+
+class RegForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -120,10 +133,11 @@ class RegisterPage extends Component {
         let createWrongPassNotifList = () => {
             let notifBoxTxt = event.currentTarget.nextSibling.innerText;
             var list = document.createElement('ul');
+            list.classList.add('reg-form-notif-msg');
             // const unallowedPass = 'Hasło musi zawierać 1 wielką literę, 1 liczbę oraz składać się z min. 8 znaków';
             var span = document.createElement('span');
             span.innerText = 'Upewnij się, że hasło zawiera:';
-            span.classList.add('reg-form-wrong-pass-li')
+            span.classList.add('reg-form-notif-msg');
             span.style.color = color;
             var li1 = document.createElement('li');
             li1.innerText = '1 wielką literę';
@@ -172,7 +186,7 @@ class RegisterPage extends Component {
                     // CASE 1b - green input && notifbox is not empty && notifbox first child is <p> && notifBoxTxt isn't already a correctMessage
                 }
             } catch (e) {
-                if(e.message === 'Cannot read property \'localName\' of undefined'){
+                if (e.message === 'Cannot read property \'localName\' of undefined') {
                     return null;
                 } else {
                     return e;
@@ -198,6 +212,7 @@ class RegisterPage extends Component {
                 }
             }
             var node = document.createElement('p')
+            node.classList.add('reg-form-notif-msg');
             node.style.color = color;
             node.innerText = incorrectMessage;
             if (notifBoxTxt.indexOf(incorrectMessage) === -1) {
@@ -249,9 +264,9 @@ class RegisterPage extends Component {
         let nameInput = document.getElementsByName('fName')[0];
         let nameInputValue = document.getElementsByName('fName')[0].value;
         let notifBoxTxt = document.getElementById('reg-form-validation-div').innerText;
-        let unallowedCharsTerm = 'Imię lub nick mogą się składać tylko z liter alfabetu lub cyfr.';
+        // let unallowedCharsTerm = 'Login może składać tylko z liter alfabetu lub cyfr.';
         let tooLongTerm = 'Ta ilość znaków nie jest dozwolona.';
-        let correctTerm = 'Prawidłowe imię lub nick.';
+        let correctTerm = 'OK';
         if (nameInputValue.length > 50 && notifBoxTxt.indexOf(tooLongTerm) === -1 && document.activeElement === nameInput) {
             this.notifHandler(correctTerm, tooLongTerm, "red", event);
         } else if (nameInputValue.length > 0 && nameInputValue.length <= 50) {
@@ -329,29 +344,30 @@ class RegisterPage extends Component {
                     <div className={"reg-form-space-div"}></div>
                     <input type={"text"} name={"email"} autoComplete={"email"} className={"reg-form-input"}
                            required={'required'} onKeyUp={this.validateEmail}/>
-                    <span></span>
+                    <span className={'reg-form__input__span-errorMsg'}></span>
                 </div>
                 <div className={"reg-form-div-el"}>
                     <label className={"reg-form-label"} htmlFor={"fName"}>
-                        Imię lub Nick
+                        Login
                     </label>
                     <div className={"reg-form-space-div"}></div>
                     <input type={"text"} name={"fName"} autoComplete={"given-name"} className={"reg-form-input"}
-                           required={'required'} onChange={this.validateName}/><span></span>
+                           required={'required'} onChange={this.validateName}/><span
+                    className={'reg-form__input__span-errorMsg'}></span>
                 </div>
                 <div className={"reg-form-div-el"}>
                     <label className={"reg-form-label"} htmlFor={"password"}>Utwórz hasło</label>
                     <div className={"reg-form-space-div"}></div>
                     <input type={"password"} name={"password"} autoComplete={"new-password"}
                            className={"reg-form-input"} required={'required'}
-                           onKeyUp={this.validatePassword}/><span></span>
+                           onKeyUp={this.validatePassword}/><span className={'reg-form__input__span-errorMsg'}></span>
                 </div>
                 <div className={"reg-form-div-el"}>
                     <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
                     <div className={"reg-form-space-div"}></div>
                     <input type={"password"} name={"cpassword"} autoComplete={"new-password"}
                            className={"reg-form-input"} required={'required'}
-                           onKeyUp={this.validateCpassword}/><span></span>
+                           onKeyUp={this.validateCpassword}/><span className={'reg-form__input-span--errorMsg'}></span>
                 </div>
                 <input type={"hidden"} name={"regToken"} value=""/>
                 <input onClick={this.formSendRegister} type={"submit"} value={"Zarejestruj się."}
@@ -400,6 +416,15 @@ class Homepage extends Component {
                 </Switch>
             </div>
         </Router>
+    }
+}
+
+class RegisterPage extends Component {
+    render() {
+        return <div className={'reg-form-container'}>
+            <FormUpperText/>
+            <RegForm/>
+        </div>
     }
 }
 

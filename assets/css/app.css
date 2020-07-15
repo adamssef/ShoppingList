@@ -23,7 +23,6 @@ button:focus {
 
     body {
         min-width: 300px;
-
     }
 
     html {
@@ -67,6 +66,7 @@ button:focus {
         width: 100%;
         font-family: 'Cabin Condensed', sans-serif;
         box-sizing: border-box;
+        margin-bottom: 30px;
     }
 
     nav li.about {
@@ -128,6 +128,15 @@ button:focus {
 
     ol li::before {
         color: #7FD4BF;
+    }
+
+    span.reg-form-notif-msg {
+        line-height: normal;
+    }
+
+
+    ul.reg-form-notif-msg {
+        margin-bottom: 2px;
     }
 
     .listBtn {
@@ -356,8 +365,10 @@ button:focus {
 
     .landing-page-container {
         margin-top: 5vh;
-        display:flex;
+        display: flex;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .listIndex {
@@ -552,18 +563,32 @@ button:focus {
         align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 45vw;
+        width: 33vw;
         border-radius: 10px;
         align-content: space-evenly;
-        font-size: 1.5vw;
+        font-size: 1vw;
+        align-self: start;
     }
 
     .reg-form-btn {
-        width: 25%;
-        font-size: 1.5vw;
-        margin-top: 30px;
-        padding:2px;
+        width: 30%;
+        font-size: 1vw;
+        margin-top: 18px;
+        padding:5px;
         align-self:flex-end;
+        background-color: forestgreen;
+        color: white;
+        border-width: 0;
+        border-collapse: collapse;
+    }
+
+    .reg-form-container {
+        align-self: center;
+        display:flex;
+        flex-direction: column;
+        width: 33vw;
+        margin: 0 auto;
+        align-items: flex-start;
     }
 
     .reg-form-div-el {
@@ -571,6 +596,7 @@ button:focus {
         width: 100%;
         flex-grow:10;
         flex-basis:0;
+        justify-content: center;
     }
 
     .reg-form-div-el >span {
@@ -585,9 +611,19 @@ button:focus {
         margin-bottom: 5px;
     }
 
+    .reg-form-input__span--errorMsg > p {
+        font-size: 0.8vw;
+    }
+
     .reg-form-label {
         flex-basis:0;
         flex-grow:4;
+        align-self: center;
+    }
+
+    .reg-form-notif-msg {
+        flex: 0 1 auto;
+        font-size: 0.7vw;
     }
 
     .reg-form-space-div {
@@ -595,9 +631,7 @@ button:focus {
         flex-grow: 0;
     }
 
-    .reg-form-notif-msg {
-        flex: 0 1 auto
-    }
+
 
 
 
@@ -605,6 +639,21 @@ button:focus {
         margin-right: 25px;
     }
 
+    .text-box__reg-form-above {
+        font-size: 200%;
+        display:block;
+        align-self: center;
+        width: 33vw;
+    }
+
+    .text-box__reg-form-above--desc {
+        font-size: 0.5em;
+        width: 33vw;
+    }
+
+    .text-box__reg-form-above--title {
+        font-size: 1em;
+    }
 
 }
 
@@ -704,6 +753,10 @@ button:focus {
 
     ol li::before {
         color: #7FD4BF;
+    }
+
+    ul.reg-form-notif-msg {
+        margin-bottom: 2px;
     }
 
 
@@ -932,6 +985,8 @@ button:focus {
         margin-top: 5vh;
         display:flex;
         justify-content: center;
+        flex-direction: column;
+        align-self: center;
     }
 
     .liItem {
@@ -1133,18 +1188,31 @@ button:focus {
         align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 70vw;
+        width: 65vw;
         border-radius: 10px;
         align-content: space-evenly;
     }
 
     .reg-form-btn {
-        width: 25%;
+        width: 30%;
         font-size: 2vw;
-        margin-top: 30px;
-        padding:2px;
+        padding:5px;
         align-self:flex-end;
+        background-color: forestgreen;
+        color: white;
+        border-width: 0;
+        border-collapse: collapse;
     }
+
+    .reg-form-container {
+        align-self: center;
+        display:flex;
+        flex-direction: column;
+        width: 65vw;
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+
 
 
     .reg-form-div-el {
@@ -1159,6 +1227,7 @@ button:focus {
         margin-left: 1vw;
         display: none;
         font-size: 0.8rem;
+        justify-self: center;
     }
 
     .reg-form-input {
@@ -1169,12 +1238,36 @@ button:focus {
 
     .reg-form-label {
         flex-basis:0;
-        flex-grow:1;
+        flex-grow:2;
     }
+
+
+    .reg-form-notif-msg {
+        flex: 0 1 auto;
+        font-size: 1.8vw;
+    }
+
 
     .reg-form-space-div {
         flex-basis:0;
         flex-grow: 0.1;
+    }
+
+    .text-box__reg-form-above {
+        font-size: 200%;
+        display:block;
+        /*align-self: start;*/
+        width: 65vw;
+        margin: 0 auto;
+    }
+
+    .text-box__reg-form-above--desc {
+        font-size: 0.5em;
+        width: 65vw;
+    }
+
+    .text-box__reg-form-above--title {
+        font-size: 1em;
     }
 }
 
@@ -1285,6 +1378,8 @@ button:focus {
     ul li {
         display:flex;
     }
+
+
 
 
     #addItemBtn {
@@ -1510,6 +1605,8 @@ button:focus {
         margin-top: 5vh;
         display:flex;
         justify-content: center;
+        flex-direction: column;
+        align-self: center;
     }
 
 
@@ -1663,10 +1760,15 @@ button:focus {
     }
 
     .regForm {
+        font-size: 2vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 80vw;
-        border-radius:10px;
+        width: 95vw;
+        border-radius: 10px;
+        align-content: space-evenly
     }
 
     .reg-form-div-el {
