@@ -1603,10 +1603,11 @@ button:focus {
 
     .landing-page-container {
         margin-top: 5vh;
-        display:flex;
+        display: flex;
         justify-content: center;
         flex-direction: column;
-        align-self: center;
+        align-items: center;
+        width: 100%;
     }
 
 
@@ -1759,31 +1760,55 @@ button:focus {
         margin-right: 25px;
     }
 
-    .regForm {
+    .reg-form {
         font-size: 2vw;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 95vw;
-        border-radius: 10px;
-        align-content: space-evenly
+        align-content: space-evenly;
+        width: 100%;
+        margin: 0 0;
+    }
+
+    .reg-form-btn {
+        width: 38%;
+        font-size: 15px;
+        margin-top: 18px;
+        padding:5px;
+        align-self:flex-end;
+        background-color: forestgreen;
+        color: white;
+        border-width: 0;
+        border-collapse: collapse;
+    }
+
+
+
+    .reg-form-container {
+        align-self: center;
+        display:flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0 auto;
+        align-items: flex-start;
     }
 
     .reg-form-div-el {
         display: flex;
-        width: 100%;
-        flex-grow:10;
-        flex-basis:0;
+        width:inherit;
     }
 
     .reg-form-input {
+        font-size: 15px;
         flex-basis:0;
         flex-grow: 10;
+        margin-bottom: 5px;
     }
 
     .reg-form-label {
+        font-size: 15px;
         flex-basis:0;
         flex-grow:3;
     }
