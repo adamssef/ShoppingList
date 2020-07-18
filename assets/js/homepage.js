@@ -59,9 +59,35 @@ class RegForm extends Component {
             loginField: '',
             fNameField: '',
             passwordField: '',
-            cpasswordField: ''
+            cpasswordField: '',
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
+            regToken:''
         }
     }
+
+    updateDimensions = () => {
+        this.setState({
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight
+            }
+        )
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+
+        // this.setState({regToken: document.getElementsByName('regToken')[0].value});
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(document.getElementsByName('regToken')[0].value)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
 
     formSendRegister(e) {
         alert("Złapana!")
@@ -113,9 +139,9 @@ class RegForm extends Component {
                 .then((response) => response.json())
                 .then(jsonResponse => {
                     if (jsonResponse !== 'badRequest') {
-                        // this.props.parentTokenUpdater(jsonResponse);
-                        // sessionStorage.setItem('regToken', jsonResponse);
-                        document.getElementsByName('regToken')[0].value = jsonResponse;
+                        if(this.state.regToken !== jsonResponse) {
+                            this.setState({'regToken': jsonResponse})
+                        }
                     }
                 })
                 .catch(error => {
@@ -124,12 +150,23 @@ class RegForm extends Component {
         }
     }
 
-
+    /**
+     * notifHandler function is used to generate notification messages that are aimed to help user fill the form correctly
+     * @param correctMessage
+     * @param incorrectMessage
+     * @param color
+     * @param event
+     * @returns {null|*}
+     *
+     */
     notifHandler = (correctMessage, incorrectMessage, color, event) => {
         let notifBox = event.currentTarget.nextSibling;
         let notifBoxTxt = event.currentTarget.nextSibling.innerText;
-        // console.log(typeof notifBoxTxt)
 
+        /**
+         * this helper function is used to create list for wrong-pass-notif-msg and it is ONLY for the screens >= 475
+         * small screens are assumed to be mostly mobile devices and therefore forms have to be presented in more mobile-friendly manner
+         */
         let createWrongPassNotifList = () => {
             let notifBoxTxt = event.currentTarget.nextSibling.innerText;
             var list = document.createElement('ul');
@@ -152,9 +189,7 @@ class RegForm extends Component {
 
 
             list.setAttribute('style', `color: ${color}; padding-left:18px`)
-            // console.log('notif handler is working')
-            // console.log(notifBoxTxt.indexOf(correctMessage))
-            // console.log(notifBoxTxt);
+
             if (notifBoxTxt.indexOf(correctMessage) === -1) {
                 notifBox.appendChild(span)
                 notifBox.appendChild(list);
@@ -162,79 +197,86 @@ class RegForm extends Component {
             }
         }
 
-        //1) GENERAL RUN (does not inlcude password input)
-        let spans = document.getElementsByClassName('reg-form-div-el')
+        //THIS IS PART FOR SCREENS WIDER THAN 475px
+        if (window.innerWidth >= 475) {
+            //1) GENERAL RUN (does not inlcude password input)
+            let spans = document.getElementsByClassName('reg-form-div-el')
 
-        for (var i = 0; i < spans.length; i++) {
-            if (spans[i].getElementsByTagName('span')[0] !== undefined) {
-                spans[i].getElementsByTagName('span')[0].style.display = 'inline';
+            for (var i = 0; i < spans.length; i++) {
+                if (spans[i].getElementsByTagName('span')[0] !== undefined) {
+                    spans[i].getElementsByTagName('span')[0].style.display = 'inline';
+                }
             }
+
+            //CASE 1 - all the green inputs
+            if (color === 'green') {
+                // CASE 1a - green input && is notifbox is not empty && notifbox first child is <ul>
+                try {
+                    if (notifBox.children.length > 0 && notifBox.children[0].localName === 'p' && notifBox.children[0].innerText !== correctMessage) {
+                        notifBox.removeChild(notifBox.children[0]);
+                    } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'ul' || notifBox.children[1].localName === 'ul')) {
+                        notifBox.removeChild(notifBox.children[0]);
+                        notifBox.removeChild(notifBox.children[0]);
+                        // CASE 1b - green input && notifbox is not empty && notifbox first child is <p> && notifBoxTxt isn't already a correctMessage
+                    }
+                } catch (e) {
+                    if (e.message === 'Cannot read property \'localName\' of undefined') {
+                        return null;
+                    } else {
+                        return e;
+                    }
+
+                }
+
+                var node = document.createElement('p')
+                node.style.color = color;
+                node.innerText = correctMessage;
+                node.classList.add('reg-form-notif-msg');
+
+                if (notifBoxTxt.indexOf(correctMessage) === -1 || notifBoxTxt === "" || notifBoxTxt === undefined) {
+                    console.log("I am BACK")
+                    notifBox.appendChild(node);
+                }
+
+                //CASE 2a)INCORRECT INPUT CRITERIAS IN GENERAL
+            } else if (color === "red" && correctMessage !== 'Hasło prawidłowe.') {
+                for (var i = 0; i < notifBox.children.length; i++) {
+                    if (notifBox.children[i].innerText === correctMessage) {
+                        notifBox.removeChild(notifBox.children[i])
+                    }
+                }
+                var node = document.createElement('p')
+                node.classList.add('reg-form-notif-msg');
+                node.style.color = color;
+                node.innerText = incorrectMessage;
+                if (notifBoxTxt.indexOf(incorrectMessage) === -1) {
+                    notifBox.appendChild(node);
+                }
+                //2b INCORRECT INPUT CRITERIAS - PASSWORD ONLY CASE
+            } else if (color === 'red' && correctMessage === 'Hasło prawidłowe.') {
+                //2b first: notifbox is not empty && first notifbox child is different than <p>
+                if (notifBox.children.length > 0 && notifBox.children[0].localName !== 'p') {
+                    if (notifBox.children[1].localName === 'ul' && notifBox.children.length > 0) {
+                        notifBox.removeChild(notifBox.children[0]);
+                        notifBox.removeChild(notifBox.children[0]);
+                    }
+                    //2b second: notifbox is not empty && first notifbox child is different than p
+                } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'p' || notifBox.children[2].localName === 'p')) {
+                    notifBox.children[0].localName === 'p' ? notifBox.removeChild(notifBox.children[0]) : notifBox.removeChild(notifBox.children[2]);
+                    createWrongPassNotifList();
+                }
+
+                if (document.getElementsByClassName('reg-form-wrong-pass-li').length === 0) {
+                    createWrongPassNotifList();
+                }
+            }
+        }
+
+        //THIS IS PART FOR SCREENS NARROWER THAN 475px (assumed to be mobile devices mostly)
+        if (window.innerWidth < 475) {
 
         }
 
-        //CASE 1 - all the green inputs
-        if (color === 'green') {
-            console.log(notifBox.children.length)
-            console.log(notifBox.children);
-            // CASE 1a - green input && is notifbox is not empty && notifbox first child is <ul>
-            try {
-                if (notifBox.children.length > 0 && notifBox.children[0].localName === 'p' && notifBox.children[0].innerText !== correctMessage) {
-                    notifBox.removeChild(notifBox.children[0]);
-                } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'ul' || notifBox.children[1].localName === 'ul')) {
-                    notifBox.removeChild(notifBox.children[0]);
-                    notifBox.removeChild(notifBox.children[0]);
-                    // CASE 1b - green input && notifbox is not empty && notifbox first child is <p> && notifBoxTxt isn't already a correctMessage
-                }
-            } catch (e) {
-                if (e.message === 'Cannot read property \'localName\' of undefined') {
-                    return null;
-                } else {
-                    return e;
-                }
-
-            }
-
-            var node = document.createElement('p')
-            node.style.color = color;
-            node.innerText = correctMessage;
-            node.classList.add('reg-form-notif-msg');
-
-            if (notifBoxTxt.indexOf(correctMessage) === -1 || notifBoxTxt === "" || notifBoxTxt === undefined) {
-                console.log("I am BACK")
-                notifBox.appendChild(node);
-            }
-
-            //CASE 2a)INCORRECT INPUT CRITERIAS IN GENERAL
-        } else if (color === "red" && correctMessage !== 'Hasło prawidłowe.') {
-            for (var i = 0; i < notifBox.children.length; i++) {
-                if (notifBox.children[i].innerText === correctMessage) {
-                    notifBox.removeChild(notifBox.children[i])
-                }
-            }
-            var node = document.createElement('p')
-            node.classList.add('reg-form-notif-msg');
-            node.style.color = color;
-            node.innerText = incorrectMessage;
-            if (notifBoxTxt.indexOf(incorrectMessage) === -1) {
-                notifBox.appendChild(node);
-            }
-            //2b INCORRECT INPUT CRITERIAS - PASSWORD ONLY CASE
-        } else if (color === 'red' && correctMessage === 'Hasło prawidłowe.') {
-            //2b first: notifbox is not empty && first notifbox child is different than <p>
-            if (notifBox.children.length > 0 && notifBox.children[0].localName !== 'p') {
-                if (notifBox.children[1].localName === 'ul' && notifBox.children.length > 0) {
-                    notifBox.removeChild(notifBox.children[0]);
-                    notifBox.removeChild(notifBox.children[0]);
-                }
-                //2b second: notifbox is not empty && first notifbox child is different than p
-            } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'p' || notifBox.children[2].localName === 'p')) {
-                notifBox.children[0].localName === 'p' ? notifBox.removeChild(notifBox.children[0]) : notifBox.removeChild(notifBox.children[2]);
-                createWrongPassNotifList();
-            }
-
-            if (document.getElementsByClassName('reg-form-wrong-pass-li').length === 0)
-                createWrongPassNotifList();
-        }
     }
 
 
@@ -327,15 +369,25 @@ class RegForm extends Component {
     render() {
         let targetUrl = `${location.origin}/register`;
         let token;
+        console.log(location.origin);
         let request = new Request(targetUrl, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Access-Control-Request-Method": "GET",
-                "Origin": location.origin,
-                "Content-Type": "application/json"
+                'Access-Control-Request-Method': 'GET',
+                'Origin': location.origin,
+                'Content-Type': 'application/json',
+                'X-Custom-Header': 'regTokenRequest',
             }
         })
+
         this.getToken(request);
+
+        if (window.innerWidth <= 475) {
+            let regFormNotifMsgBoxes = document.getElementsByClassName('reg-form-notif-msg');
+            for (let item of regFormNotifMsgBoxes) {
+                item.style.display = 'none';
+            }
+        }
 
         return <div className={"landing-page-container"}>
             <form className={"reg-form"}>
@@ -369,7 +421,7 @@ class RegForm extends Component {
                            className={"reg-form-input"} required={'required'}
                            onKeyUp={this.validateCpassword}/><span className={'reg-form__input-span--errorMsg'}></span>
                 </div>
-                <input type={"hidden"} name={"regToken"} value=""/>
+                <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
                 <input onClick={this.formSendRegister} type={"submit"} value={"Zarejestruj się."}
                        className={"reg-form-btn"}/>
 
@@ -423,7 +475,7 @@ class RegisterPage extends Component {
     render() {
         return <div className={'reg-form-container'}>
             <FormUpperText/>
-            <RegForm/>
+            <RegForm token={this.props.token}/>
         </div>
     }
 }
