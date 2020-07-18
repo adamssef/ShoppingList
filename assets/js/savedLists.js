@@ -122,7 +122,6 @@ class SavedLists extends Component {
                 e.target.innerHTML = "ukryj";
             }
         }
-        console.log(this.state)
     };
 
 
