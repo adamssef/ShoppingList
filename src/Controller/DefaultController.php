@@ -96,17 +96,24 @@ class DefaultController extends AbstractController
     {
         $session->start();
         $allowedOrigin = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
-        //this scenario is accepted in a case where user agent renders the reg form and needs a token to be generated
-        if ($request->getMethod() === "GET" && is_null($session->get('regToken'))) {
+
+        if ($request->getMethod() === "GET" && $request->headers->get('X-Custom-Header') !== 'regTokenRequest') {
+            return $this->redirect($allowedOrigin);
+        }
+
+
+        //this scenario is accepted in a case where user agent renders the reg-form and needs a token to be generated
+        if ($request->getMethod() === "GET" && is_null($session->get('regToken')) && $request->headers->get('X-Custom-Header') === 'regTokenRequest') {
             $random = random_bytes(10);
             $token = md5($random);
-
             $session->set('regToken', $token);
             $jsonResponse = new JsonResponse($token);
             $jsonResponse->headers->set('Content-Type', 'application/json');
             $jsonResponse->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
             $jsonResponse->headers->set('Access-Control-Allow-Methods', 'GET');
             return $jsonResponse;
+        } elseif ($request->getMethod() === "GET" && !is_null($session->get('regToken'))) {
+            return new JsonResponse($session->get('regToken'));
         } elseif ($request->getMethod() === "POST" && $session->get('regToken') === $request->get('regToken') && $session->get('regToken') !== null && is_string($session->get('regToken'))) {
             $user = new User();
             $regData = $request->request->all();
@@ -128,7 +135,7 @@ class DefaultController extends AbstractController
                 return $response;
             }
         }
-        return new JsonResponse($session->get('regToken') . "oraz" . $request->get('regToken'));
+        return new JsonResponse("null");
     }
 
 
