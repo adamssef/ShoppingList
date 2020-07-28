@@ -1286,6 +1286,12 @@ button:focus {
     }
 
 
+    @keyframes appear
+    {
+        0%   { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
     /*a.navLink {*/
     /*    color: #4B4B4B;*/
     /*}*/
@@ -1307,6 +1313,14 @@ button:focus {
         font-size: 5vw;
         margin: 1vh 1vh 1vh 1vh;
     }
+    input:invalid {
+        border: red solid 1px;
+    }
+
+    input:valid {
+        border: green solid 1px;
+    }
+
 
     input.create-list [type=text] {
         width: 35vw;
@@ -1316,6 +1330,14 @@ button:focus {
 
     input.create-list [type=text]::placeholder {
         font-family: 'Cabin Condensed', sans-serif;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    input:placeholder-shown {
+        font-size: small;
     }
 
 
@@ -1447,6 +1469,10 @@ button:focus {
         margin-left: 0.7em;
         background-color: #50c4a8;
     }
+    .appear {
+        animation: appear 6s
+    }
+
 
     .block {
         display: block;
@@ -1602,7 +1628,7 @@ button:focus {
     }
 
     .landing-page-container {
-        margin-top: 5vh;
+        margin-top: 2vh;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -1784,6 +1810,11 @@ button:focus {
         border-collapse: collapse;
     }
 
+    .reg-form-btn-container {
+        display: flex;
+        width:inherit;
+    }
+
 
 
     .reg-form-container {
@@ -1800,23 +1831,43 @@ button:focus {
         width:inherit;
     }
 
+    .reg-form-div-el > input {
+        height: 50px;
+    }
+
     .reg-form-input {
         font-size: 15px;
         flex-basis:0;
-        flex-grow: 10;
+        flex-grow: 8;
         margin-bottom: 5px;
     }
 
     .reg-form-label {
         font-size: 15px;
         flex-basis:0;
-        flex-grow:3;
+        flex-grow:2;
+        flex-shrink: 10;
+        align-self: center;
+        margin: 0;
     }
 
     .reg-form-space-div {
-        flex-basis:0;
-        flex-grow: 1;
+        flex-basis: 0;
+        flex-grow: 0.5;
     }
+
+
+
+    .reg-form-successMsg-container {
+        width: 60%;
+        justify-self: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        color: #c5c5c5;
+    }
+
 
 
     .singleListViewContainer {
@@ -1858,6 +1909,22 @@ button:focus {
         width: inherit;
         flex-grow: 8;
     }
+
+    .text-box__reg-form-above {
+        margin-top: 10px;
+        display: block;
+        align-self: center;
+        width: 66vw;
+    }
+
+    .text-box__reg-form-above--desc {
+        width: 66vw;
+    }
+
+    .text-box__reg-form-above--title {
+        font-weight: bold;
+    }
+
 }
 
 
