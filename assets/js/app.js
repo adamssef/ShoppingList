@@ -17,7 +17,7 @@ import {
 import {createBrowserHistory} from "history";
 const history = createBrowserHistory();
 
-require('../css/app.css');
+import '../css/app.css';
 const $ = require('jquery');
 
 import 'bootstrap';
