@@ -5,8 +5,14 @@ import CreateList from "./createNewList";
 import SavedLists from "./savedLists";
 import {About, App} from "./app";
 
-require('../css/app.css');
-import Swal from 'sweetalert2'
+import {faCheckSquare} from "@fortawesome/free-solid-svg-icons";
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import '../css/app.css';
+
+
+import Swal from 'sweetalert2';
+
 
 import {createBrowserHistory} from "history";
 
@@ -62,7 +68,8 @@ class RegForm extends Component {
             cpasswordField: '',
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
-            regToken:''
+            regToken: '',
+            formCorrect: false,
         }
     }
 
@@ -90,7 +97,7 @@ class RegForm extends Component {
 
 
     formSendRegister(e) {
-        alert("Złapana!")
+        // // alert("Złapana!")
         e.preventDefault();
         let login = document.getElementsByName('email')[0].value;
         let fName = document.getElementsByName('fName')[0].value;
@@ -99,38 +106,36 @@ class RegForm extends Component {
         let token = document.getElementsByName('regToken')[0].value;
         let loginDetails = {"email": login, "password": password, "fName": fName, "regToken": token};
 
-        if (cpassword !== password) {
-            Swal.fire({
-                title: 'halo halo!',
-                text: 'Hasła różnią się!',
-                icon: 'warning',
-            })
-        } else {
-            const formData = new FormData();
-            for (let [key, value] of Object.entries(loginDetails)) {
-                formData.append(key, value);
-            }
-
-
-            let targetUrl = `${location.origin}/register`;
-            let request = new Request(targetUrl, {
-                body: formData,
-                method: "POST",
-                headers: {
-                    "Access-Control-Request-Method": "POST, GET, OPTIONS",
-                    "Origin": location.origin,
-                }
-            });
-
-            fetch(request)
-                .then((response) => response.json())
-                .then((response) => {
-                })
-                .catch((error) => {
-                    console.error('REGISTRATION ERROR:', error);
-                });
+        // if (cpassword !== password) {
+        //     Swal.fire({
+        //         title: 'halo halo!',
+        //         text: 'Hasła różnią się!',
+        //         icon: 'warning',
+        //     })
+        // } else {
+        const formData = new FormData();
+        for (let [key, value] of Object.entries(loginDetails)) {
+            formData.append(key, value);
         }
 
+
+        let targetUrl = `${location.origin}/register`;
+        let request = new Request(targetUrl, {
+            body: formData,
+            method: "POST",
+            headers: {
+                "Access-Control-Request-Method": "POST, GET, OPTIONS",
+                "Origin": location.origin,
+            }
+        });
+
+        fetch(request)
+            .then((response) => response.json())
+            .then((response) => {
+            })
+            .catch((error) => {
+                console.error('REGISTRATION ERROR:', error);
+            });
     }
 
     getToken = (request) => {
@@ -139,7 +144,7 @@ class RegForm extends Component {
                 .then((response) => response.json())
                 .then(jsonResponse => {
                     if (jsonResponse !== 'badRequest') {
-                        if(this.state.regToken !== jsonResponse) {
+                        if (this.state.regToken !== jsonResponse) {
                             this.setState({'regToken': jsonResponse})
                         }
                     }
@@ -306,7 +311,6 @@ class RegForm extends Component {
         let nameInput = document.getElementsByName('fName')[0];
         let nameInputValue = document.getElementsByName('fName')[0].value;
         let notifBoxTxt = document.getElementById('reg-form-validation-div').innerText;
-        // let unallowedCharsTerm = 'Login może składać tylko z liter alfabetu lub cyfr.';
         let tooLongTerm = 'Ta ilość znaków nie jest dozwolona.';
         let correctTerm = 'OK';
         if (nameInputValue.length > 50 && notifBoxTxt.indexOf(tooLongTerm) === -1 && document.activeElement === nameInput) {
@@ -332,7 +336,7 @@ class RegForm extends Component {
         let matchedPasswords = 'Hasła zgadzają się.';
         //(3) regex
 
-        const re = /^(?=.*)(?=.*\d)[-A-Za-z\d!@#$%^&*()_=+{}\[\]:;"'\\|<>,.\/?]{8,}$/
+        const re = /^(?=.*)(?=.*\d)(?=.*[A-Z])[-A-Za-z\d!@#$%^&*()_=+{}\[\]:;"'\\|<>,.\/?]{8,}$/
 
 
         if (re.test(passInputVal) && passInputVal.length !== 0) {
@@ -364,7 +368,92 @@ class RegForm extends Component {
         } else if (passInputVal === cpassInputVal && cpassInputVal.length !== 0) {
             this.notifHandler(matchedPasswords, mismatchedPass, "green", event);
         }
+
     }
+    apiValidate = (event) => {
+        let emailField = document.getElementsByName('email')[0];
+        let passwordField = document.getElementsByName('password')[0];
+        let cpasswordField = document.getElementsByName('cpassword')[0];
+        let fNameField = document.getElementsByName('fName')[0];
+        emailField.setCustomValidity("Nieprawidłowy e-mail.");
+        passwordField.setCustomValidity("Nazwa nie może być pusta lub dłuższa niż 50 znaków.");
+        fNameField.setCustomValidity("Dupa");
+
+
+        /**
+         * isFormValid is helper function
+         * isFormValid checks if all the fields are filled correctly in UI
+         * its validation bases on constraints validation API
+         * */
+        const isFormValid = () => {
+            if (!emailField.validity.typeMismatch && !passwordField.validity.patternMismatch && !passwordField.validity.valueMissing && cpasswordField.value === passwordField.value && !cpasswordField.validity.valueMissing && !fNameField.validity.tooLong && !fNameField.validity.valueMissing) {
+                console.log(emailField.validity.typeMismatch)
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (isFormValid()) {
+            if (this.state.formCorrect === false) {
+                this.setState({
+                    formCorrect: true,
+                })
+
+            }
+        }
+
+        if(!isFormValid()) {
+            this.setState({
+                formCorrect: false,
+            })
+        }
+
+        //cpassword verification
+        if (event.target.name === 'cpassword' && event.target.value !== document.getElementsByName('password')[0].value) {
+            event.target.style.borderColor = 'red';
+        } else if (event.target.name === 'cpassword' && event.target.value === document.getElementsByName('password')[0].value) {
+            event.target.style.borderColor = 'green';
+            event.target.style.borderWidth = '1px';
+        }
+
+        //password verification
+        if (event.target.name === 'password' && event.target.validity.patternMismatch !== true) {
+            document.getElementsByName('cpassword')[0].disabled = false;
+            event.target.style.borderColor = 'green'
+            event.target.style.borderWidth = '1px';
+        } else if (event.target.name === 'password' && event.target.validity.patternMismatch === true) {
+            document.getElementsByName('cpassword')[0].disabled = true;
+            event.target.style.borderColor = 'red'
+        }
+
+        //email verification
+        if (event.target.name === 'email' && event.target.validity.typeMismatch === false) {
+            event.target.style.borderColor = 'green'
+            event.target.style.borderWidth = '1px';
+        } else if (event.target.name === 'email' && event.target.validity.typeMismatch === true) {
+            event.target.style.borderColor = 'red'
+        }
+
+        //fname verification
+        if (event.target.name === 'fName' && event.target.validity.tooLong === false && event.target.validity.valueMissing === false) {
+            event.target.style.borderColor = 'green'
+            event.target.style.borderWidth = '1px';
+        } else if (event.target.name === 'fName' && (event.target.validity.tooLong === true || event.target.validity.valueMissing === true)) {
+            event.target.style.borderColor = 'red'
+            event.target.style.borderWidth = '1px';
+        }
+
+    }
+
+    isIconSuccess = () => {
+        if (this.state.formCorrect) {
+            return <FontAwesomeIcon icon={faCheckSquare} className={'appear'}/>
+        } else {
+            return <div></div>
+        }
+    }
+
 
     render() {
         let targetUrl = `${location.origin}/register`;
@@ -382,52 +471,130 @@ class RegForm extends Component {
 
         this.getToken(request);
 
-        if (window.innerWidth <= 475) {
+        if (window.innerWidth > 475) {
+            return <div className={"landing-page-container"}>
+                <form className={"reg-form"}>,
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"text"} name={"email"}
+                               autoComplete={"email"}
+                               className={"reg-form-input"}
+                               onKeyUp={this.validateEmail}
+                               placeholder=''
+                               required/>
+                        <span className={'reg-form__input__span-errorMsg'}></span>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"fName"}>
+                            Login
+                        </label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"text"}
+                               name={"fName"}
+                               autoComplete={"given-name"}
+                               className={"reg-form-input"}
+                               onKeyUp={this.validateName}
+                               required/><span className={'reg-form__input__span-errorMsg'}></span>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"password"}>Utwórz hasło</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"password"}
+                               name={"password"}
+                               autoComplete={"new-password"}
+                               placeholder=''
+                               className={"reg-form-input"}
+                               onKeyUp={this.validatePassword} required/><span
+                        className={'reg-form__input__span-errorMsg'}></span>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"password"}
+                               name={"cpassword"}
+                               autoComplete={"new-password"}
+                               className={"reg-form-input"}
+                               onKeyUp={this.validateCpassword}
+                               required/><span
+                        className={'reg-form__input-span--errorMsg'}></span>
+                    </div>
+                    <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
+                    <input onClick={this.formSendRegister} type={"submit"} value={"Zarejestruj się."}
+                           className={"reg-form-btn"}/>
+                </form>
+                <div id={"reg-form-validation-div"}></div>
+            </div>
+        } else if (window.innerWidth <= 475) {
             let regFormNotifMsgBoxes = document.getElementsByClassName('reg-form-notif-msg');
             for (let item of regFormNotifMsgBoxes) {
                 item.style.display = 'none';
             }
+
+            return <div className={"landing-page-container"}>
+                <form className={"reg-form"}>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={'email'}
+                               name={"email"}
+                               autoComplete={"email"}
+                               className={"reg-form-input"}
+                               placeholder='np. jan.kowalski@example.com'
+                               onKeyUp={this.apiValidate}
+                               required/>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"fName"}>
+                            Login
+                        </label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"text"} name={"fName"}
+                               autoComplete={"given-name"}
+                               className={"reg-form-input"}
+                               onChange={this.apiValidate}
+                               minLength={1}
+                               maxLength={50}
+                               placeholder='max. 50 znaków'
+                               onKeyUp={this.apiValidate}
+                               required/>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"password"} name={"password"}
+                               autoComplete={"new-password"}
+                               placeholder='min. 8 znaków, 1 liczba i wielka litera'
+                               className={"reg-form-input"}
+                               pattern={"^(?=.*)(?=.*\\d)(?=.*[A-Z])[-A-Za-z\\d!@#$%^&*()_=+{}\\[\\]:;\"'\\\\|<>,.\\/?]{8,}$"}
+                               onKeyUp={this.apiValidate}
+                               required/>
+                    </div>
+                    <div className={"reg-form-div-el"}>
+                        <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
+                        <div className={"reg-form-space-div"}></div>
+                        <input type={"password"}
+                               name={"cpassword"}
+                               autoComplete={"new-password"}
+                               placeholder=''
+                               className={"reg-form-input"}
+                               onKeyUp={this.apiValidate}
+                               disabled={true}
+                               required/>
+                    </div>
+                    <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
+
+                    <div className={'reg-form-btn-container'}>
+                        <div className={'reg-form-successMsg-container'}> {this.isIconSuccess()}</div>
+                        <input onClick={this.formSendRegister}
+                               type={"submit"}
+                               value={"Zarejestruj się."}
+                               className={"reg-form-btn"}/>
+                    </div>
+                </form>
+                <div></div>
+            </div>
         }
-
-        return <div className={"landing-page-container"}>
-            <form className={"reg-form"}>
-                <div className={"reg-form-div-el"}>
-                    <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
-                    <div className={"reg-form-space-div"}></div>
-                    <input type={"text"} name={"email"} autoComplete={"email"} className={"reg-form-input"}
-                           required={'required'} onKeyUp={this.validateEmail}/>
-                    <span className={'reg-form__input__span-errorMsg'}></span>
-                </div>
-                <div className={"reg-form-div-el"}>
-                    <label className={"reg-form-label"} htmlFor={"fName"}>
-                        Login
-                    </label>
-                    <div className={"reg-form-space-div"}></div>
-                    <input type={"text"} name={"fName"} autoComplete={"given-name"} className={"reg-form-input"}
-                           required={'required'} onChange={this.validateName}/><span
-                    className={'reg-form__input__span-errorMsg'}></span>
-                </div>
-                <div className={"reg-form-div-el"}>
-                    <label className={"reg-form-label"} htmlFor={"password"}>Utwórz hasło</label>
-                    <div className={"reg-form-space-div"}></div>
-                    <input type={"password"} name={"password"} autoComplete={"new-password"}
-                           className={"reg-form-input"} required={'required'}
-                           onKeyUp={this.validatePassword}/><span className={'reg-form__input__span-errorMsg'}></span>
-                </div>
-                <div className={"reg-form-div-el"}>
-                    <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
-                    <div className={"reg-form-space-div"}></div>
-                    <input type={"password"} name={"cpassword"} autoComplete={"new-password"}
-                           className={"reg-form-input"} required={'required'}
-                           onKeyUp={this.validateCpassword}/><span className={'reg-form__input-span--errorMsg'}></span>
-                </div>
-                <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
-                <input onClick={this.formSendRegister} type={"submit"} value={"Zarejestruj się."}
-                       className={"reg-form-btn"}/>
-
-            </form>
-            <div id={"reg-form-validation-div"}></div>
-        </div>
     }
 }
 
