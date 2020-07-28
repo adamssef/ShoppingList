@@ -21,7 +21,7 @@ Encore
         // add additional presets
         babelConfig.plugins.push('@babel/plugin-proposal-class-properties');
         // babelConfig.presets.push('@babel/preset-env')
-        // no plugins are added by default, but you can add some
+        // no plugirm -rf node_modules/.cache/babel-loader/ns are added by default, but you can add some
     })
     // .configureBabel(() => {}, {
     //     useBuiltIns: 'usage',
