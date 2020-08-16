@@ -8,7 +8,7 @@
 /*}*/
 
 body {
-    background-color: #d9d9d9;
+    background-color: #f4f7fc;
 }
 
 button:focus {
@@ -21,6 +21,20 @@ button:focus {
         box-sizing: inherit;
     }
 
+    @keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    a, a:hover {
+        text-decoration: none;
+        color: #242424;
+    }
+
     body {
         min-width: 300px;
     }
@@ -29,19 +43,39 @@ button:focus {
         box-sizing: border-box;
     }
 
+    h1 {
+        font-size: 2.2em;
+        margin: 12px 24px;
+        font-weight: bold;
+    }
+
     h2 {
         color: #242424;
         font-family: 'Courgette', cursive;
-        margin: 0 auto;
-        text-align: center;
-        font-size: 3em;
+        margin: 12px 24px;
+        /*text-align: center;*/
+        font-size: 1.5em;
+
+    }
+
+    h3 {
+        color: #242424;
+        margin: 24px;
+        /*font-family: 'Courgette', cursive;*/
+        /*margin: 0 auto;*/
+        /*text-align: center;*/
+        font-size: 1.2em;
     }
 
     image {
         max-width: 100%;
     }
 
-    input.saved [type='checkbox']{
+    input:focus {
+        outline: none;
+    }
+
+    input.saved [type='checkbox'] {
         outline: 2px solid lightblue;
         box-shadow: none;
         font-size: 2em;
@@ -56,7 +90,31 @@ button:focus {
         font-family: 'Cabin Condensed', sans-serif;
     }
 
+    input:invalid {
+        border: 1px solid rgba(255, 0, 0, .5);
+    }
 
+    input:invalid:focus {
+        border: 2px solid rgba(255, 0, 0, .5);
+        padding: 1px;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+    }
+
+    input:placeholder-shown {
+        font-size: small;
+    }
+
+    input.reg-form-input-post:valid {
+        border: 1px solid rgba(0, 128, 0, .5);
+    }
+
+    input.reg-form-input-post:valid:focus {
+        border: 2px solid rgba(0, 128, 0, .5);
+        padding: 1px;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+    }
 
     nav {
         background-color: white;
@@ -77,8 +135,8 @@ button:focus {
 
 
     nav li.freeSpaceNavLi {
-        flex-basis:0;
-        flex-grow:14;
+        flex-basis: 0;
+        flex-grow: 14;
         list-style-type: none;
     }
 
@@ -97,10 +155,9 @@ button:focus {
         flex-grow: 6;
         flex-basis: 0;
         flex-shrink: 0.5;
-        display:flex;
+        display: flex;
         justify-content: left;
     }
-
 
 
     nav li.right {
@@ -151,14 +208,14 @@ button:focus {
         border-width: 0;
         justify-self: flex-start;
         align-self: flex-start;
-        color:white;
+        color: white;
     }
 
     #listDraft {
         display: flex;
         flex-wrap: wrap;
         list-style: none;
-        word-break:break-all;
+        word-break: break-all;
         width: 60vw;
     }
 
@@ -190,6 +247,11 @@ button:focus {
         background-color: #50c4a8;
     }
 
+    .appear {
+        animation: appear 4s
+    }
+
+
     .block {
         display: block;
     }
@@ -197,7 +259,6 @@ button:focus {
     /*.default {*/
     /*    color: #50c4a8;*/
     /*}*/
-
     .displayBlock {
         display: block;
     }
@@ -244,6 +305,16 @@ button:focus {
         flex-grow: 3;
     }
 
+    .form-link, form-link:hover, form-link:active, .form-link:focus, .form-link:visited, form-link:link {
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .form-link--active:hover, .form-link--active, .form-link--active:active .form-link--active:focus, .form-link--active:visited, .form-link--active:link {
+        color: #ff1a8c;
+        text-decoration: none;
+    }
+
 
     .headingFlexContainer {
         text-align: center;
@@ -277,7 +348,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -293,7 +364,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -303,13 +374,13 @@ button:focus {
         flex-grow: .5;
         flex-basis: 0;
         border-right-style: solid;
-        border-color:#e06800;
+        border-color: #e06800;
         border-width: thin;
         height: inherit;
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -325,7 +396,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -336,6 +407,52 @@ button:focus {
         align-items: center;
         margin: 3vh 0 3vh 0;
     }
+
+    .homepage-welcome-box {
+        margin: 10vh auto;
+        width: 300px;
+        background-color: white;
+        border-radius: 6px;
+        /*box-shadow:2px 5px rgba(0,0,0,.08);*/
+        box-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    .homepage-welcome-box-h2-container {
+        overflow: auto;
+    }
+
+    .homepage-welcome-box-h2-container > h2 {
+        font-size: 20px;
+    }
+
+    .homepage-welcome-box-h2-container > h1 {
+        font-size: 25px;
+    }
+
+    .homepage-btn--log {
+        display: inline-block;
+        margin: 20px;
+        flex-grow: 10;
+        flex-basis: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .homepage-btn--reg {
+        display: inline-block;
+        margin: 20px;
+        flex-grow: 10;
+        flex-basis: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .homepage-btns-div {
+        display: flex;
+        padding-inline-start: 0;
+        margin-bottom: 0;
+    }
+
 
     .inline {
         display: inline;
@@ -364,7 +481,7 @@ button:focus {
     }
 
     .landing-page-container {
-        margin-top: 5vh;
+        /*margin-top: 1vh;*/
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -481,7 +598,7 @@ button:focus {
         flex-shrink: 2;
         font-size: 1.5vw;
         word-break: break-all;
-        flex-grow:8;
+        flex-grow: 8;
         font-family: 'Courgette', cursive;
     }
 
@@ -496,6 +613,48 @@ button:focus {
         margin-left: auto;
         transform: scale(2.0);
         flex-shrink: 2;
+    }
+
+    .login-page-container {
+        margin-top: 5vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-page-container-meta {
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        width: 33vw;
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+
+    .login-page-form-container {
+        flex-grow: 6;
+        min-height: 25vh;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+        padding-top: 2vh;
+    }
+
+    .login-page-space-div-1 {
+        flex-grow: 3;
+    }
+
+    .login-page-space-div-1 {
+        flex-grow: 3;
+    }
+
+    .logo-span-color {
+        color: #ff1a8c
     }
 
     .nameYourListMode {
@@ -532,6 +691,7 @@ button:focus {
         text-transform: capitalize;
     }
 
+
     .navLink.default {
         color: #50c4a8;
     }
@@ -539,6 +699,7 @@ button:focus {
     .navLink:focus {
         color: #50c4a8;
         outline: none;
+        text-decoration: none;
     }
 
     .navLink:hover {
@@ -563,52 +724,66 @@ button:focus {
         align-items: center;
         padding: 2vh;
         background-color: white;
-        width: 33vw;
+        width: 300px;
         border-radius: 10px;
         align-content: space-evenly;
-        font-size: 1vw;
-        align-self: start;
+        /*font-size: 1vw;*/
+        font-size: calc(12px + 0.5vw);
+        align-self: center;
     }
 
     .reg-form-btn {
-        width: 30%;
-        font-size: 1vw;
-        margin-top: 18px;
-        padding:5px;
-        align-self:flex-end;
-        background-color: forestgreen;
+        width: 38%;
+        min-width: fit-content;
+        font-size: 15px;
+        /*margin-top: 18px;*/
+        padding: 5px;
+        align-self: center;
+        justify-self: center;
+        background-color: #ff1a8c;
         color: white;
         border-width: 0;
         border-collapse: collapse;
+        margin-right: 2vh;
     }
 
-    .reg-form-container {
-        align-self: center;
-        display:flex;
-        flex-direction: column;
-        width: 33vw;
-        margin: 0 auto;
-        align-items: flex-start;
+    .reg-form-btn-container {
+        display: flex;
+        width: inherit;
+        align-items: center;
+        justify-items: center;
     }
 
+    /*.reg-form-container {*/
+    /*    align-self: center;*/
+    /*    display:flex;*/
+    /*    flex-direction: column;*/
+    /*    width: 33vw;*/
+    /*    margin: 0 auto;*/
+    /*    align-items: flex-start;*/
+    /*}*/
     .reg-form-div-el {
         display: flex;
+        flex-direction: column;
         width: 100%;
-        flex-grow:10;
-        flex-basis:0;
-        justify-content: center;
+        flex-grow: 10;
+        flex-basis: 0;
+        justify-content: flex-start;
     }
 
-    .reg-form-div-el >span {
-        width: 30%;
+    .reg-form-div-el > span {
+        /*width: 30%;*/
         margin-left: 1vw;
         display: none;
     }
 
     .reg-form-input {
-        flex-basis:0;
+        flex-basis: 0;
         flex-grow: 7;
         margin-bottom: 5px;
+        border-radius: 2px;
+        line-height: 26px;
+        font-size: small;
     }
 
     .reg-form-input__span--errorMsg > p {
@@ -616,24 +791,44 @@ button:focus {
     }
 
     .reg-form-label {
-        flex-basis:0;
-        flex-grow:4;
-        align-self: center;
+        flex-basis: 0;
+        flex-grow: 2;
+        align-self: flex-start;
+        font-size: 0.8em;
+        margin: 0;
     }
 
     .reg-form-notif-msg {
         flex: 0 1 auto;
         font-size: 0.7vw;
+        width: 100%;
     }
 
     .reg-form-space-div {
-        flex-basis:0;
+        flex-basis: 0;
         flex-grow: 0;
     }
 
+    .reg-form-successMsg-container {
+        width: 60%;
+        justify-self: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        color: green;
+    }
 
 
-
+    .reg-form-failureMsg-container {
+        width: 100%;
+        justify-self: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: small;
+        color: red;
+    }
 
     .right25pxMargin {
         margin-right: 25px;
@@ -641,7 +836,7 @@ button:focus {
 
     .text-box__reg-form-above {
         font-size: 200%;
-        display:block;
+        display: block;
         align-self: center;
         width: 33vw;
     }
@@ -658,17 +853,15 @@ button:focus {
 }
 
 
-
-
 /*LARGE SCREENS*/
-@media (min-width: 475.0000000000001px) and (max-width:1000px){
+@media (min-width: 475.0000000000001px) and (max-width: 1000px) {
     *, *:before, *:after {
         box-sizing: inherit;
     }
 
     body {
         background-color: #d9d9d9;
-        min-width:300px;
+        min-width: 300px;
     }
 
     html {
@@ -705,8 +898,8 @@ button:focus {
     }
 
     nav li.freeSpaceNavLi {
-        flex-basis:0;
-        flex-grow:8;
+        flex-basis: 0;
+        flex-grow: 8;
         list-style-type: none;
     }
 
@@ -719,11 +912,12 @@ button:focus {
         flex-basis: 0;
         flex-shrink: 0.5
     }
+
     nav li.saved-lists {
         flex-grow: 11;
         flex-basis: 0;
         flex-shrink: 0.5;
-        display:flex;
+        display: flex;
         justify-content: left;
     }
 
@@ -772,7 +966,7 @@ button:focus {
         border-width: 0;
         justify-self: flex-start;
         align-self: flex-start;
-        color:white;
+        color: white;
     }
 
 
@@ -780,7 +974,7 @@ button:focus {
         display: flex;
         flex-wrap: wrap;
         list-style: none;
-        word-break:break-all;
+        word-break: break-all;
         width: 60vw;
     }
 
@@ -894,7 +1088,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -910,7 +1104,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -926,7 +1120,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -942,7 +1136,7 @@ button:focus {
         margin: 0 auto;
         color: white;
         background-color: #242424;
-        display:flex;
+        display: flex;
         justify-content: center;
         font-family: 'Cabin Condensed', sans-serif;
     }
@@ -969,9 +1163,8 @@ button:focus {
         margin-right: 5px;
         font-family: 'Courgette', cursive;
         width: auto;
-        display:inline-block;
+        display: inline-block;
     }
-
 
 
     .itemBtn {
@@ -983,7 +1176,7 @@ button:focus {
 
     .landing-page-container {
         margin-top: 5vh;
-        display:flex;
+        display: flex;
         justify-content: center;
         flex-direction: column;
         align-self: center;
@@ -1031,14 +1224,12 @@ button:focus {
         flex-shrink: 2;
         font-size: 1.5vw;
         word-break: break-all;
-        flex-grow:8;
+        flex-grow: 8;
         font-family: 'Courgette', cursive;
     }
 
 
     /*LIST BODY*/
-
-
     /*list elements - flex container*/
     .listContainerEl {
         text-align: center;
@@ -1196,8 +1387,8 @@ button:focus {
     .reg-form-btn {
         width: 30%;
         font-size: 2vw;
-        padding:5px;
-        align-self:flex-end;
+        padding: 5px;
+        align-self: flex-end;
         background-color: forestgreen;
         color: white;
         border-width: 0;
@@ -1206,7 +1397,7 @@ button:focus {
 
     .reg-form-container {
         align-self: center;
-        display:flex;
+        display: flex;
         flex-direction: column;
         width: 65vw;
         margin: 0 auto;
@@ -1214,15 +1405,14 @@ button:focus {
     }
 
 
-
     .reg-form-div-el {
         display: flex;
         width: 100%;
-        flex-grow:10;
-        flex-basis:0;
+        flex-grow: 10;
+        flex-basis: 0;
     }
 
-    .reg-form-div-el >span {
+    .reg-form-div-el > span {
         width: 30%;
         margin-left: 1vw;
         display: none;
@@ -1231,14 +1421,14 @@ button:focus {
     }
 
     .reg-form-input {
-        flex-basis:0;
+        flex-basis: 0;
         flex-grow: 3.5;
         margin-bottom: 5px;
     }
 
     .reg-form-label {
-        flex-basis:0;
-        flex-grow:2;
+        flex-basis: 0;
+        flex-grow: 2;
     }
 
 
@@ -1249,13 +1439,13 @@ button:focus {
 
 
     .reg-form-space-div {
-        flex-basis:0;
+        flex-basis: 0;
         flex-grow: 0.1;
     }
 
     .text-box__reg-form-above {
         font-size: 200%;
-        display:block;
+        display: block;
         /*align-self: start;*/
         width: 65vw;
         margin: 0 auto;
@@ -1275,8 +1465,6 @@ button:focus {
 /*SMALL SCREENS*/
 
 
-
-
 @media (max-width: 475px) {
 
 
@@ -1286,19 +1474,21 @@ button:focus {
     }
 
 
-    @keyframes appear
-    {
-        0%   { opacity: 0; }
-        100% { opacity: 1; }
+    @keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 
     /*a.navLink {*/
     /*    color: #4B4B4B;*/
     /*}*/
-
     body {
-        background-color: #d9d9d9;
-        min-width:300px;
+        background-color: #f4f7fc;
+        min-width: 300px;
     }
 
     html {
@@ -1313,6 +1503,7 @@ button:focus {
         font-size: 5vw;
         margin: 1vh 1vh 1vh 1vh;
     }
+
     input:invalid {
         border: red solid 1px;
     }
@@ -1341,7 +1532,7 @@ button:focus {
     }
 
 
-    input.saved[type='checkbox']{
+    input.saved[type='checkbox'] {
         outline: 2px solid #e06800;;
         box-shadow: none;
         font-size: 3em;
@@ -1393,15 +1584,14 @@ button:focus {
         text-align: left;
         list-style: decimal;
     }
+
     ol li::before {
         color: #7FD4BF;
     }
 
     ul li {
-        display:flex;
+        display: flex;
     }
-
-
 
 
     #addItemBtn {
@@ -1428,7 +1618,7 @@ button:focus {
         padding: 4px 4px;
         border-radius: 8px;
         border-width: 0;
-        color:white;
+        color: white;
     }
 
     #listDraft {
@@ -1437,7 +1627,7 @@ button:focus {
         list-style: none;
         width: 80%;
         flex-direction: column;
-        word-break:break-all;
+        word-break: break-all;
         padding-inline-start: 0;
     }
 
@@ -1456,8 +1646,9 @@ button:focus {
     }
 
     .activateBtn:focus {
-        outline:none;
+        outline: none;
     }
+
     .activateListModeContainer {
         display: flex;
         align-items: center;
@@ -1469,6 +1660,7 @@ button:focus {
         margin-left: 0.7em;
         background-color: #50c4a8;
     }
+
     .appear {
         animation: appear 6s
     }
@@ -1493,7 +1685,7 @@ button:focus {
         padding: 2px 4px 2px 4px;
         display: inline-block;
         border-radius: 8px;
-        height:2em;
+        height: 2em;
     }
 
     .checkbox {
@@ -1507,8 +1699,6 @@ button:focus {
     }
 
     /*nav link font size changes depending on the screen resolution*/
-
-
     .editYourListModeBox1 {
         flex-grow: 3;
     }
@@ -1638,14 +1828,13 @@ button:focus {
 
 
     .liItem {
-        display:flex;
+        display: flex;
         align-self: flex-start;
         border-radius: 10px;
         background-color: lightblue;
         margin: 5px 2px;
         padding: 6px 8px 6px 15px;
     }
-
 
 
     /*LIST ELEMENTS*/
@@ -1713,7 +1902,6 @@ button:focus {
         flex-direction: column;
         align-items: center;
     }
-
 
 
     /*list elements - shopping list: flex-grow set to 4 for small screens*/
@@ -1801,9 +1989,10 @@ button:focus {
     .reg-form-btn {
         width: 38%;
         font-size: 15px;
-        margin-top: 18px;
-        padding:5px;
-        align-self:flex-end;
+        /*margin-top: 18px;*/
+        padding: 5px;
+        align-self: center;
+        justify-self: center;
         background-color: forestgreen;
         color: white;
         border-width: 0;
@@ -1812,14 +2001,15 @@ button:focus {
 
     .reg-form-btn-container {
         display: flex;
-        width:inherit;
+        width: inherit;
+        align-items: center;
+        justify-items: center;
     }
-
 
 
     .reg-form-container {
         align-self: center;
-        display:flex;
+        display: flex;
         flex-direction: column;
         width: 100%;
         margin: 0 auto;
@@ -1828,7 +2018,7 @@ button:focus {
 
     .reg-form-div-el {
         display: flex;
-        width:inherit;
+        width: inherit;
     }
 
     .reg-form-div-el > input {
@@ -1837,15 +2027,15 @@ button:focus {
 
     .reg-form-input {
         font-size: 15px;
-        flex-basis:0;
+        flex-basis: 0;
         flex-grow: 8;
         margin-bottom: 5px;
     }
 
     .reg-form-label {
         font-size: 15px;
-        flex-basis:0;
-        flex-grow:2;
+        flex-basis: 0;
+        flex-grow: 2;
         flex-shrink: 10;
         align-self: center;
         margin: 0;
@@ -1857,7 +2047,6 @@ button:focus {
     }
 
 
-
     .reg-form-successMsg-container {
         width: 60%;
         justify-self: flex-start;
@@ -1865,10 +2054,19 @@ button:focus {
         justify-content: center;
         align-items: center;
         font-size: 50px;
-        color: #c5c5c5;
+        color: green;
     }
 
 
+    .reg-form-failureMsg-container {
+        width: 100%;
+        justify-self: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: small;
+        color: red;
+    }
 
     .singleListViewContainer {
         display: flex;
