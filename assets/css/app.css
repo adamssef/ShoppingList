@@ -9,6 +9,7 @@
 
 body {
     background-color: #f4f7fc;
+    padding: 24px;
 }
 
 button:focus {
@@ -16,7 +17,9 @@ button:focus {
 }
 
 /*X-LARGE SCREEENS*/
-@media (min-width: 1000.000000000000000001px) {
+/*!*@media (min-width: 475.000000000000000001px) *!  {*/
+@media (min-width: 0px) {
+}
     *, *:before, *:after {
         box-sizing: inherit;
     }
@@ -90,7 +93,7 @@ button:focus {
         font-family: 'Cabin Condensed', sans-serif;
     }
 
-    input:invalid {
+    input:invalid:active {
         border: 1px solid rgba(255, 0, 0, .5);
     }
 
@@ -103,6 +106,12 @@ button:focus {
 
     input:placeholder-shown {
         font-size: small;
+        border: 1px solid rgba(0, 128, 0, .5);
+    }
+
+    input:placeholder-shown:active {
+        font-size: small;
+        border: 1px solid rgba(0, 128, 0, .5);
     }
 
     input.reg-form-input-post:valid {
@@ -305,6 +314,15 @@ button:focus {
         flex-grow: 3;
     }
 
+    .forgot-password-link {
+        font-size: 12px;
+        justify-self: start;
+        /*margin-left: 2vh;*/
+        width: 50px;
+        flex-grow: 30;
+
+    }
+
     .form-link, form-link:hover, form-link:active, .form-link:focus, .form-link:visited, form-link:link {
         text-decoration: none;
         font-size: 14px;
@@ -409,7 +427,7 @@ button:focus {
     }
 
     .homepage-welcome-box {
-        margin: 10vh auto;
+        margin: 0 auto;
         width: 300px;
         background-color: white;
         border-radius: 6px;
@@ -737,21 +755,22 @@ button:focus {
         min-width: fit-content;
         font-size: 15px;
         /*margin-top: 18px;*/
+        margin-left: 20px;
         padding: 5px;
         align-self: center;
-        justify-self: center;
+        justify-self: end;
         background-color: #ff1a8c;
         color: white;
         border-width: 0;
         border-collapse: collapse;
-        margin-right: 2vh;
+        /*margin-right: 2vh;*/
     }
 
     .reg-form-btn-container {
         display: flex;
-        width: inherit;
-        align-items: center;
-        justify-items: center;
+        width: 100%;
+        /*align-items: center;*/
+        /*justify-content: space-evenly;*/
     }
 
     /*.reg-form-container {*/
@@ -780,7 +799,7 @@ button:focus {
     .reg-form-input {
         flex-basis: 0;
         flex-grow: 7;
-        margin-bottom: 5px;
+        margin-bottom: 12px;
         border-radius: 2px;
         line-height: 26px;
         font-size: small;
@@ -806,7 +825,7 @@ button:focus {
 
     .reg-form-space-div {
         flex-basis: 0;
-        flex-grow: 0;
+        flex-grow: 10;
     }
 
     .reg-form-successMsg-container {
@@ -850,1280 +869,1281 @@ button:focus {
         font-size: 1em;
     }
 
-}
-
-
-/*LARGE SCREENS*/
-@media (min-width: 475.0000000000001px) and (max-width: 1000px) {
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
-
-    body {
-        background-color: #d9d9d9;
-        min-width: 300px;
-    }
-
-    html {
-        box-sizing: border-box;
-    }
-
-    h2 {
-        color: #242424;
-        font-family: 'Courgette', cursive;
-        margin: 0 auto;
-        text-align: center;
-        font-size: 2em;
-    }
-
-    input.create-list [type=text] {
-        font-size: 1.5em;
-        font-family: 'Courgette', cursive;
-    }
-
-    input.create-list[type=text]::placeholder {
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-
-    nav {
-        background-color: white;
-        font-family: 'Cabin Condensed', sans-serif;
-        height: 5vh;
-    }
-
-    nav li.about {
-        flex-grow: 4;
-        flex-basis: 0;
-    }
-
-    nav li.freeSpaceNavLi {
-        flex-basis: 0;
-        flex-grow: 8;
-        list-style-type: none;
-    }
-
-    nav li.left {
-        border-right: 0.15rem solid white;
-    }
-
-    nav li.create {
-        flex-grow: 7;
-        flex-basis: 0;
-        flex-shrink: 0.5
-    }
-
-    nav li.saved-lists {
-        flex-grow: 11;
-        flex-basis: 0;
-        flex-shrink: 0.5;
-        display: flex;
-        justify-content: left;
-    }
-
-    nav li.right {
-        border-left: 0.15rem solid white;
-    }
-
-    nav ul {
-        display: flex;
-        padding: 0;
-        text-transform: uppercase;
-        align-items: center;
-        margin: 0 auto;
-        height: 100%
-    }
-
-
-    ol {
-        width: auto;
-    }
-
-    ol li {
-        text-align: left;
-        list-style: decimal;
-    }
-
-
-    ol li::before {
-        color: #7FD4BF;
-    }
-
-    ul.reg-form-notif-msg {
-        margin-bottom: 2px;
-    }
-
-
-    .listBtn {
-        margin: 4px 2em 4px 0;
-        width: 3em;
-        text-align: center;
-        font-size: 1.5vw;
-        font-family: 'Cabin Condensed', sans-serif;
-        background-color: #50c4a8;
-        padding: 4px 4px;
-        border-radius: 8px;
-        border-width: 0;
-        justify-self: flex-start;
-        align-self: flex-start;
-        color: white;
-    }
-
-
-    #listDraft {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-        word-break: break-all;
-        width: 60vw;
-    }
-
-    .activateBtn {
-        width: 100px;
-        height: 75px;
-        display: block;
-        text-align: center;
-        z-index: 1;
-        background-color: #D9D9D9;
-        font-family: 'Fredoka One', cursive;
-        font-size: 120%;
-        margin: 2vh 0;
-        color: #e06800;
-        border-radius: 8px;
-    }
-
-    .activateListModeContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .addBtn {
-        margin-left: 0.5em;
-        background-color: #50c4a8;
-    }
-
-    .block {
-        display: block;
-    }
-
-    /*.default {*/
-    /*    color: #50c4a8;*/
-    /*}*/
-    .displayBlock {
-        display: block;
-    }
-
-    .editionModeBtn {
-        align-self: center;
-        margin-bottom: 3px;
-        display: inline-block;
-        width: 48%;
-        text-align: center;
-        font-size: 90%;
-    }
-
-    .editionModeBtnContainer {
-        width: 30vw;
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .editYourListMode {
-        display: flex;
-        margin-top: 5vh;
-    }
-
-    .editYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .editYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70%;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        background-color: white;
-        align-items: center;
-        padding: 1.5vh 0;
-    }
-
-    .editYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-    .headingFlexContainer {
-        text-align: center;
-        display: flex;
-        background-color: white;
-        border-left: solid #c5c5c5;
-        border-width: thin;
-        height: auto;
-        flex-grow: inherit;
-        justify-content: center;
-        align-items: center;
-        justify-items: center;
-        font-size: 2.1vw;
-        width: 95%;
-        margin: 0 auto;
-    }
-
-    .headingFlexElItem {
-        flex-basis: auto;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElName {
-        flex-grow: 2;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        display: flex;
-        justify-content: center;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElDate {
-        flex-grow: 1;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        display: flex;
-        justify-content: center;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElAction {
-        flex-grow: .5;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        display: flex;
-        justify-content: center;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElList {
-        flex-grow: 3.25;
-        flex-basis: 0;
-        border-right-style: none;
-        border-left-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        display: flex;
-        justify-content: center;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    .h2FlexContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 3vh 0 3vh 0;
-    }
-
-    .inline {
-        display: inline;
-        text-align: center;
-    }
-
-    .inputContainer {
-        margin-top: 2vh;
-        display: flex;
-        justify-content: center;
-    }
-
-    .itemName {
-        margin-right: 5px;
-        font-family: 'Courgette', cursive;
-        width: auto;
-        display: inline-block;
-    }
-
-
-    .itemBtn {
-        margin: 0 7px;
-        display: inline-block;
-        padding: 3px 6px;
-        border-radius: 8px;
-    }
-
-    .landing-page-container {
-        margin-top: 5vh;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-self: center;
-    }
-
-    .liItem {
-        border-radius: 10px;
-        background-color: lightblue;
-        margin: 5px 2px;
-        padding: 6px 8px 6px 15px;
-    }
-
-
-    .liSavedListsContainer {
-        display: flex;
-        margin-bottom: 2vh;
-        flex-wrap: initial;
-    }
-
-    .liSavedListsInput {
-        align-self: flex-end;
-        margin-left: auto;
-        transform: scale(2.0);
-        flex-shrink: 2;
-    }
-
-    .listIndex {
-        color: #50c4a8;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 2%;
-    }
-
-    .listIndex2 {
-        color: black;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 3px;
-        padding-left: 1em;
-        align-self: flex-start;
-    }
-
-    .listItemSpan {
-        margin-right: 2vw;
-        flex-shrink: 2;
-        font-size: 1.5vw;
-        word-break: break-all;
-        flex-grow: 8;
-        font-family: 'Courgette', cursive;
-    }
-
-
-    /*LIST BODY*/
-    /*list elements - flex container*/
-    .listContainerEl {
-        text-align: center;
-        display: flex;
-        background-color: white;
-        border-left: solid #c5c5c5;
-        border-width: thin;
-        height: auto;
-        justify-content: center;
-        align-items: stretch;
-        justify-items: center;
-        width: 95%;
-        flex-wrap: wrap-reverse;
-        margin: 0 0 2px 0;
-    }
-
-    /*list elements - name column*/
-    .listContainerElName {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-grow: 2;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        margin: 0 auto;
-        text-align: left;
-        font-size: 1.5vw;
-    }
-
-    .listCreationDateColumn {
-        display: flex;
-        align-items: center;
-        flex-basis: 0;
-        flex-grow: 1;
-        border-right-style: solid;
-        border-right-color: #e06800;
-        border-right-width: thin;
-        margin: 0 auto;
-        justify-content: center;
-        color: rgba(72, 65, 75, 0.87);
-        font-size: 1.5vw;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*list elements - clumsy button*/
-    .listContainerElButton {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: .5;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-right-color: #e06800;
-        border-right-width: thin;
-        height: available;
-        font-size: 1.5vw;
-    }
-
-    /*list elements - shopping list: flex-grow set to 6 for large screens*/
-    .listContainerElElements {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        flex-grow: 3.25;
-        flex-basis: 0;
-        margin: 0 auto;
-        /*width: 75%;*/
-    }
-
-    .listsWrapper {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-
-    .nameYourListMode {
-        display: flex;
-        margin-top: 5vh;
-    }
-
-    .nameYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .nameYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70%;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        border-width: thin;
-        background-color: white;
-        align-items: center;
-        padding-top: 2vh;
-    }
-
-    .nameYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-    .navLink {
-        color: #4B4B4B;
-        text-decoration: none;
-        font-size: 115%;
-        text-transform: capitalize;
-    }
-
-    .navLink.default {
-        color: #50c4a8;
-    }
-
-    .navLink:focus {
-        color: #50c4a8;
-        outline: none;
-    }
-
-    .navLink:hover {
-        color: #50c4a8;
-        text-decoration: none;
-    }
-
-    .olStyle {
-        flex-direction: column;
-        padding-inline-start: 0;
-        width: 85%;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        list-style-type: decimal;
-    }
-
-    .right25pxMargin {
-        margin-right: 25px;
-    }
-
-
-    .reg-form {
-        font-size: 2vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2vh;
-        background-color: white;
-        width: 65vw;
-        border-radius: 10px;
-        align-content: space-evenly;
-    }
-
-    .reg-form-btn {
-        width: 30%;
-        font-size: 2vw;
-        padding: 5px;
-        align-self: flex-end;
-        background-color: forestgreen;
-        color: white;
-        border-width: 0;
-        border-collapse: collapse;
-    }
-
-    .reg-form-container {
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        width: 65vw;
-        margin: 0 auto;
-        align-items: flex-start;
-    }
-
-
-    .reg-form-div-el {
-        display: flex;
-        width: 100%;
-        flex-grow: 10;
-        flex-basis: 0;
-    }
-
-    .reg-form-div-el > span {
-        width: 30%;
-        margin-left: 1vw;
-        display: none;
-        font-size: 0.8rem;
-        justify-self: center;
-    }
-
-    .reg-form-input {
-        flex-basis: 0;
-        flex-grow: 3.5;
-        margin-bottom: 5px;
-    }
-
-    .reg-form-label {
-        flex-basis: 0;
-        flex-grow: 2;
-    }
-
-
-    .reg-form-notif-msg {
-        flex: 0 1 auto;
-        font-size: 1.8vw;
-    }
-
-
-    .reg-form-space-div {
-        flex-basis: 0;
-        flex-grow: 0.1;
-    }
-
-    .text-box__reg-form-above {
-        font-size: 200%;
-        display: block;
-        /*align-self: start;*/
-        width: 65vw;
-        margin: 0 auto;
-    }
-
-    .text-box__reg-form-above--desc {
-        font-size: 0.5em;
-        width: 65vw;
-    }
-
-    .text-box__reg-form-above--title {
-        font-size: 1em;
-    }
-}
+/*}*/
+
+
+/*!*LARGE SCREENS*!*/
+/*@media (min-width: 475.0000000000001px) and (max-width: 1000px) {*/
+/*    *, *:before, *:after {*/
+/*        box-sizing: inherit;*/
+/*    }*/
+
+/*    body {*/
+/*        background-color: #d9d9d9;*/
+/*        min-width: 300px;*/
+/*    }*/
+
+/*    html {*/
+/*        box-sizing: border-box;*/
+/*    }*/
+
+/*    h2 {*/
+/*        color: #242424;*/
+/*        font-family: 'Courgette', cursive;*/
+/*        margin: 0 auto;*/
+/*        text-align: center;*/
+/*        font-size: 2em;*/
+/*    }*/
+
+/*    input.create-list [type=text] {*/
+/*        font-size: 1.5em;*/
+/*        font-family: 'Courgette', cursive;*/
+/*    }*/
+
+/*    input.create-list[type=text]::placeholder {*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+
+/*    nav {*/
+/*        background-color: white;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*        height: 5vh;*/
+/*    }*/
+
+/*    nav li.about {*/
+/*        flex-grow: 4;*/
+/*        flex-basis: 0;*/
+/*    }*/
+
+/*    nav li.freeSpaceNavLi {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 8;*/
+/*        list-style-type: none;*/
+/*    }*/
+
+/*    nav li.left {*/
+/*        border-right: 0.15rem solid white;*/
+/*    }*/
+
+/*    nav li.create {*/
+/*        flex-grow: 7;*/
+/*        flex-basis: 0;*/
+/*        flex-shrink: 0.5*/
+/*    }*/
+
+/*    nav li.saved-lists {*/
+/*        flex-grow: 11;*/
+/*        flex-basis: 0;*/
+/*        flex-shrink: 0.5;*/
+/*        display: flex;*/
+/*        justify-content: left;*/
+/*    }*/
+
+/*    nav li.right {*/
+/*        border-left: 0.15rem solid white;*/
+/*    }*/
+
+/*    nav ul {*/
+/*        display: flex;*/
+/*        padding: 0;*/
+/*        text-transform: uppercase;*/
+/*        align-items: center;*/
+/*        margin: 0 auto;*/
+/*        height: 100%*/
+/*    }*/
+
+
+/*    ol {*/
+/*        width: auto;*/
+/*    }*/
+
+/*    ol li {*/
+/*        text-align: left;*/
+/*        list-style: decimal;*/
+/*    }*/
+
+
+/*    ol li::before {*/
+/*        color: #7FD4BF;*/
+/*    }*/
+
+/*    ul.reg-form-notif-msg {*/
+/*        margin-bottom: 2px;*/
+/*    }*/
+
+
+/*    .listBtn {*/
+/*        margin: 4px 2em 4px 0;*/
+/*        width: 3em;*/
+/*        text-align: center;*/
+/*        font-size: 1.5vw;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*        background-color: #50c4a8;*/
+/*        padding: 4px 4px;*/
+/*        border-radius: 8px;*/
+/*        border-width: 0;*/
+/*        justify-self: flex-start;*/
+/*        align-self: flex-start;*/
+/*        color: white;*/
+/*    }*/
+
+
+/*    #listDraft {*/
+/*        display: flex;*/
+/*        flex-wrap: wrap;*/
+/*        list-style: none;*/
+/*        word-break: break-all;*/
+/*        width: 60vw;*/
+/*    }*/
+
+/*    .activateBtn {*/
+/*        width: 100px;*/
+/*        height: 75px;*/
+/*        display: block;*/
+/*        text-align: center;*/
+/*        z-index: 1;*/
+/*        background-color: #D9D9D9;*/
+/*        font-family: 'Fredoka One', cursive;*/
+/*        font-size: 120%;*/
+/*        margin: 2vh 0;*/
+/*        color: #e06800;*/
+/*        border-radius: 8px;*/
+/*    }*/
+
+/*    .activateListModeContainer {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*        flex-direction: column;*/
+/*    }*/
+
+/*    .addBtn {*/
+/*        margin-left: 0.5em;*/
+/*        background-color: #50c4a8;*/
+/*    }*/
+
+/*    .block {*/
+/*        display: block;*/
+/*    }*/
+
+/*    !*.default {*!*/
+/*    !*    color: #50c4a8;*!*/
+/*    !*}*!*/
+/*    .displayBlock {*/
+/*        display: block;*/
+/*    }*/
+
+/*    .editionModeBtn {*/
+/*        align-self: center;*/
+/*        margin-bottom: 3px;*/
+/*        display: inline-block;*/
+/*        width: 48%;*/
+/*        text-align: center;*/
+/*        font-size: 90%;*/
+/*    }*/
+
+/*    .editionModeBtnContainer {*/
+/*        width: 30vw;*/
+/*        display: flex;*/
+/*        justify-content: space-evenly;*/
+/*    }*/
+
+/*    .editYourListMode {*/
+/*        display: flex;*/
+/*        margin-top: 5vh;*/
+/*    }*/
+
+/*    .editYourListModeBox1 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .editYourListModeBox2 {*/
+/*        flex-grow: 4;*/
+/*        min-height: 20vh;*/
+/*        max-width: 70%;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        border-width: 1px;*/
+/*        border-radius: 10px;*/
+/*        background-color: white;*/
+/*        align-items: center;*/
+/*        padding: 1.5vh 0;*/
+/*    }*/
+
+/*    .editYourListModeBox3 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .headingFlexContainer {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        background-color: white;*/
+/*        border-left: solid #c5c5c5;*/
+/*        border-width: thin;*/
+/*        height: auto;*/
+/*        flex-grow: inherit;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        justify-items: center;*/
+/*        font-size: 2.1vw;*/
+/*        width: 95%;*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .headingFlexElItem {*/
+/*        flex-basis: auto;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElName {*/
+/*        flex-grow: 2;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElDate {*/
+/*        flex-grow: 1;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElAction {*/
+/*        flex-grow: .5;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElList {*/
+/*        flex-grow: 3.25;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: none;*/
+/*        border-left-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    .h2FlexContainer {*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*        margin: 3vh 0 3vh 0;*/
+/*    }*/
+
+/*    .inline {*/
+/*        display: inline;*/
+/*        text-align: center;*/
+/*    }*/
+
+/*    .inputContainer {*/
+/*        margin-top: 2vh;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*    }*/
+
+/*    .itemName {*/
+/*        margin-right: 5px;*/
+/*        font-family: 'Courgette', cursive;*/
+/*        width: auto;*/
+/*        display: inline-block;*/
+/*    }*/
+
+
+/*    .itemBtn {*/
+/*        margin: 0 7px;*/
+/*        display: inline-block;*/
+/*        padding: 3px 6px;*/
+/*        border-radius: 8px;*/
+/*    }*/
+
+/*    .landing-page-container {*/
+/*        margin-top: 5vh;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        flex-direction: column;*/
+/*        align-self: center;*/
+/*    }*/
+
+/*    .liItem {*/
+/*        border-radius: 10px;*/
+/*        background-color: lightblue;*/
+/*        margin: 5px 2px;*/
+/*        padding: 6px 8px 6px 15px;*/
+/*    }*/
+
+
+/*    .liSavedListsContainer {*/
+/*        display: flex;*/
+/*        margin-bottom: 2vh;*/
+/*        flex-wrap: initial;*/
+/*    }*/
+
+/*    .liSavedListsInput {*/
+/*        align-self: flex-end;*/
+/*        margin-left: auto;*/
+/*        transform: scale(2.0);*/
+/*        flex-shrink: 2;*/
+/*    }*/
+
+/*    .listIndex {*/
+/*        color: #50c4a8;*/
+/*        display: inline;*/
+/*        margin-bottom: 0;*/
+/*        margin-left: 2%;*/
+/*    }*/
+
+/*    .listIndex2 {*/
+/*        color: black;*/
+/*        display: inline;*/
+/*        margin-bottom: 0;*/
+/*        margin-left: 3px;*/
+/*        padding-left: 1em;*/
+/*        align-self: flex-start;*/
+/*    }*/
+
+/*    .listItemSpan {*/
+/*        margin-right: 2vw;*/
+/*        flex-shrink: 2;*/
+/*        font-size: 1.5vw;*/
+/*        word-break: break-all;*/
+/*        flex-grow: 8;*/
+/*        font-family: 'Courgette', cursive;*/
+/*    }*/
+
+
+/*    !*LIST BODY*!*/
+/*    !*list elements - flex container*!*/
+/*    .listContainerEl {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        background-color: white;*/
+/*        border-left: solid #c5c5c5;*/
+/*        border-width: thin;*/
+/*        height: auto;*/
+/*        justify-content: center;*/
+/*        align-items: stretch;*/
+/*        justify-items: center;*/
+/*        width: 95%;*/
+/*        flex-wrap: wrap-reverse;*/
+/*        margin: 0 0 2px 0;*/
+/*    }*/
+
+/*    !*list elements - name column*!*/
+/*    .listContainerElName {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: space-between;*/
+/*        flex-grow: 2;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        margin: 0 auto;*/
+/*        text-align: left;*/
+/*        font-size: 1.5vw;*/
+/*    }*/
+
+/*    .listCreationDateColumn {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 1;*/
+/*        border-right-style: solid;*/
+/*        border-right-color: #e06800;*/
+/*        border-right-width: thin;*/
+/*        margin: 0 auto;*/
+/*        justify-content: center;*/
+/*        color: rgba(72, 65, 75, 0.87);*/
+/*        font-size: 1.5vw;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*list elements - clumsy button*!*/
+/*    .listContainerElButton {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*        flex-grow: .5;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-right-color: #e06800;*/
+/*        border-right-width: thin;*/
+/*        height: available;*/
+/*        font-size: 1.5vw;*/
+/*    }*/
+
+/*    !*list elements - shopping list: flex-grow set to 6 for large screens*!*/
+/*    .listContainerElElements {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: flex-start;*/
+/*        flex-grow: 3.25;*/
+/*        flex-basis: 0;*/
+/*        margin: 0 auto;*/
+/*        !*width: 75%;*!*/
+/*    }*/
+
+/*    .listsWrapper {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*    }*/
+
+
+/*    .nameYourListMode {*/
+/*        display: flex;*/
+/*        margin-top: 5vh;*/
+/*    }*/
+
+/*    .nameYourListModeBox1 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .nameYourListModeBox2 {*/
+/*        flex-grow: 4;*/
+/*        min-height: 20vh;*/
+/*        max-width: 70%;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        border-width: 1px;*/
+/*        border-radius: 10px;*/
+/*        border-width: thin;*/
+/*        background-color: white;*/
+/*        align-items: center;*/
+/*        padding-top: 2vh;*/
+/*    }*/
+
+/*    .nameYourListModeBox3 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .navLink {*/
+/*        color: #4B4B4B;*/
+/*        text-decoration: none;*/
+/*        font-size: 115%;*/
+/*        text-transform: capitalize;*/
+/*    }*/
+
+/*    .navLink.default {*/
+/*        color: #50c4a8;*/
+/*    }*/
+
+/*    .navLink:focus {*/
+/*        color: #50c4a8;*/
+/*        outline: none;*/
+/*    }*/
+
+/*    .navLink:hover {*/
+/*        color: #50c4a8;*/
+/*        text-decoration: none;*/
+/*    }*/
+
+/*    .olStyle {*/
+/*        flex-direction: column;*/
+/*        padding-inline-start: 0;*/
+/*        width: 85%;*/
+/*        margin-top: 5%;*/
+/*        margin-bottom: 5%;*/
+/*        margin-left: 5%;*/
+/*        list-style-type: decimal;*/
+/*    }*/
+
+/*    .right25pxMargin {*/
+/*        margin-right: 25px;*/
+/*    }*/
+
+
+/*    .reg-form {*/
+/*        font-size: 2vw;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*        padding: 2vh;*/
+/*        background-color: white;*/
+/*        width: 65vw;*/
+/*        border-radius: 10px;*/
+/*        align-content: space-evenly;*/
+/*    }*/
+
+/*    .reg-form-btn {*/
+/*        width: 30%;*/
+/*        font-size: 2vw;*/
+/*        padding: 5px;*/
+/*        align-self: flex-end;*/
+/*        background-color: forestgreen;*/
+/*        color: white;*/
+/*        border-width: 0;*/
+/*        border-collapse: collapse;*/
+/*        flex-grow: 30;*/
+/*    }*/
+
+/*    .reg-form-container {*/
+/*        align-self: center;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        width: 65vw;*/
+/*        margin: 0 auto;*/
+/*        align-items: flex-start;*/
+/*    }*/
+
+
+/*    .reg-form-div-el {*/
+/*        display: flex;*/
+/*        width: 100%;*/
+/*        flex-grow: 10;*/
+/*        flex-basis: 0;*/
+/*    }*/
+
+/*    .reg-form-div-el > span {*/
+/*        width: 30%;*/
+/*        margin-left: 1vw;*/
+/*        display: none;*/
+/*        font-size: 0.8rem;*/
+/*        justify-self: center;*/
+/*    }*/
+
+/*    .reg-form-input {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 3.5;*/
+/*        margin-bottom: 5px;*/
+/*    }*/
+
+/*    .reg-form-label {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 2;*/
+/*    }*/
+
+
+/*    .reg-form-notif-msg {*/
+/*        flex: 0 1 auto;*/
+/*        font-size: 1.8vw;*/
+/*    }*/
+
+
+/*    .reg-form-space-div {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 0.1;*/
+/*    }*/
+
+/*    .text-box__reg-form-above {*/
+/*        font-size: 200%;*/
+/*        display: block;*/
+/*        !*align-self: start;*!*/
+/*        width: 65vw;*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    .text-box__reg-form-above--desc {*/
+/*        font-size: 0.5em;*/
+/*        width: 65vw;*/
+/*    }*/
+
+/*    .text-box__reg-form-above--title {*/
+/*        font-size: 1em;*/
+/*    }*/
+/*}*/
 
 
 /*SMALL SCREENS*/
 
 
-@media (max-width: 475px) {
-
-
-    /*GENERAL*/
-    *, *:before, *:after {
-        box-sizing: border-box;
-    }
-
-
-    @keyframes appear {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    /*a.navLink {*/
-    /*    color: #4B4B4B;*/
-    /*}*/
-    body {
-        background-color: #f4f7fc;
-        min-width: 300px;
-    }
-
-    html {
-        box-sizing: border-box;
-    }
-
-    h2 {
-        color: #242424;
-        font-family: 'Courgette', cursive;
-        /*margin: 0 auto;*/
-        text-align: center;
-        font-size: 5vw;
-        margin: 1vh 1vh 1vh 1vh;
-    }
-
-    input:invalid {
-        border: red solid 1px;
-    }
-
-    input:valid {
-        border: green solid 1px;
-    }
-
-
-    input.create-list [type=text] {
-        width: 35vw;
-        font-size: 1.05em;
-        font-family: 'Courgette', cursive;
-    }
-
-    input.create-list [type=text]::placeholder {
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    input:focus {
-        outline: none;
-    }
-
-    input:placeholder-shown {
-        font-size: small;
-    }
-
-
-    input.saved[type='checkbox'] {
-        outline: 2px solid #e06800;;
-        box-shadow: none;
-        font-size: 3em;
-        transform: scale(1.5);
-    }
-
-
-    nav {
-        background-color: #242424;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    nav ul {
-        display: flex;
-        padding: 0;
-        align-items: stretch;
-        margin: 0 auto;
-    }
-
-    nav li.create {
-        flex-grow: 5;
-        flex-basis: 0;
-    }
-
-    nav li.saved-lists {
-        flex-grow: 5;
-        flex-basis: 0;
-    }
-
-    nav li.about {
-        flex-grow: 2;
-        flex-basis: 0;
-    }
-
-    nav li.right {
-        border-left: 0.15rem solid white;
-    }
-
-    nav li.left {
-        border-right: 0.15rem solid white;
-    }
-
-
-    ol {
-        width: auto;
-    }
-
-    ol li {
-        text-align: left;
-        list-style: decimal;
-    }
-
-    ol li::before {
-        color: #7FD4BF;
-    }
-
-    ul li {
-        display: flex;
-    }
-
-
-    #addItemBtn {
-        margin-left: 1vw;
-    }
-
-    #addNameBtn {
-        margin-left: 1vw;
-    }
-
-
-    #backBtn {
-        align-self: center;
-        margin-left: auto;
-        margin-top: 2vh;
-    }
-
-    .listBtn {
-        width: auto;
-        text-align: center;
-        margin: 1vh;
-        font-family: 'Cabin Condensed', sans-serif;
-        background-color: #50c4a8;
-        padding: 4px 4px;
-        border-radius: 8px;
-        border-width: 0;
-        color: white;
-    }
-
-    #listDraft {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-        width: 80%;
-        flex-direction: column;
-        word-break: break-all;
-        padding-inline-start: 0;
-    }
-
-    .activateBtn {
-        width: 100px;
-        height: 75px;
-        display: block;
-        text-align: center;
-        z-index: 1;
-        background-color: #D9D9D9;
-        font-family: 'Fredoka One', cursive;
-        font-size: 120%;
-        margin: 2vh 0;
-        color: #e06800;
-        border-radius: 8px;
-    }
-
-    .activateBtn:focus {
-        outline: none;
-    }
-
-    .activateListModeContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .addBtn {
-        margin-left: 0.7em;
-        background-color: #50c4a8;
-    }
-
-    .appear {
-        animation: appear 6s
-    }
-
-
-    .block {
-        display: block;
-    }
-
-    .default {
-        color: #50c4a8;
-    }
-
-    .inline {
-        display: inline;
-        text-align: center;
-    }
-
-
-    .itemBtn {
-        margin-left: 7px;
-        padding: 2px 4px 2px 4px;
-        display: inline-block;
-        border-radius: 8px;
-        height: 2em;
-    }
-
-    .checkbox {
-        justify-self: flex-end;
-        flex-grow: 5;
-        align-self: flex-end;
-    }
-
-    .displayBlock {
-        display: block;
-    }
-
-    /*nav link font size changes depending on the screen resolution*/
-    .editYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .editYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70vw;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        background-color: white;
-        align-items: center;
-        padding: 1.5vh 0;
-        /*flex-wrap: wrap;*/
-    }
-
-    .editYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-    .editYourListMode {
-        display: flex;
-        margin-top: 5vh;
-        min-height: 27vh;
-    }
-
-
-    /*font size of the header elements doubled for large screens*/
-    .headingFlexContainer {
-        text-align: center;
-        display: flex;
-        background-color: white;
-        border-left: solid #c5c5c5;
-        border-width: thin;
-        height: auto;
-        flex-grow: inherit;
-        justify-content: center;
-        align-items: center;
-        justify-items: center;
-        font-size: 100%;
-        width: 95%;
-        margin: 0 auto;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElName {
-        flex-grow: 2;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElDate {
-        flex-grow: 1;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElAction {
-        flex-grow: .75;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    /*so far no differences comparing to small screen*/
-    .headingFlexElList {
-        flex-grow: 4;
-        flex-basis: 0;
-        border-right-style: none;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        color: white;
-        background-color: #242424;
-        display: none;
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    .h2FlexContainer {
-        width: 100%;
-        margin: 3vh 0 3vh 0;
-    }
-
-    .itemName {
-        margin-right: 5px;
-        font-family: 'Courgette', cursive;
-        font-size: 5vw;
-        /*width: 40vw;*/
-        /*flex-basis: 300px;*/
-        align-self: flex-start;
-        flex-grow: 1;
-    }
-
-    .landing-page-container {
-        margin-top: 2vh;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-
-    .liItem {
-        display: flex;
-        align-self: flex-start;
-        border-radius: 10px;
-        background-color: lightblue;
-        margin: 5px 2px;
-        padding: 6px 8px 6px 15px;
-    }
-
-
-    /*LIST ELEMENTS*/
-    /*same configuration as for large screens*/
-    .listContainerEl {
-        text-align: center;
-        display: flex;
-        background-color: white;
-        border-left: solid #c5c5c5;
-        border-width: thin;
-        height: auto;
-        justify-content: center;
-        align-items: stretch;
-        justify-items: center;
-        width: 95%;
-        flex-wrap: wrap-reverse;
-        margin: 0 0 2px 0;
-        padding-bottom: 0;
-    }
-
-    .listContainerElButton {
-        flex-grow: .75;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-right-color: #e06800;
-        border-right-width: thin;
-        display: block;
-        margin: 0 auto;
-        height: inherit;
-    }
-
-    .listContainerElName {
-        flex-grow: 2;
-        flex-basis: 0;
-        border-right-style: solid;
-        border-color: #e06800;
-        border-width: thin;
-        height: inherit;
-        margin: 0 auto;
-        text-align: left;
-        flex-shrink: 0.6;
-    }
-
-    .listIndex {
-        color: #50c4a8;
-        display: inline;
-        margin-bottom: 0;
-        margin-left: 2%;
-    }
-
-    .listIndex2 {
-        color: black;
-        display: inline-block;
-        margin-bottom: 0;
-        margin-left: 3px;
-        width: 85%;
-        padding-left: .5em;
-        word-break: break-word;
-    }
-
-
-    .listsWrapper {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-
-    /*list elements - shopping list: flex-grow set to 4 for small screens*/
-    .listContainerElElements {
-        flex-grow: 4;
-        flex-basis: 0;
-        height: auto;
-        display: none;
-    }
-
-    /*list elements - creation date*/
-    .listCreationDateColumn {
-        flex-basis: 0;
-        flex-grow: 1;
-        border-right-style: solid;
-        border-right-color: #e06800;
-        border-right-width: thin;
-        display: block;
-        margin: 0 auto;
-        height: inherit;
-        color: rgba(72, 65, 75, 0.87);
-        font-family: 'Cabin Condensed', sans-serif;
-    }
-
-    .nameYourListModeBox1 {
-        flex-grow: 3;
-    }
-
-    .nameYourListModeBox2 {
-        flex-grow: 4;
-        min-height: 20vh;
-        max-width: 70vw;
-        display: flex;
-        flex-direction: column;
-        border-width: 1px;
-        border-radius: 10px;
-        background-color: white;
-        align-items: center;
-        padding-top: 2vh;
-        flex-wrap: wrap;
-    }
-
-    .nameYourListModeBox3 {
-        flex-grow: 3;
-    }
-
-    .nameYourListMode {
-        display: flex;
-        margin-top: 5vh;
-        min-height: 27vh;
-    }
-
-    .navLink {
-        color: #FFFFFF;
-        text-decoration: none;
-        font-size: 100%;
-    }
-
-    .navLink:hover {
-        color: #50c4a8;
-        text-decoration: none;
-    }
-
-    .navLink:focus {
-        color: #50c4a8;
-        outline: none;
-    }
-
-    .right25pxMargin {
-        margin-right: 25px;
-    }
-
-    .reg-form {
-        font-size: 2vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2vh;
-        background-color: white;
-        align-content: space-evenly;
-        width: 100%;
-        margin: 0 0;
-    }
-
-    .reg-form-btn {
-        width: 38%;
-        font-size: 15px;
-        /*margin-top: 18px;*/
-        padding: 5px;
-        align-self: center;
-        justify-self: center;
-        background-color: forestgreen;
-        color: white;
-        border-width: 0;
-        border-collapse: collapse;
-    }
-
-    .reg-form-btn-container {
-        display: flex;
-        width: inherit;
-        align-items: center;
-        justify-items: center;
-    }
-
-
-    .reg-form-container {
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin: 0 auto;
-        align-items: flex-start;
-    }
-
-    .reg-form-div-el {
-        display: flex;
-        width: inherit;
-    }
-
-    .reg-form-div-el > input {
-        height: 50px;
-    }
-
-    .reg-form-input {
-        font-size: 15px;
-        flex-basis: 0;
-        flex-grow: 8;
-        margin-bottom: 5px;
-    }
-
-    .reg-form-label {
-        font-size: 15px;
-        flex-basis: 0;
-        flex-grow: 2;
-        flex-shrink: 10;
-        align-self: center;
-        margin: 0;
-    }
-
-    .reg-form-space-div {
-        flex-basis: 0;
-        flex-grow: 0.5;
-    }
-
-
-    .reg-form-successMsg-container {
-        width: 60%;
-        justify-self: flex-start;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 50px;
-        color: green;
-    }
-
-
-    .reg-form-failureMsg-container {
-        width: 100%;
-        justify-self: flex-start;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: small;
-        color: red;
-    }
-
-    .singleListViewContainer {
-        display: flex;
-        border-style: solid;
-        border-width: 1px 1px 0 1px;
-        flex-direction: column;
-        margin-right: 5vw;
-        margin-left: 5vw;
-        justify-content: center;
-        align-items: center;
-        width: 90vw;
-        height: 100%;
-        /*align-content: space-evenly;*/
-    }
-
-    .singleListViewGeneralContainer {
-        display: flex;
-        flex-direction: column;
-        margin-right: 5vw;
-    }
-
-    .singleListItem {
-        display: flex;
-        /*flex-direction: column;*/
-        background-color: white;
-        width: 89vw;
-        /*height: 4vh;*/
-        padding: 2.2vh;
-        border-style: solid;
-        border-width: 0 0 1px 0;
-        justify-content: center;
-        align-items: center;
-        word-break: break-all;
-    }
-
-    .span {
-        display: block;
-        width: inherit;
-        flex-grow: 8;
-    }
-
-    .text-box__reg-form-above {
-        margin-top: 10px;
-        display: block;
-        align-self: center;
-        width: 66vw;
-    }
-
-    .text-box__reg-form-above--desc {
-        width: 66vw;
-    }
-
-    .text-box__reg-form-above--title {
-        font-weight: bold;
-    }
-
-}
+/*@media (max-width: 475px) {*/
+
+
+/*    !*GENERAL*!*/
+/*    *, *:before, *:after {*/
+/*        box-sizing: border-box;*/
+/*    }*/
+
+
+/*    @keyframes appear {*/
+/*        0% {*/
+/*            opacity: 0;*/
+/*        }*/
+/*        100% {*/
+/*            opacity: 1;*/
+/*        }*/
+/*    }*/
+
+/*    !*a.navLink {*!*/
+/*    !*    color: #4B4B4B;*!*/
+/*    !*}*!*/
+/*    body {*/
+/*        background-color: #f4f7fc;*/
+/*        min-width: 300px;*/
+/*    }*/
+
+/*    html {*/
+/*        box-sizing: border-box;*/
+/*    }*/
+
+/*    h2 {*/
+/*        color: #242424;*/
+/*        font-family: 'Courgette', cursive;*/
+/*        !*margin: 0 auto;*!*/
+/*        text-align: center;*/
+/*        font-size: 5vw;*/
+/*        margin: 1vh 1vh 1vh 1vh;*/
+/*    }*/
+
+/*    input:invalid {*/
+/*        border: red solid 1px;*/
+/*    }*/
+
+/*    input:valid {*/
+/*        border: green solid 1px;*/
+/*    }*/
+
+
+/*    input.create-list [type=text] {*/
+/*        width: 35vw;*/
+/*        font-size: 1.05em;*/
+/*        font-family: 'Courgette', cursive;*/
+/*    }*/
+
+/*    input.create-list [type=text]::placeholder {*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    input:focus {*/
+/*        outline: none;*/
+/*    }*/
+
+/*    input:placeholder-shown {*/
+/*        font-size: small;*/
+/*    }*/
+
+
+/*    input.saved[type='checkbox'] {*/
+/*        outline: 2px solid #e06800;;*/
+/*        box-shadow: none;*/
+/*        font-size: 3em;*/
+/*        transform: scale(1.5);*/
+/*    }*/
+
+
+/*    nav {*/
+/*        background-color: #242424;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    nav ul {*/
+/*        display: flex;*/
+/*        padding: 0;*/
+/*        align-items: stretch;*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    nav li.create {*/
+/*        flex-grow: 5;*/
+/*        flex-basis: 0;*/
+/*    }*/
+
+/*    nav li.saved-lists {*/
+/*        flex-grow: 5;*/
+/*        flex-basis: 0;*/
+/*    }*/
+
+/*    nav li.about {*/
+/*        flex-grow: 2;*/
+/*        flex-basis: 0;*/
+/*    }*/
+
+/*    nav li.right {*/
+/*        border-left: 0.15rem solid white;*/
+/*    }*/
+
+/*    nav li.left {*/
+/*        border-right: 0.15rem solid white;*/
+/*    }*/
+
+
+/*    ol {*/
+/*        width: auto;*/
+/*    }*/
+
+/*    ol li {*/
+/*        text-align: left;*/
+/*        list-style: decimal;*/
+/*    }*/
+
+/*    ol li::before {*/
+/*        color: #7FD4BF;*/
+/*    }*/
+
+/*    ul li {*/
+/*        display: flex;*/
+/*    }*/
+
+
+/*    #addItemBtn {*/
+/*        margin-left: 1vw;*/
+/*    }*/
+
+/*    #addNameBtn {*/
+/*        margin-left: 1vw;*/
+/*    }*/
+
+
+/*    #backBtn {*/
+/*        align-self: center;*/
+/*        margin-left: auto;*/
+/*        margin-top: 2vh;*/
+/*    }*/
+
+/*    .listBtn {*/
+/*        width: auto;*/
+/*        text-align: center;*/
+/*        margin: 1vh;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*        background-color: #50c4a8;*/
+/*        padding: 4px 4px;*/
+/*        border-radius: 8px;*/
+/*        border-width: 0;*/
+/*        color: white;*/
+/*    }*/
+
+/*    #listDraft {*/
+/*        display: flex;*/
+/*        flex-wrap: wrap;*/
+/*        list-style: none;*/
+/*        width: 80%;*/
+/*        flex-direction: column;*/
+/*        word-break: break-all;*/
+/*        padding-inline-start: 0;*/
+/*    }*/
+
+/*    .activateBtn {*/
+/*        width: 100px;*/
+/*        height: 75px;*/
+/*        display: block;*/
+/*        text-align: center;*/
+/*        z-index: 1;*/
+/*        background-color: #D9D9D9;*/
+/*        font-family: 'Fredoka One', cursive;*/
+/*        font-size: 120%;*/
+/*        margin: 2vh 0;*/
+/*        color: #e06800;*/
+/*        border-radius: 8px;*/
+/*    }*/
+
+/*    .activateBtn:focus {*/
+/*        outline: none;*/
+/*    }*/
+
+/*    .activateListModeContainer {*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*        flex-direction: column;*/
+/*    }*/
+
+/*    .addBtn {*/
+/*        margin-left: 0.7em;*/
+/*        background-color: #50c4a8;*/
+/*    }*/
+
+/*    .appear {*/
+/*        animation: appear 6s*/
+/*    }*/
+
+
+/*    .block {*/
+/*        display: block;*/
+/*    }*/
+
+/*    .default {*/
+/*        color: #50c4a8;*/
+/*    }*/
+
+/*    .inline {*/
+/*        display: inline;*/
+/*        text-align: center;*/
+/*    }*/
+
+
+/*    .itemBtn {*/
+/*        margin-left: 7px;*/
+/*        padding: 2px 4px 2px 4px;*/
+/*        display: inline-block;*/
+/*        border-radius: 8px;*/
+/*        height: 2em;*/
+/*    }*/
+
+/*    .checkbox {*/
+/*        justify-self: flex-end;*/
+/*        flex-grow: 5;*/
+/*        align-self: flex-end;*/
+/*    }*/
+
+/*    .displayBlock {*/
+/*        display: block;*/
+/*    }*/
+
+/*    !*nav link font size changes depending on the screen resolution*!*/
+/*    .editYourListModeBox1 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .editYourListModeBox2 {*/
+/*        flex-grow: 4;*/
+/*        min-height: 20vh;*/
+/*        max-width: 70vw;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        border-width: 1px;*/
+/*        border-radius: 10px;*/
+/*        background-color: white;*/
+/*        align-items: center;*/
+/*        padding: 1.5vh 0;*/
+/*        !*flex-wrap: wrap;*!*/
+/*    }*/
+
+/*    .editYourListModeBox3 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .editYourListMode {*/
+/*        display: flex;*/
+/*        margin-top: 5vh;*/
+/*        min-height: 27vh;*/
+/*    }*/
+
+
+/*    !*font size of the header elements doubled for large screens*!*/
+/*    .headingFlexContainer {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        background-color: white;*/
+/*        border-left: solid #c5c5c5;*/
+/*        border-width: thin;*/
+/*        height: auto;*/
+/*        flex-grow: inherit;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        justify-items: center;*/
+/*        font-size: 100%;*/
+/*        width: 95%;*/
+/*        margin: 0 auto;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElName {*/
+/*        flex-grow: 2;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElDate {*/
+/*        flex-grow: 1;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElAction {*/
+/*        flex-grow: .75;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    !*so far no differences comparing to small screen*!*/
+/*    .headingFlexElList {*/
+/*        flex-grow: 4;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: none;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        color: white;*/
+/*        background-color: #242424;*/
+/*        display: none;*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    .h2FlexContainer {*/
+/*        width: 100%;*/
+/*        margin: 3vh 0 3vh 0;*/
+/*    }*/
+
+/*    .itemName {*/
+/*        margin-right: 5px;*/
+/*        font-family: 'Courgette', cursive;*/
+/*        font-size: 5vw;*/
+/*        !*width: 40vw;*!*/
+/*        !*flex-basis: 300px;*!*/
+/*        align-self: flex-start;*/
+/*        flex-grow: 1;*/
+/*    }*/
+
+/*    .landing-page-container {*/
+/*        margin-top: 2vh;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*        width: 100%;*/
+/*    }*/
+
+
+/*    .liItem {*/
+/*        display: flex;*/
+/*        align-self: flex-start;*/
+/*        border-radius: 10px;*/
+/*        background-color: lightblue;*/
+/*        margin: 5px 2px;*/
+/*        padding: 6px 8px 6px 15px;*/
+/*    }*/
+
+
+/*    !*LIST ELEMENTS*!*/
+/*    !*same configuration as for large screens*!*/
+/*    .listContainerEl {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        background-color: white;*/
+/*        border-left: solid #c5c5c5;*/
+/*        border-width: thin;*/
+/*        height: auto;*/
+/*        justify-content: center;*/
+/*        align-items: stretch;*/
+/*        justify-items: center;*/
+/*        width: 95%;*/
+/*        flex-wrap: wrap-reverse;*/
+/*        margin: 0 0 2px 0;*/
+/*        padding-bottom: 0;*/
+/*    }*/
+
+/*    .listContainerElButton {*/
+/*        flex-grow: .75;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-right-color: #e06800;*/
+/*        border-right-width: thin;*/
+/*        display: block;*/
+/*        margin: 0 auto;*/
+/*        height: inherit;*/
+/*    }*/
+
+/*    .listContainerElName {*/
+/*        flex-grow: 2;*/
+/*        flex-basis: 0;*/
+/*        border-right-style: solid;*/
+/*        border-color: #e06800;*/
+/*        border-width: thin;*/
+/*        height: inherit;*/
+/*        margin: 0 auto;*/
+/*        text-align: left;*/
+/*        flex-shrink: 0.6;*/
+/*    }*/
+
+/*    .listIndex {*/
+/*        color: #50c4a8;*/
+/*        display: inline;*/
+/*        margin-bottom: 0;*/
+/*        margin-left: 2%;*/
+/*    }*/
+
+/*    .listIndex2 {*/
+/*        color: black;*/
+/*        display: inline-block;*/
+/*        margin-bottom: 0;*/
+/*        margin-left: 3px;*/
+/*        width: 85%;*/
+/*        padding-left: .5em;*/
+/*        word-break: break-word;*/
+/*    }*/
+
+
+/*    .listsWrapper {*/
+/*        text-align: center;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*    }*/
+
+
+/*    !*list elements - shopping list: flex-grow set to 4 for small screens*!*/
+/*    .listContainerElElements {*/
+/*        flex-grow: 4;*/
+/*        flex-basis: 0;*/
+/*        height: auto;*/
+/*        display: none;*/
+/*    }*/
+
+/*    !*list elements - creation date*!*/
+/*    .listCreationDateColumn {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 1;*/
+/*        border-right-style: solid;*/
+/*        border-right-color: #e06800;*/
+/*        border-right-width: thin;*/
+/*        display: block;*/
+/*        margin: 0 auto;*/
+/*        height: inherit;*/
+/*        color: rgba(72, 65, 75, 0.87);*/
+/*        font-family: 'Cabin Condensed', sans-serif;*/
+/*    }*/
+
+/*    .nameYourListModeBox1 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .nameYourListModeBox2 {*/
+/*        flex-grow: 4;*/
+/*        min-height: 20vh;*/
+/*        max-width: 70vw;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        border-width: 1px;*/
+/*        border-radius: 10px;*/
+/*        background-color: white;*/
+/*        align-items: center;*/
+/*        padding-top: 2vh;*/
+/*        flex-wrap: wrap;*/
+/*    }*/
+
+/*    .nameYourListModeBox3 {*/
+/*        flex-grow: 3;*/
+/*    }*/
+
+/*    .nameYourListMode {*/
+/*        display: flex;*/
+/*        margin-top: 5vh;*/
+/*        min-height: 27vh;*/
+/*    }*/
+
+/*    .navLink {*/
+/*        color: #FFFFFF;*/
+/*        text-decoration: none;*/
+/*        font-size: 100%;*/
+/*    }*/
+
+/*    .navLink:hover {*/
+/*        color: #50c4a8;*/
+/*        text-decoration: none;*/
+/*    }*/
+
+/*    .navLink:focus {*/
+/*        color: #50c4a8;*/
+/*        outline: none;*/
+/*    }*/
+
+/*    .right25pxMargin {*/
+/*        margin-right: 25px;*/
+/*    }*/
+
+/*    .reg-form {*/
+/*        font-size: 2vw;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*        padding: 2vh;*/
+/*        background-color: white;*/
+/*        align-content: space-evenly;*/
+/*        width: 100%;*/
+/*        margin: 0 0;*/
+/*    }*/
+
+/*    .reg-form-btn {*/
+/*        width: 38%;*/
+/*        font-size: 15px;*/
+/*        !*margin-top: 18px;*!*/
+/*        padding: 5px;*/
+/*        align-self: center;*/
+/*        justify-self: center;*/
+/*        background-color: forestgreen;*/
+/*        color: white;*/
+/*        border-width: 0;*/
+/*        border-collapse: collapse;*/
+/*    }*/
+
+/*    .reg-form-btn-container {*/
+/*        display: flex;*/
+/*        width: inherit;*/
+/*        align-items: center;*/
+/*        justify-items: center;*/
+/*    }*/
+
+
+/*    .reg-form-container {*/
+/*        align-self: center;*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        width: 100%;*/
+/*        margin: 0 auto;*/
+/*        align-items: flex-start;*/
+/*    }*/
+
+/*    .reg-form-div-el {*/
+/*        display: flex;*/
+/*        width: inherit;*/
+/*    }*/
+
+/*    .reg-form-div-el > input {*/
+/*        height: 50px;*/
+/*    }*/
+
+/*    .reg-form-input {*/
+/*        font-size: 15px;*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 8;*/
+/*        margin-bottom: 5px;*/
+/*    }*/
+
+/*    .reg-form-label {*/
+/*        font-size: 15px;*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 2;*/
+/*        flex-shrink: 10;*/
+/*        align-self: center;*/
+/*        margin: 0;*/
+/*    }*/
+
+/*    .reg-form-space-div {*/
+/*        flex-basis: 0;*/
+/*        flex-grow: 0.5;*/
+/*    }*/
+
+
+/*    .reg-form-successMsg-container {*/
+/*        width: 60%;*/
+/*        justify-self: flex-start;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        font-size: 50px;*/
+/*        color: green;*/
+/*    }*/
+
+
+/*    .reg-form-failureMsg-container {*/
+/*        width: 100%;*/
+/*        justify-self: flex-start;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        font-size: small;*/
+/*        color: red;*/
+/*    }*/
+
+/*    .singleListViewContainer {*/
+/*        display: flex;*/
+/*        border-style: solid;*/
+/*        border-width: 1px 1px 0 1px;*/
+/*        flex-direction: column;*/
+/*        margin-right: 5vw;*/
+/*        margin-left: 5vw;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        width: 90vw;*/
+/*        height: 100%;*/
+/*        !*align-content: space-evenly;*!*/
+/*    }*/
+
+/*    .singleListViewGeneralContainer {*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        margin-right: 5vw;*/
+/*    }*/
+
+/*    .singleListItem {*/
+/*        display: flex;*/
+/*        !*flex-direction: column;*!*/
+/*        background-color: white;*/
+/*        width: 89vw;*/
+/*        !*height: 4vh;*!*/
+/*        padding: 2.2vh;*/
+/*        border-style: solid;*/
+/*        border-width: 0 0 1px 0;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        word-break: break-all;*/
+/*    }*/
+
+/*    .span {*/
+/*        display: block;*/
+/*        width: inherit;*/
+/*        flex-grow: 8;*/
+/*    }*/
+
+/*    .text-box__reg-form-above {*/
+/*        margin-top: 10px;*/
+/*        display: block;*/
+/*        align-self: center;*/
+/*        width: 66vw;*/
+/*    }*/
+
+/*    .text-box__reg-form-above--desc {*/
+/*        width: 66vw;*/
+/*    }*/
+
+/*    .text-box__reg-form-above--title {*/
+/*        font-weight: bold;*/
+/*    }*/
+
+/*}*/
 
 
 
