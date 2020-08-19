@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\ShoppingList;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,6 +23,51 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingList", mappedBy="user")
+     */
+    private $shoppingLists;
+
+
+//    public function __construct()
+//    {
+//        $this->users = new ArrayCollection();
+//    }
+
+//    /**
+//     * @return ArrayCollection
+//     */
+//    public function getUsers(): ArrayCollection
+//    {
+//        return $this->users;
+//    }
+//
+//    /**
+//     * @param ArrayCollection $users
+//     */
+//    public function setUsers(ArrayCollection $users): void
+//    {
+//        $this->users = $users;
+//    }
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getShoppingLists()
+//    {
+//        return $this->shoppingLists;
+//    }
+//
+//    /**
+//     * @param mixed $shoppingLists
+//     */
+//    public function setShoppingLists($shoppingLists): void
+//    {
+//        $this->shoppingLists = $shoppingLists;
+//    }
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
