@@ -4,6 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListRepository")
  */
@@ -15,6 +20,13 @@ class ShoppingList
      * @ORM\Column(type="integer")
      */
     private $id;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="shoppingLists")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * @ORM\Column(type="string", nullable=true)
