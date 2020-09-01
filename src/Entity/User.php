@@ -31,42 +31,28 @@ class User implements UserInterface
     private $shoppingLists;
 
 
-//    public function __construct()
-//    {
-//        $this->users = new ArrayCollection();
-//    }
+    public function __construct()
+    {
+        $this->shoppingLists = new ArrayCollection();
+    }
 
-//    /**
-//     * @return ArrayCollection
-//     */
-//    public function getUsers(): ArrayCollection
-//    {
-//        return $this->users;
-//    }
-//
-//    /**
-//     * @param ArrayCollection $users
-//     */
-//    public function setUsers(ArrayCollection $users): void
-//    {
-//        $this->users = $users;
-//    }
 
-//    /**
-//     * @return mixed
-//     */
-//    public function getShoppingLists()
-//    {
-//        return $this->shoppingLists;
-//    }
-//
-//    /**
-//     * @param mixed $shoppingLists
-//     */
-//    public function setShoppingLists($shoppingLists): void
-//    {
-//        $this->shoppingLists = $shoppingLists;
-//    }
+
+    /**
+     * @return mixed
+     */
+    public function getShoppingLists()
+    {
+        return $this->shoppingLists;
+    }
+
+    /**
+     * @param mixed $shoppingLists
+     */
+    public function setShoppingLists($shoppingLists): void
+    {
+        $this->shoppingLists = $shoppingLists;
+    }
 
 
     /**
