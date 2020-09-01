@@ -7,12 +7,13 @@ import SavedLists from "./savedLists";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     withRouter,
-    Router,
     Switch,
     Route,
     Link,
     NavLink
 } from "react-router-dom";
+
+import { Router } from 'react-router-dom';
 
 import {createBrowserHistory} from "history";
 const history = createBrowserHistory();
@@ -23,7 +24,8 @@ const $ = require('jquery');
 import 'bootstrap';
 import savedLists from "./savedLists";
 
-const imgPath = require('../images/photo.jpg');
+
+
 
 
 class App extends Component {
@@ -32,6 +34,8 @@ class App extends Component {
         this.singleListVerifier = this.singleListVerifier.bind(this);
         this.refreshAttemptVerifier = this.refreshAttemptVerifier.bind(this);
         this.state = {
+            createListStateReset:false,
+            isCreateListShown: true,
             createNewList: true,
             savedLists: false,
             about: false,
@@ -44,14 +48,8 @@ class App extends Component {
 
     }
 
-    componentDidMount() {
-        document.getElementById('root').style = {backgroundImage: "url('images/photo.1af09e53.jpg')"}
-        console.log("APP: I got mounted!")
-    }
-
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("APP: savedListsCounter state: " + this.state.savedListsCounter)
         if (this.state.savedListsCounter === 1 && !this.state.visited) {
             this.setState({
                 visited: true,
@@ -60,6 +58,13 @@ class App extends Component {
             this.setState({
                 savedListsCounter: -1
             })
+        }
+    }
+
+    componentDidMount() {
+        history.push('/dashboard')
+        if (this.props.view === 'new_list') {
+            this.setState({createNewList: true})
         }
     }
 
@@ -72,28 +77,41 @@ class App extends Component {
     }
 
     stateUpdater = (e) => {
-        if (e.target.href === 'https://localhost:8000/about') {
+       if (e.target.href !== '/dashboard/new_list'){
+           this.setState({
+               isCreateListShown:false
+           })
+        }
+        if (e.target.href === 'https://localhost:8000/dashboard/about') {
             this.setState({
                 createNewList: false,
                 savedLists: false,
                 about: true,
                 savedListsCounter: -1,
-                visited: false
+                visited: false,
+                createListStateReset: true,
+                isCreateListShown: false,
             })
-        } else if (e.target.href === 'https://localhost:8000/saved') {
+        } else if (e.target.href === 'https://localhost:8000/dashboard/saved') {
             this.setState({
                 createNewList: false,
                 savedLists: true,
                 about: false,
-                savedListsCounter: this.state.savedListsCounter + 1
+                savedListsCounter: this.state.savedListsCounter + 1,
+                createListStateReset: true,
+                isCreateListShown: false
             })
-        } else if (e.target.href === 'https://localhost:8000/') {
+        } else if (e.target.href === 'https://localhost:8000/dashboard/new_list') {
+            console.log('I am waorking')
             this.setState({
+                isCreateListShown:true,
                 createNewList: true,
                 savedLists: false,
                 about: false,
                 savedListsCounter: -1,
-                visited: false
+                visited: false,
+                createListStateReset: true,
+
             })
         }
 
@@ -104,6 +122,12 @@ class App extends Component {
         this.removeDefaultNavClass(e);
         this.stateUpdater(e);
         this.refreshAttemptVerifier(e)
+    }
+
+    comboStateUpdater = (userState, loginState) => {
+        this.props.userStateUpdater(userState);
+        this.props.loginStateUpdater(loginState);
+        this.props.logoutAction();
     }
 
     refreshAttemptVerifier = (e) => {
@@ -133,18 +157,17 @@ class App extends Component {
                 <nav>
                     <ul>
                         <li className={"inline left create"}>
-                            <NavLink to="/" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
+                            <NavLink to="/dashboard/new_list" className={"navLink default"} onClick={e => this.comboFunctioner(e)}
                                      id={"defNavEl"}>Nowa lista</NavLink>
                         </li>
                         <li className={"inline saved-lists"}>
-                            <NavLink to="/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
+                            <NavLink to="/dashboard/saved" className={"navLink"} onClick={e => this.comboFunctioner(e)}>Zapisane
                                 listy</NavLink>
                         </li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"freeSpaceNavLi"}>{null}</li>
                         <li className={"inline right about"}>
-                            <NavLink to="/about" className={"navLink"} onClick={e => this.comboFunctioner(e)}>O
-                                mnie</NavLink>
+                            <NavLink to="/login" className={"navLink"} onClick={e => this.comboFunctioner(e)}><button onClick={()=>this.comboStateUpdater('anonymous', false)}>Wyloguj</button></NavLink>
                         </li>
                     </ul>
                 </nav>
@@ -152,8 +175,14 @@ class App extends Component {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route exact path="/" component={CreateList}/>
-                    <Route exact path="/saved"
+                    <Route exact path="/dashboard/new_list"
+                            render={()=><CreateList
+                                            shown={this.state.isCreateListShown}
+                                            createListStateReset={this.state.createListStateReset}
+                                            userId={this.props.userId}
+
+                            />}/>
+                    <Route exact path="/dashboard/saved"
                            render={() => <SavedLists
                                 stateProps={this.state.savedListsCounter}
                                 singleListVerifier={this.singleListVerifier}
@@ -161,16 +190,26 @@ class App extends Component {
                             />
                         }
                     />
-                    <Route exact path="/about" component={About}/>
+                    <Route exact path="/dashboard/about" component={About}/>
+                    <Route exact path="/dashboard"
+                           render={() => <Dashboard userFirstName={this.props.userFirstName}/>
+                           }
+                    />
                 </Switch>
             </div>
         </Router>
     }
 }
 
+class Dashboard extends Component {
+    render(){
+        return <h1>Witaj {this.props.userFirstName}  !</h1>
+    }
+}
+
 class About extends Component {
     render(){
-        return <h2>work in progress...</h2>
+        return <h2>WDupa!</h2>
     }
 
 }
