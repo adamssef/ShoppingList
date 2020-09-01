@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import {ReactDOM} from 'react-dom';
-import {NavLink, Route, Router, Switch, withRouter, Redirect,} from 'react-router-dom';
-import CreateList from "./createNewList";
+import {NavLink, Route, Switch, withRouter, Redirect,} from 'react-router-dom';
 import SavedLists from "./savedLists";
 import {About, App} from "./app";
 import {faCheckSquare} from "@fortawesome/free-solid-svg-icons";
-
+import {createBrowserHistory} from "history";
+import {Router} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import '../css/app.css';
 
@@ -20,10 +20,9 @@ class RegForm extends Component {
             cpasswordField: '',
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
-            regToken: 'initialVal',
+            // token: 'initialVal',
             formCorrect: false,
             doesUserExists: null,
-            activeFormType: null,
         }
     }
 
@@ -37,12 +36,26 @@ class RegForm extends Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.updateDimensions);
-        console.log('pre isformvalid')
-        if (this.state.regToken !== 'initialVal') {
-            this.props.parentTokenUpdater(this.state.regToken);
-            console.log('dupa');
+        document.querySelector('#reg-form').addEventListener("keyup", this.inputValidator);
+        document.querySelector("#reg-form").addEventListener("focusout", this.borderWidthRegulator);
+        document.querySelector("#reg-form").addEventListener("focusin", this.borderWidthRegulator);
+
+        let targetUrl = `${location.origin}/register`;
+        let token;
+        let request = new Request(targetUrl, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Origin': location.origin,
+                'Content-Type': 'application/json',
+                'X-Custom-Header': 'regTokenRequest',
+            }
+        })
+
+        if (this.props.token === 'initialVal') {
+            this.props.getToken(request, 'reg');
         }
-        // this.setState({regToken: document.getElementsByName('regToken')[0].value});
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -53,9 +66,36 @@ class RegForm extends Component {
         window.removeEventListener("resize", this.updateDimensions);
     }
 
+    getTokenRequest = (input) => {
+        if (input === 'reg') {
+            let targetUrl = `${location.origin}/register`;
+            return new Request(targetUrl, {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Request-Method': 'GET',
+                    'Origin': location.origin,
+                    'Content-Type': 'application/json',
+                    'X-Custom-Header': 'regTokenRequest',
+                }
+            })
+        }
+
+        if(input === 'log') {
+            let targetUrl = `${location.origin}/login`;
+            let request = new Request(targetUrl, {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Request-Method': 'GET',
+                    'Origin': location.origin,
+                    'Content-Type': 'application/json',
+                    'X-Custom-Header': 'logTokenRequest',
+                }
+            })
+        }
+    }
+
 
     formSendRegister = (e) => {
-        // // alert("Złapana!")
         e.preventDefault();
         let login = document.getElementsByName('email')[0].value;
         let fName = document.getElementsByName('fName')[0].value;
@@ -77,173 +117,38 @@ class RegForm extends Component {
             headers: {
                 "Access-Control-Request-Method": "POST, GET, OPTIONS",
                 "Origin": location.origin,
+                // 'X-Custom-Header': this.state.doesUserExists ? ''
             }
         });
 
         fetch(request)
             .then((response) => response.json())
             .then((response) => {
-                console.log('am I here?')
-                console.log(response);
+                console.log(response)
                 if (response === 'user already exists') {
                     console.log('user exists')
                     this.setState({
                         doesUserExists: true,
                         formCorrect: false,
                     })
-                } else if (response === 'registration successful') {
+                } else if (response[0] === 'registration successful') {
+                    response.shift();
                     console.log('user does not exists. reg success')
+                    //TODO test to be deleted
+                    console.log(response)
+                    //TODO END
                     this.setState({
                         doesUserExists: false,
                         formCorrect: true,
                     })
+
+                    this.props.loginStateUpdater(true);
+                    this.props.userStateUpdater(response);
                 }
             })
             .catch((error) => {
                 console.error('REGISTRATION ERROR:', error)
             });
-    }
-
-    getToken = (request) => {
-        if (this.props.token === null) {
-            fetch(request)
-                .then((response) => response.json())
-                .then(jsonResponse => {
-                    console.log(jsonResponse)
-                    if (jsonResponse !== 'badRequest') {
-                        if (this.state.regToken !== jsonResponse) {
-                            this.setState({regToken: jsonResponse})
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    }
-
-    /**
-     * notifHandler function is used to generate notification messages that are aimed to help user fill the form correctly
-     * @param correctMessage
-     * @param incorrectMessage
-     * @param color
-     * @param event
-     * @returns {null|*}
-     *
-     */
-    notifHandler = (correctMessage, incorrectMessage, color, event) => {
-        let notifBox = event.currentTarget.nextSibling;
-        let notifBoxTxt = event.currentTarget.nextSibling.innerText;
-
-        /**
-         * this helper function is used to create list for wrong-pass-notif-msg and it is ONLY for the screens >= 475
-         * small screens are assumed to be mostly mobile devices and therefore forms have to be presented in more mobile-friendly manner
-         */
-        let createWrongPassNotifList = () => {
-            let notifBoxTxt = event.currentTarget.nextSibling.innerText;
-            var list = document.createElement('ul');
-            list.classList.add('reg-form-notif-msg');
-            // const unallowedPass = 'Hasło musi zawierać 1 wielką literę, 1 liczbę oraz składać się z min. 8 znaków';
-            var span = document.createElement('span');
-            span.innerText = 'Upewnij się, że hasło zawiera:';
-            span.classList.add('reg-form-notif-msg');
-            span.style.color = color;
-            var li1 = document.createElement('li');
-            li1.innerText = '1 wielką literę';
-            var li2 = document.createElement('li')
-            li2.innerText = '1 liczbę';
-            var li3 = document.createElement('li')
-            li3.innerText = 'min. 8 znaków';
-            ;
-            list.appendChild(li1);
-            list.appendChild(li2);
-            list.appendChild(li3);
-
-
-            list.setAttribute('style', `color: ${color}; padding-left:18px`)
-            console.log(notifBoxTxt.indexOf(correctMessage) === -1);
-            if (notifBoxTxt.indexOf(correctMessage) === -1 && notifBoxTxt.indexOf(incorrectMessage) === -1) {
-                notifBox.appendChild(span)
-                notifBox.appendChild(list);
-                // console.log('notif handler is working')
-            }
-        }
-
-        //THIS IS PART FOR SCREENS WIDER THAN 475px
-        if (window.innerWidth >= 475) {
-            //1) GENERAL RUN (does not inlcude password input)
-            let spans = document.getElementsByClassName('reg-form-div-el')
-
-            for (var i = 0; i < spans.length; i++) {
-                if (spans[i].getElementsByTagName('span')[0] !== undefined) {
-                    spans[i].getElementsByTagName('span')[0].style.display = 'inline';
-                }
-            }
-
-            //CASE 1 - all the green inputs
-            if (color === 'green') {
-                // CASE 1a - green input && is notifbox is not empty && notifbox first child is <ul>
-                try {
-                    if (notifBox.children.length > 0 && notifBox.children[0].localName === 'p' && notifBox.children[0].innerText !== correctMessage) {
-                        notifBox.removeChild(notifBox.children[0]);
-                    } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'ul' || notifBox.children[1].localName === 'ul')) {
-                        notifBox.removeChild(notifBox.children[0]);
-                        notifBox.removeChild(notifBox.children[0]);
-                        // CASE 1b - green input && notifbox is not empty && notifbox first child is <p> && notifBoxTxt isn't already a correctMessage
-                    }
-                } catch (e) {
-                    if (e.message === 'Cannot read property \'localName\' of undefined') {
-                        return null;
-                    } else {
-                        return e;
-                    }
-
-                }
-
-                var node = document.createElement('p')
-                node.style.color = color;
-                node.innerText = correctMessage;
-                node.classList.add('reg-form-notif-msg');
-
-                if (notifBoxTxt.indexOf(correctMessage) === -1 || notifBoxTxt === "" || notifBoxTxt === undefined) {
-                    notifBox.appendChild(node);
-                }
-
-                //CASE 2a)INCORRECT INPUT CRITERIAS IN GENERAL
-            } else if (color === "red" && correctMessage !== 'Hasło prawidłowe.') {
-                for (var i = 0; i < notifBox.children.length; i++) {
-                    if (notifBox.children[i].innerText === correctMessage) {
-                        notifBox.removeChild(notifBox.children[i])
-                    }
-                }
-                var node = document.createElement('p')
-                node.classList.add('reg-form-notif-msg');
-                node.style.color = color;
-                node.innerText = incorrectMessage;
-                if (notifBoxTxt.indexOf(incorrectMessage) === -1) {
-                    notifBox.appendChild(node);
-                }
-                //2b INCORRECT INPUT CRITERIAS - PASSWORD ONLY CASE
-            } else if (color === 'red' && correctMessage === 'Hasło prawidłowe.') {
-                //2b first: notifbox is not empty && first notifbox child is different than <p>
-                if (notifBox.children.length > 0 && notifBox.children[0].localName !== 'p') {
-                    if (notifBox.children[1].localName === 'ul' && notifBox.children.length > 0) {
-                        notifBox.removeChild(notifBox.children[0]);
-                        notifBox.removeChild(notifBox.children[0]);
-                    }
-                    //2b second: notifbox is not empty && first notifbox child is different than p
-                } else if (notifBox.children.length > 0 && (notifBox.children[0].localName === 'p' || notifBox.children[2].localName === 'p')) {
-                    notifBox.children[0].localName === 'p' ? notifBox.removeChild(notifBox.children[0]) : notifBox.removeChild(notifBox.children[2]);
-                    createWrongPassNotifList();
-                }
-
-                if (document.getElementsByClassName('reg-form-wrong-pass-li').length === 0) {
-                    createWrongPassNotifList();
-                }
-            }
-        }
-
-
     }
 
 
@@ -277,26 +182,82 @@ class RegForm extends Component {
      *  it handles the way input are styled depending on the values provided by 'Constraint validation API'
      *
      * */
-    apiValidate = (event) => {
+    inputValidator = (event) => {
         this.isFormValid();
-        if (event.target.name === 'cpassword' && (event.target.value !== document.getElementsByName('password')[0].value)) {
+
+        let password = document.querySelector("input[name='password']");
+        let cpassword = document.querySelector("input[name='cpassword']");
+
+        if (
+            event.target.name === 'cpassword' &&
+            event.target.value !== password.value
+        ) {
+            Object.assign(event.target.style, {
+                borderColor: 'rgba(255,0,0, 0.5)',
+                borderWidth: '2px',
+                borderStyle: 'solid'
+            });
+        } else if (
+            event.target.name === 'cpassword' &&
+            (event.target.value !== password.value)
+        ) {
             Object.assign(event.target.style, {
                 borderColor: 'rgba(255,0,0, 0.5)',
                 borderWidth: '2px',
                 borderStyle: 'solid'
             });
 
-        } else if (event.target.name === 'cpassword' && event.target.value === document.getElementsByName('password')[0].value) {
+        } else if (
+            event.target.name === 'cpassword' &&
+            event.target.value === password.value
+
+        ) {
             Object.assign(event.target.style, {
                 borderColor: 'rgba(0,128,0, 0.5)',
-                borderWidth: '2x',
+                borderWidth: '2px',
                 borderStyle: 'solid'
             });
         }
-        if (event.target.name === 'password' && event.target.validity.patternMismatch !== true) {
-            document.getElementsByName('cpassword')[0].disabled = false;
-        } else if ((event.target.name === 'password' && event.target.validity.patternMismatch === true) || document.getElementsByName('password')[0].value === '') {
-            document.getElementsByName('cpassword')[0].disabled = true;
+        if (
+            event.target.name === 'password' &&
+            !event.target.validity.patternMismatch
+        ) {
+            if (cpassword.readOnly !== false) cpassword.readOnly = false;
+            if (cpassword.disabled !== false) cpassword.disabled = false;
+
+
+        } else if (
+            event.target.name === 'password' && event.target.validity.patternMismatch ||
+            password.value === '' && event.target.validity.patternMismatch
+        ) {
+            if (cpassword.readOnly !== true) cpassword.readOnly = true;
+            if (cpassword.disabled !== true) cpassword.disabled = true;
+
+            if (
+                cpassword.style.borderColor !== 'rgba(255,0,0, 0.5)' ||
+                cpassword.borderWidth !== '1px' ||
+                cpassword.borderStyle !== 'solid'
+            ) {
+                Object.assign(cpassword.style, {
+                    borderColor: 'rgba(255,0,0, 0.5)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid'
+                });
+            }
+        }
+    }
+
+    borderWidthRegulator = (event) => {
+        console.log('border function triggered')
+        if (event.type === 'focusin') {
+            console.log('i am focused')
+            event.target.style.borderWidth = '2px';
+        }
+
+
+        if (event.type === 'focusout') {
+            console.log('i am blurred');
+            event.target.style.borderWidth = '1px'
         }
     }
 
@@ -306,8 +267,10 @@ class RegForm extends Component {
         } else if (this.state.doesUserExists) {
             // let regFormEmailInputColor = document.getElementsByName('email')[0].style.color;
             document.getElementsByName('email')[0].style.color = 'red';
-            const timeout = setTimeout(()=>{document.getElementsByName('email')[0].style.color = 'black'}, 5000)
-            return <div className={'reg-form-failureMsg-container'}>E-mail jest już w naszej bazie.U</div>
+            const timeout = setTimeout(() => {
+                document.getElementsByName('email')[0].style.color = 'black'
+            }, 5000)
+            return <div className={'reg-form-failureMsg-container'}>Podany adres jest już zarejestrowany.</div>
         } else {
             return <div></div>
         }
@@ -315,162 +278,76 @@ class RegForm extends Component {
 
 
     render() {
-        let targetUrl = `${location.origin}/register`;
-        let token;
-        let request = new Request(targetUrl, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Request-Method': 'GET',
-                'Origin': location.origin,
-                'Content-Type': 'application/json',
-                'X-Custom-Header': 'regTokenRequest',
-            }
-        })
-
-        if (this.state.regToken === 'initialVal') {
-            this.getToken(request);
-        }
-
-        // if (window.innerWidth > 475) {
-            return <div className={"landing-page-container"}>
-                <form className={"reg-form"} autoComplete={'false'}>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={'email'}
-                               name={"email"}
-                               autoComplete={"new-password"}
-                               className={"reg-form-input reg-form-input-post"}
-                               placeholder='np. jan.kowalski@example.com'
-                               onKeyUp={this.apiValidate}
-                               required autoFocus/>
-                    </div>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"fName"}>
-                            Login
-                        </label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={"text"} name={"fName"}
-                               autoComplete={"new-password"}
-                               className={"reg-form-input reg-form-input-post"}
-                               onChange={this.apiValidate}
-                               minLength={1}
-                               maxLength={50}
-                               placeholder='max. 50 znaków'
-                               onKeyUp={this.apiValidate}
-                               required/>
-                    </div>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={"password"} name={"password"}
-                               autoComplete={"new-password"}
-                               placeholder='min. 8 znaków, 1 liczba i wielka litera'
-                               className={"reg-form-input reg-form-input-post"}
-                               pattern={"^(?=.*)(?=.*\\d)(?=.*[A-Z])[-A-Za-z\\d!@#$%^&*()_=+{}\\[\\]:;\"'\\\\|<>,.\\/?]{8,}$"}
-                               onKeyUp={this.apiValidate}
-                               required/>
-                    </div>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={"password"}
-                               name={"cpassword"}
-                               autoComplete={"off"}
-                               placeholder=''
-                               className={"reg-form-input"}
-                               onKeyUp={this.apiValidate}
-                               disabled={true}
-                               required/>
-                    </div>
-                    <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
-                    <div className={'reg-form-btn-container'}>
-                        <div className={'reg-form-successMsg-container'}> {this.isIconSuccess()}</div>
-                        <input onClick={this.formSendRegister}
-                               type={"submit"}
-                               value={"Zarejestruj się."}
-                               className={"reg-form-btn"}/>
-                    </div>
-                </form>
-                <div></div>
-            </div>
-        // }
-        // else if (window.innerWidth <= 475) {
-        //     let regFormNotifMsgBoxes = document.getElementsByClassName('reg-form-notif-msg');
-        //     for (let item of regFormNotifMsgBoxes) {
-        //         item.style.display = 'none';
-        //     }
-        //     return <div className={"landing-page-container"}>
-        //         <form className={"reg-form"} autoComplete={'false'}>
-        //             <div className={"reg-form-div-el"}>
-        //                 <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
-        //                 <div className={"reg-form-space-div"}></div>
-        //                 <input type={'email'}
-        //                        name={"email"}
-        //                        autoComplete={"off"}
-        //                        className={"reg-form-input"}
-        //                        placeholder='np. jan.kowalski@example.com'
-        //                        onKeyUp={this.apiValidate}
-        //                        required/>
-        //             </div>
-        //             <div className={"reg-form-div-el"}>
-        //                 <label className={"reg-form-label"} htmlFor={"fName"}>
-        //                     Login
-        //                 </label>
-        //                 <div className={"reg-form-space-div"}></div>
-        //                 <input type={"text"} name={"fName"}
-        //                        autoComplete={"off"}
-        //                        className={"reg-form-input"}
-        //                        onChange={this.apiValidate}
-        //                        minLength={1}
-        //                        maxLength={50}
-        //                        placeholder='max. 50 znaków'
-        //                        onKeyUp={this.apiValidate}
-        //                        required/>
-        //             </div>
-        //             <div className={"reg-form-div-el"}>
-        //                 <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
-        //                 <div className={"reg-form-space-div"}></div>
-        //                 <input type={"password"} name={"password"}
-        //                        autoComplete={"off"}
-        //                        placeholder='min. 8 znaków, 1 liczba i wielka litera'
-        //                        className={"reg-form-input"}
-        //                        pattern={"^(?=.*)(?=.*\\d)(?=.*[A-Z])[-A-Za-z\\d!@#$%^&*()_=+{}\\[\\]:;\"'\\\\|<>,.\\/?]{8,}$"}
-        //                        onKeyUp={this.apiValidate}
-        //                        required/>
-        //             </div>
-        //             <div className={"reg-form-div-el"}>
-        //                 <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
-        //                 <div className={"reg-form-space-div"}></div>
-        //                 <input type={"password"}
-        //                        name={"cpassword"}
-        //                        autoComplete={"off"}
-        //                        placeholder=''
-        //                        className={"reg-form-input"}
-        //                        onKeyUp={this.apiValidate}
-        //                        disabled={true}
-        //                        required/>
-        //             </div>
-        //             <input type={"hidden"} name={"regToken"} value={this.state.regToken}/>
-        //
-        //             <div className={'reg-form-btn-container'}>
-        //                 <div className={'reg-form-successMsg-container'}> {this.isIconSuccess()}</div>
-        //                 <input onClick={this.formSendRegister}
-        //                        type={"submit"}
-        //                        value={"Zarejestruj się."}
-        //                        className={"reg-form-btn"}/>
-        //             </div>
-        //         </form>
-        //         <div></div>
-        //     </div>
-        // }
+        return <div className={"landing-page-container"}>
+            <form className={"reg-form"} autoComplete={'false'} id={'reg-form'}>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"email"}>E-mail</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={'email'}
+                           name={"email"}
+                           autoComplete={"new-password"}
+                           className={"reg-form-input reg-form-input-post"}
+                           placeholder='np. jan.kowalski@example.com'
+                        // onKeyUp={this.apiValidate}
+                           required autoFocus/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"fName"}>
+                        Login
+                    </label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"text"} name={"fName"}
+                           autoComplete={"new-password"}
+                           className={"reg-form-input reg-form-input-post"}
+                        // onChange={this.apiValidate}
+                           minLength={1}
+                           maxLength={50}
+                           placeholder='max. 50 znaków'
+                        // onKeyUp={this.apiValidate}
+                           required/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"password"} name={"password"}
+                           autoComplete={"new-password"}
+                           placeholder='min. 8 znaków, 1 liczba i wielka litera'
+                           className={"reg-form-input reg-form-input-post"}
+                           pattern={"^(?=.*)(?=.*\\d)(?=.*[A-Z])[-A-Za-z\\d!@#$%^&*()_=+{}\\[\\]:;\"'\\\\|<>,.\\/?]{8,}$"}
+                        // onKeyUp={this.apiValidate}
+                           required/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"cpassword"}>Powtórz hasło</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"password"}
+                           name={"cpassword"}
+                           autoComplete={"off"}
+                           placeholder=''
+                           className={"reg-form-input"}
+                        // onKeyUp={this.apiValidate}
+                        // onBlur={this.apiValidate}
+                           readOnly
+                           disabled
+                           required/>
+                </div>
+                <input type={"hidden"} name={"regToken"} value={this.props.token}/>
+                <div className={'reg-form-btn-container'}>
+                    <div className={'reg-form-successMsg-container'}> {this.isIconSuccess()}</div>
+                    <input onClick={this.formSendRegister}
+                           type={"submit"}
+                           value={"Start"}
+                           className={"reg-form-btn"}/>
+                </div>
+            </form>
+            <div></div>
+        </div>
     }
 }
 
 
 import Swal from 'sweetalert2';
 
-import {createBrowserHistory} from "history";
 
 const history = createBrowserHistory();
 
@@ -489,24 +366,15 @@ class LoginPage extends Component {
         }
     }
 
-    getLogToken = (request) => {
-        fetch(request)
-            .then((response) => response.json())
-            .then(jsonResponse => {
-                // if (this.state.logToken !== jsonResponse) {
-                //     this.setState({logToken: jsonResponse})
-                // }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 
     formSendLogin = (e) => {
         e.preventDefault();
         let login = document.getElementsByName('login')[0].value;
         let password = document.getElementsByName("password")[0].value
-        let loginDetails = {"email": login, "password": password,};
+        // let loginDetails = {"email": login, "password": password,};
+        let token = document.getElementsByName('logToken')[0].value;
+        let loginDetails = {"email": login, "password": password, "logToken": token};
+
 
         const formData = new FormData();
         for (let [key, value] of Object.entries(loginDetails)) {
@@ -527,23 +395,16 @@ class LoginPage extends Component {
         fetch(request)
             .then((response) => response.json())
             .then((response) => {
-                console.log(response);
-                console.log('dupa')
-                if (response === 'Login unsuccessful') {
-                    console.log('user does not exist')
-                    this.setState({
-                        isRegistrationSuccess: false
-                    })
-                } else if (response == 'Login successful') {
-                    console.log(response);
-                    console.log('dupa')
+                if (response !== 'Login unsuccessful') {
+                    console.log(response)
                     this.setState({
                         isLoginSuccess: true
                     })
-
-                    this.props.stateUpdater(true)
-                } else {
-                    console.log(response);
+                    this.props.loginStateUpdater(true);
+                    this.props.userStateUpdater(response);
+                }
+                if (response === 'Login unsuccessful') {
+                    console.log(response)
                 }
             })
             .catch((error) => {
@@ -553,10 +414,7 @@ class LoginPage extends Component {
 
     componentDidMount() {
         this.props.regFormParentStateUpdater;
-    }
 
-
-    render() {
         let targetUrl = `${location.origin}/login`;
         let token;
         let request = new Request(targetUrl, {
@@ -569,45 +427,59 @@ class LoginPage extends Component {
             }
         })
 
-        if (this.state.logToken === 'initialVal') {
-            this.getLogToken(request);
+        if (this.props.token === 'initialVal') {
+            this.props.getToken(request, 'log');
         }
+    }
 
-        // if (window.innerWidth > 475) {
-            return <div className={"landing-page-container"}>
-                <form className={"reg-form"} autoComplete={'false'}>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"login"}>E-mail</label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={'text'}
-                               name={"login"}
-                               autoComplete
-                               className={"reg-form-input"}
-                               required autoFocus/>
-                    </div>
-                    <div className={"reg-form-div-el"}>
-                        <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
-                        <div className={"reg-form-space-div"}></div>
-                        <input type={"password"} name={"password"}
-                               autoComplete={'currentPassword'}
-                               className={"reg-form-input"}
-                               required/>
-                    </div>
-                    <div className={'reg-form-btn-container'}>
-                        <a className={'forgot-password-link'}>Nie pamiętasz hasła?</a>
-                        {/*<div className={'reg-form-successMsg-container'}></div>*/}
-                        <div className={'reg-form-space-div'}></div>
-                        <input onClick={this.formSendLogin}
-                               type={"submit"}
-                               value={"Zaloguj się."}
-                               className={"reg-form-btn"}/>
-                    </div>
-                    <input type={"hidden"} name={"logToken"} value={this.state.logToken}/>
-                </form>
-                <div></div>
-            </div>
-        }
-    // }
+
+    render() {
+        // let targetUrl = `${location.origin}/login`;
+        // let token;
+        // let request = new Request(targetUrl, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Access-Control-Request-Method': 'GET',
+        //         'Origin': location.origin,
+        //         'Content-Type': 'application/json',
+        //         'X-Custom-Header': 'logTokenRequest',
+        //     }
+        // })
+
+        return <div className={"landing-page-container"}>
+            <form className={"reg-form"} autoComplete={'false'}>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"login"}>E-mail</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={'text'}
+                           name={"login"}
+                           autoComplete={'new-password'} //for dev purposes
+                           className={"log-form-input"}
+                           required autoFocus/>
+                </div>
+                <div className={"reg-form-div-el"}>
+                    <label className={"reg-form-label"} htmlFor={"password"}>Hasło</label>
+                    <div className={"reg-form-space-div"}></div>
+                    <input type={"password"} name={"password"}
+                           autoComplete={'new-password'} //for dev purposes
+                           className={"log-form-input"}
+                           required/>
+                </div>
+                <div className={'reg-form-btn-container'}>
+                    <a className={'forgot-password-link'}>Nie pamiętasz hasła?</a>
+                    {/*<div className={'reg-form-successMsg-container'}></div>*/}
+                    <div className={'reg-form-space-div'}></div>
+                    <input onClick={this.formSendLogin}
+                           type={"submit"}
+                           value={"Zaloguj się."}
+                           className={"reg-form-btn"}/>
+                </div>
+                <input type={"hidden"} name={"logToken"} value={this.props.token}/>
+            </form>
+            <div></div>
+        </div>
+    }
+
 }
 
 class FormUpperText extends Component {
@@ -637,16 +509,13 @@ class FormUpperText extends Component {
 
 
 class RegisterPage extends Component {
-
-
-    componentDidMount() {
-        this.props.regFormParentStateUpdater;
-    }
-
     render() {
-
         return <div className={'reg-form-container'}>
-            <RegForm token={this.props.token}/>
+            <RegForm getToken={this.props.getToken}
+                     token={this.props.token}
+                     loginStateUpdater={this.props.loginStateUpdater}
+                     userStateUpdater={this.props.userStateUpdater}
+            />
         </div>
     }
 }
@@ -654,20 +523,69 @@ class RegisterPage extends Component {
 class Homepage extends Component {
     constructor(props) {
         super(props);
-        // this.parentTokenUpdater = this.parentTokenUpdater(this);
-        // this.loginStateUpdater = this.loginStateUpdater.bind(this);
-        // this.formTypeLoginUpdater = this.formTypeLoginUpdater.bind(this);
-        // this.formTypeRegisterUpdater = this.formTypeRegisterUpdater.bind(this);
         this.state = {
-            regToken: null,
+            regToken: 'initialVal',
+            logToken: 'initialVal',
             activeFormType: 'register',
             loggedIn: false,
+            user: 'anonymous',
+            userFirstName: 'anonymous'
         };
+
+        this.getToken = this.getToken.bind(this);
+        this.loginStateUpdater = this.loginStateUpdater.bind(this);
+        this.userStateUpdater = this.userStateUpdater.bind(this);
+        this.historyLocationPusher = this.historyLocationPusher.bind(this);
+        this.logoutAction = this.logoutAction.bind(this);
     }
 
-    parentTokenUpdater = (token) => {
-        this.setState({regToken: token})
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.logToken === 'loggedOut') {
+            this.logoutAction();
+        }
     }
+
+    logoutAction = () => {
+        if (this.state.logToken === 'loggedOut') {
+            let targetUrl = `${location.origin}/logout`;
+            let request = new Request(targetUrl, {
+                method: "POST",
+                headers: {
+                    "Access-Control-Request-Method": "POST, GET, OPTIONS",
+                    "Origin": location.origin,
+                }
+            });
+
+            fetch(request)
+                .then((response) => response.json())
+                .then(jsonResponse => {
+                    if (jsonResponse === 'session invalidated') {
+                        let targetUrl = `${location.origin}/login`;
+                        let token;
+                        let request = new Request(targetUrl, {
+                            method: 'GET',
+                            headers: {
+                                'Access-Control-Request-Method': 'GET',
+                                'Origin': location.origin,
+                                'Content-Type': 'application/json',
+                                'X-Custom-Header': 'logTokenRequest',
+                            }
+                        })
+                        this.getToken(request, 'log');
+                        this.setState({
+                            user: 'anonymous',
+                            userFirstName: 'anonymous',
+                            logToken:'initialVal',
+                            regToken:'initialVal'
+                        })
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+
 
     stateUpdater = (event) => {
         if (event.currentTarget.name === 'navLinkFormReg' && this.state.activeFormType !== 'register') {
@@ -678,14 +596,79 @@ class Homepage extends Component {
             this.setState({activeFormType: 'login'})
         }
     }
-
+    /**
+     * The predominant use of this function is to take care of loggedIn state and is both used in LoginPage, RegisterPage (login functionalities)
+     * It is also used in logout functionality in App component and its use is to set loggedIn state to false.
+     * @param input
+     */
     loginStateUpdater = (input) => {
-        console.log('dupa')
         if (input === true) {
             this.setState({
-                loggedIn: true
+                loggedIn: true,
+                activeFormType: '',
+                logToken: '',
+                regToken: ''
             })
         }
+
+        if (input === false) {
+            this.setState({
+                loggedIn: false,
+                activeFormType: 'login',
+                logToken: 'loggedOut',
+            })
+            history.replace('/login');
+
+
+        }
+    }
+
+    userStateUpdater = (input) => {
+        this.setState(
+            {
+                user: input[0],
+                userFirstName: input[1]
+            }
+        )
+    }
+
+    getToken = (request, formType) => {
+        if (this.state.regToken === 'initialVal' && formType === 'reg') {
+            fetch(request)
+                .then((response) => response.json())
+                .then(jsonResponse => {
+                    console.log(jsonResponse)
+                    if (jsonResponse !== 'badRequest') {
+                        if (this.state.token !== jsonResponse) {
+                            this.setState({regToken: jsonResponse})
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        if (this.state.logToken === 'initialVal' && this.state.activeFormType !== 'register' || this.state.logToken === 'loggedOut' && formType === 'log') {
+            fetch(request)
+                .then((response) => response.json())
+                .then(jsonResponse => {
+                    console.log(jsonResponse)
+                    if (jsonResponse !== 'badRequest') {
+                        if (this.state.token !== jsonResponse) {
+                            console.log(jsonResponse)
+                            this.setState({logToken: jsonResponse})
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+
+    historyLocationPusher(path) {
+        history.push(path);
     }
 
     render() {
@@ -708,12 +691,23 @@ class Homepage extends Component {
                         </ul>
                         <Switch>
                             <Route exact path="/login"
-                                   onClick={() => this.formTypeLoginUpdater()}
-                                   render={() => <LoginPage stateUpdater={this.loginStateUpdater.bind(this)}/>}/>
+                                   render={() => <LoginPage
+                                       getToken={this.getToken}
+                                       loginStateUpdater={this.loginStateUpdater}
+                                       token={this.state.logToken}
+                                       userStateUpdater={this.userStateUpdater}
+                                   />}
+                            />
                             <Route exact path="/register"
-                                   render={() => <RegisterPage parentTokenUpdater={this.parentTokenUpdater}
-                                                               token={this.state.regToken}
-                                   />}/>
+                                   render={() => <RegisterPage
+                                       getToken={this.getToken}
+                                       loginStateUpdater={this.loginStateUpdater}
+                                       token={this.state.regToken}
+                                       userStateUpdater={this.userStateUpdater}
+                                   />
+                                   }
+
+                            />
                             <Redirect from="/" exact to="/register"/>
                         </Switch>
                     </Router>
@@ -721,9 +715,13 @@ class Homepage extends Component {
                 </div>
             </div>
         } else if (this.state.loggedIn === true) {
-            return <Router>
-            <CreateList/>
-            </Router>
+            return <App view={'new_list'} userId={this.state.user}
+                        loginStateUpdater={this.loginStateUpdater}
+                        logoutAction={this.logoutAction}
+                        userStateUpdater={this.userStateUpdater}
+                        userFirstName={this.state.userFirstName}
+
+            />
         }
     }
 }
