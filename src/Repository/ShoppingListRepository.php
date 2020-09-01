@@ -22,16 +22,16 @@ class ShoppingListRepository extends ServiceEntityRepository
 
     public function listAllShoppingLists()
     {
-//        $dql = 'SELECT s FROM App\Entity\ShoppingList s ORDER BY s.id DESC';
         $result = $this->getEntityManager()->getRepository(ShoppingList::class)->createQueryBuilder('s')
-            ->orderBy('s.id', 'DESC')
+            ->select('s.listItems', 's.creationDate')
+            ->orderBy('s.creationDate', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();
 
+
         for ($i = 0; $i < count($result); $i++) {
-            $listItemsUnserialized = unserialize($result[$i]->getListItems());
-            $result[$i]->setListItems($listItemsUnserialized);
+            $result[$i]['listItems'] = unserialize($result[$i]['listItems']);
         }
 
         return $result;
