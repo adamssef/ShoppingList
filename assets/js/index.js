@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import {
     withRouter,
-    Router,
     Switch,
     Route,
     Link,
@@ -13,4 +13,5 @@ import Homepage from "./homepage.js";
 
 
 
-ReactDOM.render(<Homepage/>, document.getElementById('root'));
+
+ReactDOM.render(<Router><Homepage/></Router>, document.getElementById('root'));
