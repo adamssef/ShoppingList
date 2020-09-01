@@ -50,7 +50,6 @@ class CreateList extends Component {
 
     //ACTIVATE LIST MODE METHODS
     createListOnClick = () => {
-        console.log('dupa')
         return this.state.isListActive ? this.state.isListActive :
             this.setState({
                 isListActive: true
@@ -399,7 +398,7 @@ class NameYourListInput extends Component {
             </button>
         </div>
     }
-}
+}gi
 
 class ShoppingListInput extends Component {
 
