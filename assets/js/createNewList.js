@@ -18,6 +18,7 @@ class CreateList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            shown:true,
             currentItems: [],
             currentItemsCounter: 0,
             isListActive: false,
@@ -27,23 +28,29 @@ class CreateList extends Component {
     }
 
     //COMPONENT LIFECYCLE METHODS
-    componentDidMount() {
-        console.log("CREATE: Mounted!");
-    }
-
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.props.appStateProps);
-
         if (prevState.listName !== this.state.listName) {
             console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
         }
 
+        if (this.props.createListStateReset && this.props.isListActive) {
+            this.setState({
+                isListActive: false,
+            })
+        }
+
+        if(this.props.shown && !this.state.shown) {
+            this.setState({
+                shown:true
+            })
+        }
 
     }
 
 
     //ACTIVATE LIST MODE METHODS
     createListOnClick = () => {
+        console.log('dupa')
         return this.state.isListActive ? this.state.isListActive :
             this.setState({
                 isListActive: true
@@ -166,6 +173,7 @@ class CreateList extends Component {
         }
 
         formData.append('name', this.state.listName);
+        formData.append('id', this.props.userId)
 
 
 
@@ -201,8 +209,12 @@ class CreateList extends Component {
 //CONDITIONAL RENDER PART
 
     render() {
+
+        if (!this.props.shown) {
+            return null;
+        }
         //case 1: list is not active yet
-        if (!this.state.isListActive) {
+        else if (!this.state.isListActive) {
             return <div id={'root2'}>
                 <ActivateListMode onClickCreateList={(e) => {
                     this.createListOnClick(e)
