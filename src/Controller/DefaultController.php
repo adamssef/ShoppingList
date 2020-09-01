@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Response;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Session as Session;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
 
 
     /**
-     * @Route("/")
+     * @Route("/dashboard/new_list")
      */
     public function index(Request $request)
     {
@@ -39,40 +39,52 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/save", name="save")
+     * @Route("/dashboard/save")
      */
     public function save(Request $request)
     {
         //number of POST request elements
         $reqQnt = count($request->request->all());
-        foreach ($request->request->all() as $key => $value) {
-            if ($key !== "name" or is_int($key) === false or $key === 2) {
-                return $this->redirect("./..");
-            }
-        }
+//        foreach ($request->request->all() as $key => $value) {
+//            if ($key !== "name" or is_int($key) === false or $key === 2) {
+//                return $this->redirect("./..");
+////                return new JsonResponse('dupa');
+//            }
+//        }
+
+
         if ($request->getMethod() === 'POST' and $reqQnt > 1 and $reqQnt <= 101 and isset($request->request->all()['name'])) {
             $shoppingList = new ShoppingList();
 
             $postVars = $request->request->all();
 
+
             $em = $this->getDoctrine()->getManager();
+
+            $user = $em->getRepository(User::Class)->findOneBy(['id' => $postVars['id']]);
+            unset($postVars['id']);
+
             $shoppingList->setCreationDate(new DateTime());
             $shoppingList->setName($postVars['name']);
             unset($postVars['name']);
+
+            $shoppingList->setUser($user);
+
             $postVars = serialize($postVars);
             $shoppingList->setListItems($postVars);
             $em->persist($shoppingList);
             $em->flush();
             $response = $this->json([]);
             $response->headers->set('Content-Type', 'application/json');
-            return $response;
+//            return $response;
+            return new JsonResponse('dupa');
         } else {
             return $this->redirect("./../");
         }
     }
 
     /**
-     * @Route("/saved", name="saved")
+     * @Route("/dashboard/saved")
      */
     public function saved(Request $request)
     {
@@ -92,7 +104,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/dashboard/about")
      */
     public function about(Request $request)
     {
@@ -102,7 +114,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, Session $session, EntityManagerInterface $em)
+    public function register(Request $request, EntityManagerInterface $em, Session $session)
     {
         $session->start();
         $allowedOrigin = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
@@ -159,7 +171,7 @@ class DefaultController extends AbstractController
                     $response->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
                     $response->headers->set('Content-Type', 'application/json');
                     $response->headers->set('Access-Control-Allow-Methods', 'POST');
-                    $session->invalidate();
+//                    $session->invalidate();
                     return $response;
                 }
                 $user->setRegDate();
@@ -173,25 +185,50 @@ class DefaultController extends AbstractController
 
                 $em->persist($user);
                 $em->flush();
-                $response = $this->json("registration successful");
-                $response->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
-                $response->headers->set('Content-Type', 'application/json');
-                $response->headers->set('Access-Control-Allow-Methods', 'POST');
+
+
+                $user = $em->getRepository(User::Class)->findOneBy(['email' => $regData['email']]);
                 $session->invalidate();
-                return $response;
+                return new JsonResponse(['registration successful', $user->getId(), $user->getFirstName()]);
+
+//                $response = $this->json("registration successful");
+//                $response->headers->set('Access-Control-Allow-Origin', $allowedOrigin);
+//                $response->headers->set('Content-Type', 'application/json');
+//                $response->headers->set('Access-Control-Allow-Methods', 'POST');
+
+//                return $response;
             }
         }
-        return new JsonResponse($request->request->all());
+        return new JsonResponse("dupa");
     }
 
 
     /**
      * @Route("/login", name="login")
      */
-    public function login(Request $request, Session $session, EntityManagerInterface $em)
+    public function login(Request $request, EntityManagerInterface $em, Session $session)
     {
         $allowedOrigin = $_ENV['APP_ENV'] === 'dev' ? "https://localhost:" . $_SERVER['SERVER_PORT'] : "https://listazakupow.com.pl";
+
         $session->start();
+
+
+        /**
+         * This case intended for GET requests. listazakupow.com.pl is intended to be SPA so we want redirections whenever
+         * user is tempted to send GET requests from pressing enter with url in the browser.
+         */
+        if (
+            $request->getMethod() === "GET" &&
+            $request->headers->get('X-Custom-Header') !== 'logTokenRequest'
+        ) {
+            return $this->redirect($allowedOrigin);
+        }
+
+
+        /**
+         * This is a get request with NULL 'logToken' session key. When this request is happeing logToken is send in response.
+         */
+
         if (
             $request->getMethod() === "GET" &&
             is_null($session->get('logToken')) &&
@@ -207,6 +244,24 @@ class DefaultController extends AbstractController
             return $jsonResponse;
         }
 
+
+        /**
+         * CAUTION: I am not sure if I even need this case... This needs to be tested.
+         * TODO: to perform test if the below if is even needed...
+         */
+        if (
+            $request->getMethod() === "GET" &&
+            !is_null($session->get('logToken'))
+        ) {
+            return new JsonResponse(null);
+        }
+
+
+        /**
+         * IF THERE IS ANY NOT POST REQUEST I WANT IT DO BE REDIRECTED.
+         * AS FOR NOW THE APP DOES NOT HEADERS DIFFERENT THAN POST/GET
+         * IT IS INTENDED TO BE CHANGED ON FURTHER DEVELOPMENT STAGES
+         */
         if ($request->getMethod() !== "POST") {
             return $this->redirect($allowedOrigin);
         }
@@ -214,25 +269,49 @@ class DefaultController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $logData = $request->request->all();
+
+
+        /**
+         * WE CHECK THE POST IF:
+         * -it is post..
+         * -its count if greater than 0
+         * -email key is in the right format
+         * -password has been set
+         * -logToken from SESSION is the same as the one from POST
+         *
+         * If the above are met user data (id) and (firstName) are retrieved from the DB and returned in response
+         *
+         * If something goes wrong than 'Login unsuccesful' mesagge is returned
+         */
         if (
             $request->getMethod() === "POST" &&
             count($logData) > 0 &&
             filter_var($logData['email'], FILTER_VALIDATE_EMAIL) !== false &&
-            isset($logData['password'])
+            isset($logData['password']) &&
+            $session->get('logToken') === $request->get('logToken')
         ) {
-            $user = $em->getRepository(User::Class)->findOneBy(['email' => $logData['email']]);
+            $user = $em->getRepository(User::Class)->findOneBy(['email' => strtolower($logData['email'])]);
             $email = $user === null ? null : $user->getEmail();
-            if ($email !== null AND $this->passwordEncoder->isPasswordValid($user, $logData['password'])) {
-                return new JsonResponse('Login successful');
+            if ($email !== null and $this->passwordEncoder->isPasswordValid($user, $logData['password'])) {
+                return new JsonResponse([$user->getId(), $user->getFirstName()]);
             } else {
                 return new JsonResponse('Login unsuccessful');
             }
-        }  else {
+        } else {
             return new JsonResponse('Login unsuccessful');
         }
-
-
     }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(Request $request)
+    {
+        $request->getSession()->invalidate();
+        return new JsonResponse('session invalidated');
+    }
+
+
 }
 
 
