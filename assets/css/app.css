@@ -74,6 +74,7 @@ button:focus {
         max-width: 100%;
     }
 
+
     input:focus {
         outline: none;
     }
@@ -93,32 +94,59 @@ button:focus {
         font-family: 'Cabin Condensed', sans-serif;
     }
 
-    input:invalid:active {
+    input.reg-form-input-post:invalid:not([disabled]) {
         border: 1px solid rgba(255, 0, 0, .5);
     }
 
-    input:invalid:focus {
+
+    input.reg-form-input:active:not([disabled]) {
+        border: 1px solid rgba(255, 0, 0, .5);
+    }
+
+
+    input.reg-form-input:focus:not([disabled]) {
+        border: 1px solid rgba(255, 0, 0, .5);
+    }
+
+
+    input.reg-form-input:not([disabled]) {
+        border: 1px solid rgba(255, 0, 0, .5);
+    }
+
+    input.reg-form-input:invalid:active:not([disabled]):not(:placeholder-shown) {
+        border: 1px solid rgba(255, 0, 0, .5);
+    }
+
+    input.reg-form-input:invalid:focus:not([disabled]):not(:placeholder-shown) {
         border: 2px solid rgba(255, 0, 0, .5);
+    }
+
+    input.reg-form-input:invalid:focus:not([disabled]):placeholder-shown {
+        border: 2px solid rgba(255, 0, 0, .5);
+    }
+
+    input.log-form-input:invalid:focus:not([disabled]) {
+        border: 2px solid rgba(255,26, 140, .5);
         padding: 1px;
         -webkit-background-clip: padding-box;
         background-clip: padding-box;
     }
 
-    input:placeholder-shown {
+    input:placeholder-shown:not([disabled]) {
         font-size: small;
         border: 1px solid rgba(0, 128, 0, .5);
     }
 
     input:placeholder-shown:active {
         font-size: small;
+        border: 2px solid rgba(0, 128, 0, .5);
+    }
+
+    input.reg-form-input-post:valid:not([disabled]) {
         border: 1px solid rgba(0, 128, 0, .5);
     }
 
-    input.reg-form-input-post:valid {
-        border: 1px solid rgba(0, 128, 0, .5);
-    }
-
-    input.reg-form-input-post:valid:focus {
+    input.reg-form-input-post:valid:focus:not([disabled]) {
         border: 2px solid rgba(0, 128, 0, .5);
         padding: 1px;
         -webkit-background-clip: padding-box;
@@ -633,6 +661,37 @@ button:focus {
         flex-shrink: 2;
     }
 
+    .log-form-input:active {
+        flex-basis: 0;
+        flex-grow: 7;
+        margin-bottom: 12px;
+        border-radius: 2px;
+        line-height: 26px;
+        font-size: small;
+        border: 2px solid rgba(255,26, 140, .5);
+    }
+
+    .log-form-input:focus {
+        flex-basis: 0;
+        flex-grow: 7;
+        margin-bottom: 12px;
+        border-radius: 2px;
+        line-height: 26px;
+        font-size: small;
+        border: 2px solid rgba(255,26, 140, .5);
+    }
+
+
+    .log-form-input {
+        lex-basis: 0;
+        flex-grow: 7;
+        margin-bottom: 12px;
+        border-radius: 2px;
+        line-height: 26px;
+        font-size: small;
+        border: 1px solid rgba(255,26, 140, .5);
+    }
+
     .login-page-container {
         margin-top: 5vh;
         display: flex;
@@ -753,7 +812,7 @@ button:focus {
     .reg-form-btn {
         width: 38%;
         min-width: fit-content;
-        font-size: 15px;
+        font-size: 16px;
         /*margin-top: 18px;*/
         margin-left: 20px;
         padding: 5px;
@@ -763,6 +822,7 @@ button:focus {
         color: white;
         border-width: 0;
         border-collapse: collapse;
+        border-style:none;
         /*margin-right: 2vh;*/
     }
 
