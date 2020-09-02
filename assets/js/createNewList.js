@@ -4,13 +4,7 @@ import {withRouter} from 'react-router-dom';//thanks to withRouter I can access 
 
 require('../css/app.css');
 const $ = require('jquery');
-
-// import sweetalert2 without inline styles
-import swal from 'sweetalert2/dist/sweetalert2.js';
-// import styles separately
-import 'sweetalert2/dist/sweetalert2.css';
-
-
+import Swal from 'sweetalert2'
 
 require('bootstrap');
 var url = require('url');
@@ -24,12 +18,33 @@ class CreateList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            shown:true,
             currentItems: [],
             currentItemsCounter: 0,
             isListActive: false,
             inputFieldState: "",
             listName: false
         }
+    }
+
+    //COMPONENT LIFECYCLE METHODS
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.listName !== this.state.listName) {
+            console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
+        }
+
+        if (this.props.createListStateReset && this.props.isListActive) {
+            this.setState({
+                isListActive: false,
+            })
+        }
+
+        if(this.props.shown && !this.state.shown) {
+            this.setState({
+                shown:true
+            })
+        }
+
     }
 
 
@@ -44,6 +59,7 @@ class CreateList extends Component {
     //NAME YOUR LIST MODE METHODS
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
+        console.log(input)
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         if (event.key === "Enter") {
             event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);
@@ -59,7 +75,7 @@ class CreateList extends Component {
                 listName: input
             });
         } else {
-            swal.fire({
+            Swal.fire({
                 title: 'halo halo!',
                 text: 'Coś tu nie gra:-( Nazwa musi być ciut dluższa!',
                 icon: 'info',
@@ -76,7 +92,7 @@ class CreateList extends Component {
         let inputField = event.target.value;
         let set = new Set(this.state.currentItems);
         if (event.key === "Enter") {
-            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
+            if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length > 0) {
                 this.setState({
                     currentItems: this.state.currentItems.concat(inputField),
                     currentItemsCounter: this.state.currentItemsCounter + 1,
@@ -86,7 +102,7 @@ class CreateList extends Component {
 
                 event.target.value = this.state.inputFieldState;
             } else {
-                swal.fire({
+                Swal.fire({
                     title: 'halo halo!',
                     text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
                     icon: 'info',
@@ -101,7 +117,7 @@ class CreateList extends Component {
         let set = new Set(this.state.currentItems);
 
 
-        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length >= 5) {
+        if (inputField !== null && inputField !== "" && inputField !== undefined && !set.has(inputField) && inputField.length > 0) {
             this.setState({
                 currentItems: this.state.currentItems.concat(inputField),
                 currentItemsCounter: this.state.currentItemsCounter + 1,
@@ -110,7 +126,7 @@ class CreateList extends Component {
 
             e.target.previousSibling.value = this.state.inputFieldState;
         } else {
-            swal.fire({
+            Swal.fire({
                 title: 'halo halo!',
                 text: 'Coś tu nie gra:-( Nazwa musi być ciut dłuższa!',
                 icon: 'info',
@@ -148,13 +164,16 @@ class CreateList extends Component {
             itemObject.push(e.innerText);
         })
 
+
+        //OLD CODE TO UNCOMMENT EASILY
         const formData = new FormData();
         for (let i = 0; i < itemObject.length; i++) {
             formData.append(i, itemObject[i])
         }
-        ;
 
         formData.append('name', this.state.listName);
+        formData.append('id', this.props.userId)
+
 
 
         let targetUrl = `${location.origin}/save`;
@@ -164,11 +183,16 @@ class CreateList extends Component {
             method: "POST",
             headers: {
                 "Access-Control-Request-Method": "POST, GET, OPTIONS",
+                "Origin": location.origin,
             }
-        })
+        });
+        //OLD CODE TO UNCOMMENT EASILY END
+
         fetch(request)
             .then((response) => response.json())
+
             .then((response) => {
+
                 this.setState({
                     isListActive: false,
                     currentItems: [],
@@ -184,8 +208,12 @@ class CreateList extends Component {
 //CONDITIONAL RENDER PART
 
     render() {
+
+        if (!this.props.shown) {
+            return null;
+        }
         //case 1: list is not active yet
-        if (!this.state.isListActive) {
+        else if (!this.state.isListActive) {
             return <div id={'root2'}>
                 <ActivateListMode onClickCreateList={(e) => {
                     this.createListOnClick(e)
@@ -345,8 +373,7 @@ class ShoppingListDraft extends Component {
 class ShoppingListItem extends Component {
     render() {
         return <>
-            <li className={"liItem"}>
-                {/*<li style={{marginTop: "5px"}} className={"liItem"}>*/}
+            <li style={{marginTop: "5px"}} className={"liItem"}>
                 <span className={"itemName"}>{this.props.itemContent}</span>
                 <button
                     className={"btn-sm btn-warning itemBtn"}
@@ -366,8 +393,8 @@ class NameYourListInput extends Component {
     render() {
         return <div className={"inputContainer"}>
             <input type="text" placeholder={"nazwij swoją listę"}
-                   onKeyPress={this.props.proceedOnEnterPressNameMode} autoFocus/>
-            <button className={"addBtn"} onClick={this.props.proceedOnBtnClick}>&#x2795;
+                   onKeyPress={this.props.proceedOnEnterPressNameMode} className={"create-list"} autoFocus/>
+            <button className={"addBtn app"} onClick={this.props.proceedOnBtnClick}>&#x2795;
             </button>
         </div>
     }
@@ -377,7 +404,7 @@ class ShoppingListInput extends Component {
 
     render() {
         return <div className={"inputContainer"}>
-            <input type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
+            <input className={"create-list"} type="text" placeholder={"dodaj nowy zakup"} onKeyPress={this.props.proceedOnEnterPress} autoFocus/>
             <button className={"addBtn"} onClick={this.props.onClickPropsAdd}>&#x2795;</button>
         </div>
     }

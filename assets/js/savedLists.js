@@ -19,9 +19,8 @@ class SavedLists extends Component {
     }
 
     componentDidMount() {
-        //event listening to window width changes
         window.addEventListener('resize', this.updateDimensions);
-        let targetUrl = `${location.origin}/saved`;
+        let targetUrl = `${location.origin}/dashboard/saved`;
         let request = new Request(targetUrl, {
             method: "POST",
             headers: {
@@ -115,7 +114,7 @@ class SavedLists extends Component {
                 e.target.innerHTML = "ukryj";
             }
         }
-        };
+    };
 
 
     back = () => {
@@ -170,6 +169,7 @@ class SavedLists extends Component {
 }
 
 class AllListsDisplayMode extends Component {
+
     render() {
         return <>
             <div className={"h2FlexContainer"}><h2>Ostatnie listy:</h2></div>
@@ -200,13 +200,16 @@ class AllListsDisplayMode extends Component {
 
 class SingleListDisplayMode extends Component {
     render() {
-        let objOfProducts = Object.values(this.props.currentList)[1];
-        let arrOfProducts = Array.from(objOfProducts);
+        let arrOfProducts = Object.values(this.props.currentList)[0];
+        if (typeof arrOfProducts === 'object') {
+            arrOfProducts = Object.values(arrOfProducts);
+        }
+
         return <div className={"singleListViewGeneralContainer"}>
             <h2>Zapisane zakupy:</h2>
             <div className={"singleListViewContainer"}>{arrOfProducts.map((item, index) => {
                 return <div className={"singleListItem"} key={index}><span className={'span'}>{item}</span><input
-                    type='checkbox' className={'checkbox'}/></div>
+                    type='checkbox' className={'checkbox saved'}/></div>
             })
             }</div>
             <button onClick={this.props.backOnClick} id={"backBtn"}>Wróć</button>
