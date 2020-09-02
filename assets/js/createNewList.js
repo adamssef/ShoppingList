@@ -398,7 +398,7 @@ class NameYourListInput extends Component {
             </button>
         </div>
     }
-}gi
+}
 
 class ShoppingListInput extends Component {
 
