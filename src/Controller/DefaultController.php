@@ -104,12 +104,17 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard/about")
+     * @Route("/dashboard")
      */
     public function about(Request $request)
     {
-        return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
+        if ($request->getMethod() === 'GET') {
+            return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
+        } else {
+            return null;
+        }
     }
+
 
     /**
      * @Route("/register", name="register")
@@ -253,7 +258,7 @@ class DefaultController extends AbstractController
             $request->getMethod() === "GET" &&
             !is_null($session->get('logToken'))
         ) {
-            return new JsonResponse(null);
+            return new JsonResponse($session->get('logToken'));
         }
 
 
@@ -295,10 +300,10 @@ class DefaultController extends AbstractController
             if ($email !== null and $this->passwordEncoder->isPasswordValid($user, $logData['password'])) {
                 return new JsonResponse([$user->getId(), $user->getFirstName()]);
             } else {
-                return new JsonResponse('Login unsuccessful');
+                return new JsonResponse(FALSE);
             }
         } else {
-            return new JsonResponse('Login unsuccessful');
+            return new JsonResponse(FALSE);
         }
     }
 
