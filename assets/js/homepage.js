@@ -3,10 +3,11 @@ import {ReactDOM} from 'react-dom';
 import {NavLink, Route, Switch, withRouter, Redirect,} from 'react-router-dom';
 import SavedLists from "./savedLists";
 import {About, App} from "./app";
-import {faCheckSquare} from "@fortawesome/free-solid-svg-icons";
+
 import {createBrowserHistory} from "history";
 import {Router} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCoffee} from "@fortawesome/free-solid-svg-icons";
 import '../css/app.css';
 
 
@@ -361,12 +362,28 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isRegistrationSuccess: '',
-            logToken: 'initialVal'
+            logToken: 'initialVal',
+            isLoginSuccess:''
         }
     }
 
+    componentDidMount() {
+        let targetUrl = `${location.origin}/login`;
+        let token;
+        let request = new Request(targetUrl, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Origin': location.origin,
+                'Content-Type': 'application/json',
+                'X-Custom-Header': 'logTokenRequest',
+            }
+        })
 
+        if (this.props.token === 'initialVal') {
+            this.props.getToken(request, 'log');
+        }
+    }
     formSendLogin = (e) => {
         e.preventDefault();
         let login = document.getElementsByName('login')[0].value;
@@ -395,7 +412,7 @@ class LoginPage extends Component {
         fetch(request)
             .then((response) => response.json())
             .then((response) => {
-                if (response !== 'Login unsuccessful') {
+                if (response !== false) {
                     console.log(response)
                     this.setState({
                         isLoginSuccess: true
@@ -403,7 +420,10 @@ class LoginPage extends Component {
                     this.props.loginStateUpdater(true);
                     this.props.userStateUpdater(response);
                 }
-                if (response === 'Login unsuccessful') {
+                if (response === false) {
+                    this.setState({
+                        isLoginSuccess:false
+                    })
                     console.log(response)
                 }
             })
@@ -412,39 +432,10 @@ class LoginPage extends Component {
             });
     }
 
-    componentDidMount() {
-        this.props.regFormParentStateUpdater;
 
-        let targetUrl = `${location.origin}/login`;
-        let token;
-        let request = new Request(targetUrl, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Request-Method': 'GET',
-                'Origin': location.origin,
-                'Content-Type': 'application/json',
-                'X-Custom-Header': 'logTokenRequest',
-            }
-        })
-
-        if (this.props.token === 'initialVal') {
-            this.props.getToken(request, 'log');
-        }
-    }
 
 
     render() {
-        // let targetUrl = `${location.origin}/login`;
-        // let token;
-        // let request = new Request(targetUrl, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Access-Control-Request-Method': 'GET',
-        //         'Origin': location.origin,
-        //         'Content-Type': 'application/json',
-        //         'X-Custom-Header': 'logTokenRequest',
-        //     }
-        // })
 
         return <div className={"landing-page-container"}>
             <form className={"reg-form"} autoComplete={'false'}>
@@ -482,6 +473,21 @@ class LoginPage extends Component {
 
 }
 
+
+/**
+ * Experimenting with hook..
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function Logo() {
+    return (
+        <h2>
+            <span className={'logo-span-color'}>lista</span>zakupow.<span className={'logo-span-color'}>com</span>.pl
+        </h2>
+    )
+}
+
 class FormUpperText extends Component {
     constructor(props) {
         super(props);
@@ -490,16 +496,14 @@ class FormUpperText extends Component {
     render() {
         if (this.props.formType === 'register') {
             return <div className={'homepage-welcome-box-h2-container'}>
-                <h2><span className={'logo-span-color'}>lista</span>zakupow.<span
-                    className={'logo-span-color'}>com</span>.pl</h2>
-                <h1>Utwórz konto</h1>
+                <Logo/>
+                <h1>Zarejestruj się</h1>
             </div>
         }
 
         if (this.props.formType === 'login') {
             return <div className={'homepage-welcome-box-h2-container'}>
-                <h2><span className={'logo-span-color'}>lista</span>zakupow.<span
-                    className={'logo-span-color'}>com</span>.pl</h2>
+                <Logo/>
                 <h1>Zaloguj się</h1>
             </div>
         }
@@ -519,6 +523,8 @@ class RegisterPage extends Component {
         </div>
     }
 }
+
+
 
 class Homepage extends Component {
     constructor(props) {
@@ -543,6 +549,13 @@ class Homepage extends Component {
         if (this.state.logToken === 'loggedOut') {
             this.logoutAction();
         }
+    }
+
+    componentDidMount() {
+        if(this.state.logToken !== 'initialVal')
+        this.setState({
+            logToken: 'initialVal'
+        })
     }
 
     logoutAction = () => {
@@ -618,8 +631,6 @@ class Homepage extends Component {
                 logToken: 'loggedOut',
             })
             history.replace('/login');
-
-
         }
     }
 
@@ -650,6 +661,8 @@ class Homepage extends Component {
         }
 
         if (this.state.logToken === 'initialVal' && this.state.activeFormType !== 'register' || this.state.logToken === 'loggedOut' && formType === 'log') {
+            console.log('dupsko')
+            console.log(request);
             fetch(request)
                 .then((response) => response.json())
                 .then(jsonResponse => {
@@ -728,3 +741,4 @@ class Homepage extends Component {
 
 
 export default Homepage;
+export {Logo}
