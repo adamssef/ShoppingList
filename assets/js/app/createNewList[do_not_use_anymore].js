@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {ReactDOM} from 'react-dom';
 import {withRouter} from 'react-router-dom';//thanks to withRouter I can access match
 
-require('../css/app.css');
+require('../../css/app.css');
 const $ = require('jquery');
 import Swal from 'sweetalert2'
 
@@ -23,16 +23,11 @@ class CreateList extends Component {
             currentItemsCounter: 0,
             isListActive: false,
             inputFieldState: "",
-            listName: false
         }
     }
 
     //COMPONENT LIFECYCLE METHODS
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.listName !== this.state.listName) {
-            console.log("componentDidUpdateMessage: listName state has been updated to: " + this.state.listName);
-        }
-
         if (this.props.createListStateReset && this.props.isListActive) {
             this.setState({
                 isListActive: false,
@@ -59,32 +54,12 @@ class CreateList extends Component {
     //NAME YOUR LIST MODE METHODS
     proceedOnEnterPressNameMode(event) {
         let input = event.target.value;
-        console.log(input)
         let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
         if (event.key === "Enter") {
             event.target.parentElement.getElementsByTagName('BUTTON')[0].click(event);
         }
     }
 
-    proceedOnBtnClickNameMode(event) {
-        let input = event.currentTarget.previousSibling.value;
-
-        if (input.length >= 5) {
-            let btn = event.target.parentElement.getElementsByTagName('BUTTON')[0];
-            this.setState({
-                listName: input
-            });
-        } else {
-            Swal.fire({
-                title: 'halo halo!',
-                text: 'Coś tu nie gra:-( Nazwa musi być ciut dluższa!',
-                icon: 'info',
-                confirmButtonText: 'Ok, postaram się'
-            })
-        }
-
-
-    }
 
     //FIRST ITEM MODE
 
@@ -157,52 +132,7 @@ class CreateList extends Component {
         });
     };
 
-    saveAndSendListToDb(e) {
-        let listElements = document.getElementById("listDraft").getElementsByClassName('itemName');
-        let itemObject = [];
-        Array.from(listElements).map(e => {
-            itemObject.push(e.innerText);
-        })
 
-
-        //OLD CODE TO UNCOMMENT EASILY
-        const formData = new FormData();
-        for (let i = 0; i < itemObject.length; i++) {
-            formData.append(i, itemObject[i])
-        }
-
-        formData.append('name', this.state.listName);
-        formData.append('id', this.props.userId)
-
-
-
-        let targetUrl = `${location.origin}/save`;
-
-        let request = new Request(targetUrl, {
-            body: formData,
-            method: "POST",
-            headers: {
-                "Access-Control-Request-Method": "POST, GET, OPTIONS",
-                "Origin": location.origin,
-            }
-        });
-        //OLD CODE TO UNCOMMENT EASILY END
-
-        fetch(request)
-            .then((response) => response.json())
-
-            .then((response) => {
-
-                this.setState({
-                    isListActive: false,
-                    currentItems: [],
-                    currentItemsCounter: 0
-                })
-            })
-            .catch((error) => {
-                console.error('SAVE TO DB FETCH ERROR:', error);
-            });
-    }
 
 
 //CONDITIONAL RENDER PART
@@ -222,14 +152,14 @@ class CreateList extends Component {
         }
 
         //case 2: list is active but no list name has been added
-        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName === false) {
+        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.props.listName === false) {
             return <>
                 <NameYourListMode
                     proceedOnEnterPressNameMode={(e) => {
                         this.proceedOnEnterPressNameMode(e)
                     }}
                     proceedOnBtnClick={(e) => {
-                        this.proceedOnBtnClickNameMode(e)
+                        this.props.proceedOnBtnClickNameMode(e)
                     }
                     }
                 />
@@ -237,7 +167,7 @@ class CreateList extends Component {
         }
 
         //case 3: list is active but no list name or product has been added
-        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.state.listName !== false) {
+        else if (this.state.currentItemsCounter === 0 && this.state.isListActive === true && this.props.listName !== false) {
             return <>
                 <FirstItemMode
                     onClickPropsAdd={(e) => {
@@ -262,7 +192,7 @@ class CreateList extends Component {
                         this.deleteItemOnClick(e)
                     }}
                     onClickPropsSave={e => {
-                        this.saveAndSendListToDb(e)
+                        this.props.saveAndSendListToDb(e)
                     }}
                     currentItems={this.state.currentItems}
                     onClickClearList={e => {

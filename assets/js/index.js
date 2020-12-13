@@ -8,8 +8,8 @@ import {
     Link,
     NavLink
 } from "react-router-dom";
-import {App, About} from "./app.js";
-import Homepage from "./homepage.js";
+import {App, About} from "./app/app.js";
+import Homepage from "./homepage/homepage.js";
 
 
 

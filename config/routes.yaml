@@ -5,11 +5,20 @@ save:
   path: /save
   controller: App\Controller\DefaultController::save
 saved:
-  path: /saved
+  path: dashboard/saved/{id}
   controller: App\Controller\DefaultController::saved
+savedWithNoId:
+  path: dashboard/saved
+  controller: App\Controller\DefaultController:savedWithNoId
 register:
   path: /register
   controller: App\Controller\DefaultController::register
 about:
   path: /about
   controller: App\Controller\DefaultController::about
+newList:
+  path: /dashboard/new-list
+  controller: App\Controller\DefaultController::newList
+changePasswordRequest:
+  path: /change-password-request
+  controller: App\Controller\DefaultController::changePasswordRequest

@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Serializer\Annotation2Depth;
 
 
 /**
@@ -15,6 +16,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 class ShoppingList
 {
     /**
+     * @Groups("ListDataToBeSerialized")
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -39,28 +41,33 @@ class ShoppingList
 
 
     /**
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="shoppingLists")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
+     * @Groups("ListDataToBeSerialized")
      * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
 
     /**
+     * @Groups("ListDataToBeSerialized")
      * @ORM\Column(type="text")
      */
     private $listItems = [];
 
     /**
+     * @Groups("ListDataToBeSerialized")
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
+     * @Groups("ListDataToBeSerialized")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $modificationDate;

@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="description" content="Wygodna lista zakupów dla każdego. Prostsze codzienne zakupy.  ✅Dostępne za darmo.">
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Wygodna lista zakupów dla każdego!" />
-    <meta name="keywords" content="lista, zakupów, shopping list, shopping, groceries list, shopping list app" />
+    <meta name="keywords" content='lista zakupów, lista zakupow, shopping list, free shopping list, darmowa lista zakupow, darmowa lista zakupów, lista zakupow aplikacja, lista zakupów aplikacja, shopping, groceries list, shopping list app' />
     <meta name="author" content="AY Solutions" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
-
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <title>{% block title %}Najlepsza darmowa lista zakupów!{% endblock %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('index') }}
     {% endblock %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWWY5WVT55"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'G-YWWY5WVT55');
+    </script>
 </head>
 <body>
 {% block body %}

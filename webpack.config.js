@@ -9,6 +9,7 @@ Encore
     .setManifestKeyPrefix('build/')
 
     .cleanupOutputBeforeBuild()
+    // .enableSourceMaps(!Encore.isProduction())
     .enableSourceMaps(!Encore.isProduction())
     .splitEntryChunks()
     // .enableSingleRuntimeChunk()
