@@ -32,7 +32,6 @@ class LogForm extends Component {
 
     sendChangePasswordRequest = (e) => {
         let formData = new FormData();
-        console.log('sendChangePasswordRequestTriggered');
         let targetUrl = `${location.origin}/change-password-request`;
 
         let request = new Request(targetUrl, {
@@ -84,7 +83,6 @@ class LogForm extends Component {
                     })
 
                 } else if (response === 'false') {
-                    console.log('false');
                     this.setState({
                         isLoginSuccess: false
                     })
@@ -119,12 +117,11 @@ class LogForm extends Component {
                 <div className={'reg-form-btn-container'}>
                     {/*<a className={'forgot-password-link'} onClick={()=>{this.sendChangePasswordRequest()}}>Nie pamiętasz hasła?</a>*/}
                     <NavLink onClick={(e)=>this.props.homepageStateUpdater(e)} className={'forgot-password-link'} to='/change-password' name={'forgotten-password-link'}>Nie pamiętasz hasła?</NavLink>
-                    {/*<div className={'reg-form-successMsg-container'}></div>*/}
                     <div className={'reg-form-space-div'}></div>
                     <input onClick={this.formSendLogin}
                            type={"submit"}
                            value={"Zaloguj się."}
-                           className={"reg-form-btn"}/>
+                           className={"reg-form-btn"}/
                 </div>
                 <input type={"hidden"} name={"logToken"} value={this.props.token}/>
             </form>
