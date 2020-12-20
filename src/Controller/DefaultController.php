@@ -21,8 +21,6 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Email;
 
 
-
-
 class DefaultController extends AbstractController
 {
     private UserPasswordEncoderInterface $passwordEncoder;
@@ -33,12 +31,10 @@ class DefaultController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/dashboard/application")
      */
-    public function index(Request $request)
+    public function index(Request $request, MailerInterface $mailer)
     {
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
@@ -170,18 +166,37 @@ class DefaultController extends AbstractController
     /**
      * @Route("/change-password-request")
      */
-    public function changePasswordRequest(Request $request, MailerInterface $mailer)
+    public function changePasswordRequest(Request $request, MailerInterface $mailer, Session $session)
     {
-        $email = (new Email())
-            ->from('kontakt@listazakupow.com.pl')
-            ->to('adam.youssef@gmail.com')
-            ->subject('zmiana hasła - listazakupow.com.pl')
-            ->text('Sending emails is fun again!')
-            ->html('<p>Kilknij, aby zmienić hasło <a href="https://google.com">link</a></p>');
+        $em = $this->getDoctrine()->getManager();
+        if (filter_var(strval($request->request->all()['email']), FILTER_VALIDATE_EMAIL) !== false) {
+            $emailFromUserInput = $request->request->all()['email'];
+            $emailFromUserInputSanitized = filter_var($emailFromUserInput, FILTER_SANITIZE_EMAIL);
+            $random = random_bytes(5);
+            $session->start();
+            $token = md5($random);
+            $session->set('token', $token);
 
-        $mailer->send($email);
 
-        return new JsonResponse('mail sent successfully');
+            $userQueryResult = $em->getRepository(User::class)->findOneBy(['email' => $emailFromUserInput]);
+
+            if ($userQueryResult !== null) {
+                $email = (new Email())
+                    ->from('kontakt@listazakupow.com.pl')
+                    ->to(strval($emailFromUserInput))
+                    ->subject('zmiana hasła - listazakupow.com.pl')
+                    ->text('Token do zmiany hasła: ' . strval($token))
+                    ->html('Token do zmiany hasła: ' . strval($token));
+                $mailer->send($email);
+
+                return new JsonResponse('mail sent successfully');
+            }
+            else {
+                return new JsonResponse('false');
+            }
+        }
+
+    return new JsonResponse(strval($request->request->all()['email']));
     }
 
 
@@ -318,7 +333,8 @@ class DefaultController extends AbstractController
      * @Route("/dashboard/saved", name="saved")
      */
 
-    public function savedWithNoId(Request $request){
+    public function savedWithNoId(Request $request)
+    {
         return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
     }
 
@@ -333,7 +349,7 @@ class DefaultController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $requestData = $request->request->all();
 
-        if ($request->getMethod() !== "GET" ||  $request->headers->get('X-Custom-Header') !== 'savedListsTokenRequest' && $session->get('savedListsToken') !== $request->headers->get('SavedListsToken-Header')) {
+        if ($request->getMethod() !== "GET" || $request->headers->get('X-Custom-Header') !== 'savedListsTokenRequest' && $session->get('savedListsToken') !== $request->headers->get('SavedListsToken-Header')) {
             return $this->redirect("https://" . $request->server->get('HTTP_HOST'));
         }
         if (
