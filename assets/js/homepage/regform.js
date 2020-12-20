@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ReactDOM} from 'react-dom';
+import FormUpperText from "./formUpperText";
 
 class RegForm extends Component {
     constructor(props) {
@@ -11,7 +12,6 @@ class RegForm extends Component {
             cpasswordField: '',
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
-            // token: 'initialVal',
             formCorrect: false,
             doesUserExists: null,
         }
@@ -26,7 +26,6 @@ class RegForm extends Component {
     }
 
     componentDidMount() {
-        console.log('mounted');
         /**
          * making sure that when component is mount "initialVal" is brought back. It is important to
          * have it that way, because this helps the app mechanism to reset the regToken value (that is the behaviour I desire at the moment)
@@ -40,18 +39,6 @@ class RegForm extends Component {
         document.querySelector('#reg-form').addEventListener("keyup", this.inputValidator);
         document.querySelector("#reg-form").addEventListener("focusout", this.borderWidthRegulator);
         document.querySelector("#reg-form").addEventListener("focusin", this.borderWidthRegulator);
-
-        // let targetUrl = `${location.origin}/register`;
-        // let token;
-        // let request = new Request(targetUrl, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Access-Control-Request-Method': 'GET',
-        //         'Origin': location.origin,
-        //         'Content-Type': 'application/json',
-        //         'X-Custom-Header': 'regTokenRequest',
-        //     }
-        // })
 
         /**
          * I am commenting below if clause out because I want this always to be "initial val" also after use switches between "zaloguj" and "bezpłatna rejestracja"
@@ -119,13 +106,11 @@ class RegForm extends Component {
 
         const formData = new FormData();
         for (let [key, value] of Object.entries(loginDetails)) {
-            console.log(key, value);
             formData.append(key, value);
         }
 
 
         let targetUrl = `${location.origin}/register`;
-        console.log(`${location.origin}/register`, 'to jest napewno tu')
         let request = new Request(targetUrl, {
             body: formData,
             method: "POST",
@@ -139,7 +124,6 @@ class RegForm extends Component {
         fetch(request)
             .then(response => response.json())
             .then(response => {
-                console.log(response, 'tu konsołloguję cos');
                 if (response === 'user already exists') {
                     this.setState({
                         doesUserExists: true,
@@ -151,7 +135,6 @@ class RegForm extends Component {
                         doesUserExists: false,
                         formCorrect: true,
                     })
-
                     this.props.userStateUpdater(response);
                     this.props.loginStateUpdater(true);
                 }
@@ -293,7 +276,6 @@ class RegForm extends Component {
                            autoComplete={"new-password"}
                            className={"reg-form-input reg-form-input-post"}
                            placeholder='np. jan.kowalski@example.com'
-                        // onKeyUp={this.apiValidate}
                            required autoFocus/>
                 </div>
                 <div className={"reg-form-div-el"}>
@@ -304,11 +286,9 @@ class RegForm extends Component {
                     <input type={"text"} name={"fName"}
                            autoComplete={"new-password"}
                            className={"reg-form-input reg-form-input-post"}
-                        // onChange={this.apiValidate}
                            minLength={1}
                            maxLength={50}
                            placeholder='max. 50 znaków'
-                        // onKeyUp={this.apiValidate}
                            required/>
                 </div>
                 <div className={"reg-form-div-el"}>
@@ -319,7 +299,6 @@ class RegForm extends Component {
                            placeholder='min. 8 znaków, 1 liczba i wielka litera'
                            className={"reg-form-input reg-form-input-post"}
                            pattern={"^(?=.*)(?=.*\\d)(?=.*[A-Z])[-A-Za-z\\d!@#$%^&*()_=+{}\\[\\]:;\"'\\\\|<>,.\\/?]{8,}$"}
-                        // onKeyUp={this.apiValidate}
                            required/>
                 </div>
                 <div className={"reg-form-div-el"}>
@@ -330,8 +309,6 @@ class RegForm extends Component {
                            autoComplete={"off"}
                            placeholder=''
                            className={"reg-form-input"}
-                        // onKeyUp={this.apiValidate}
-                        // onBlur={this.apiValidate}
                            readOnly
                            disabled
                            required/>
