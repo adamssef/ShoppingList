@@ -1,65 +1,31 @@
 import React, {Component, Fragment} from 'react';
 import {ReactDOM} from 'react-dom';
-import {NavLink, Route, Switch, withRouter, Redirect,} from 'react-router-dom';
+import LogForm from './logform'
+import Logo from './logo';
 import SavedLists from '../app/savedLists';
 import RegForm from './regform'
-import LogForm from './logform'
+import ChangePasswordForm from './changePasswordForm'
+import TokenVerification from './tokenVerification'
 import {About, App} from '../app/app';
-
-import {createBrowserHistory} from 'history';
-import {Router} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import '../../css/app.css';
 import Swal from 'sweetalert2';
+import {NavLink, Route, Switch, withRouter, Redirect,} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {Router} from "react-router-dom";
+import FormUpperText from "./formUpperText";
 const history = createBrowserHistory();
 
-
-/**
- * Experimenting with hook..
- *
- * @returns {JSX.Element}
- * @constructor
- */
-function Logo() {
-    return (
-        <h2>
-            <span className={'logo-span-color'}>lista</span>zakupow.<span className={'logo-span-color'}>com</span>.pl
-        </h2>
-    )
-}
-
-class FormUpperText extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        if (this.props.formType === 'register') {
-            return <div className={'homepage-welcome-box-h2-container'}>
-                <Logo/>
-                <h1>Zarejestruj się</h1>
-            </div>
-        }
-
-        if (this.props.formType === 'login') {
-            return <div className={'homepage-welcome-box-h2-container'}>
-                <Logo/>
-                <h1>Zaloguj się</h1>
-            </div>
-        }
-
-    }
-}
 
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            regToken: 'initialVal',
-            logToken: 'initialVal',
-            activeFormType: 'register',
+            activeFormType: 'login',
             loggedIn: false,
+            logToken: 'initialVal',
+            regToken: 'initialVal',
             user: 'anonymous',
             userFirstName: 'anonymous',
         };
@@ -67,7 +33,6 @@ class Homepage extends Component {
         this.getToken = this.getToken.bind(this);
         this.loginStateUpdater = this.loginStateUpdater.bind(this);
         this.userStateUpdater = this.userStateUpdater.bind(this);
-        this.historyLocationPusher = this.historyLocationPusher.bind(this);
         this.logoutAction = this.logoutAction.bind(this);
     }
 
@@ -126,7 +91,6 @@ class Homepage extends Component {
     }
 
     setRegTokenBackToInitialVal = () => {
-        console.log('triggered setRegTokenback fn')
         this.setState({
             regToken: 'initialVal'
         })
@@ -134,12 +98,30 @@ class Homepage extends Component {
 
 
     stateUpdater = (event) => {
+        event.preventDefault();
+        if(event.currentTarget.name === 'forgotten-password-link'){
+            this.setState({activeFormType:'changePasswordRequest'})
+            history.push('/change-password-request')
+        }
+
+        if(event.currentTarget.classList.contains('change-pwd-form-btn')){
+            this.setState({activeFormType:'tokenVerification'})
+            history.push('/token-verification')
+        }
+
         if (event.currentTarget.name === 'navLinkFormReg' && this.state.activeFormType !== 'register') {
             this.setState({activeFormType: 'register'})
+            history.push('/register');
         }
 
         if (event.currentTarget.name === 'navLinkFormLog' && this.state.activeFormType !== 'login') {
             this.setState({activeFormType: 'login'})
+            history.push('/login');
+        }
+
+        if (event.currentTarget.name === 'back-to-login-page' && this.state.activeFormType !== 'login') {
+            this.setState({activeFormType: 'login'})
+            history.push('/login');
         }
     }
     /**
@@ -148,7 +130,6 @@ class Homepage extends Component {
      * @param input
      */
     loginStateUpdater = (input) => {
-        console.log('loginStateUpdater triggered. Input:', input)
         if (input === true) {
             this.setState({
                 loggedIn: true,
@@ -169,7 +150,6 @@ class Homepage extends Component {
     }
 
     userStateUpdater = (input) => {
-        console.log('userStateUpdater input', input)
         this.setState(
             {
                 user: input[0],
@@ -180,7 +160,6 @@ class Homepage extends Component {
 
     getToken = (request, formType) => {
         if (this.state.regToken === 'initialVal' && formType === 'reg') {
-            console.log('get token first condition met')
             fetch(request)
                 .then((response) => response.json())
                 .then(jsonResponse => {
@@ -226,15 +205,29 @@ class Homepage extends Component {
         }
     }
 
-    historyLocationPusher(path) {
-        history.push(path);
-    }
 
     render() {
-        if (this.state.loggedIn === false) {
+        if(!this.state.loggedIn && this.state.activeFormType === 'changePasswordRequest') {
+            return <ChangePasswordForm
+                activeFormType={this.state.activeFormType}
+                homepageStateUpdater={this.stateUpdater}
+            />
+        }
+
+        if(!this.state.loggedIn && this.state.activeFormType === 'tokenVerification') {
+            return <TokenVerification
+                activeFormType={this.state.activeFormType}
+                homepageStateUpdater={this.stateUpdater}
+            />
+        }
+
+        if (!this.state.loggedIn && (this.state.activeFormType === 'register' || this.state.activeFormType === 'login')) {
             return <div className={'homepage-main-container'}>
                 <div className={'homepage-welcome-box'}>
-                    <FormUpperText formType={this.state.activeFormType}/>
+                    <div className={'logo-and-upper-form-text-div'}>
+                        <Logo/>
+                        <FormUpperText activeFormType={this.state.activeFormType}/>
+                    </div>
                     <Router history={history}>
                         <ul className={'homepage-btns-div'}>
                             <li className={'homepage-btn--log'} autoFocus>
@@ -244,21 +237,24 @@ class Homepage extends Component {
                             </li>
                             <li className={'homepage-btn--reg'} autoFocus>
                                 <NavLink to='/register' name={'navLinkFormReg'} className={'form-link'}
-                                         activeClassName={'form-link form-link--active'} onClick={this.stateUpdater}>Bezpłatna
+                                         activeClassName={'form-link form-link--active'} onClick={(e)=>this.stateUpdater(e)}>Bezpłatna
                                     rejestracja</NavLink>
                             </li>
                         </ul>
                         <Switch>
-                            <Route exact path="/login"
+                            <Route exact path='/login'
                                    render={() => <LogForm
+                                       activeFormType = {this.state.activeFormType}
                                        getToken={this.getToken}
                                        loginStateUpdater={this.loginStateUpdater}
                                        token={this.state.logToken}
+                                       homepageStateUpdater={this.stateUpdater}
                                        userStateUpdater={this.userStateUpdater}
                                    />}
                             />
-                            <Route exact path="/register"
+                            <Route exact path='/register'
                                    render={() => <RegForm
+                                       activeFormType = {this.state.activeFormType}
                                        getToken={this.getToken}
                                        loginStateUpdater={this.loginStateUpdater}
                                        setRegTokenBackToInitialVal={this.setRegTokenBackToInitialVal}
@@ -266,13 +262,15 @@ class Homepage extends Component {
                                        userStateUpdater={this.userStateUpdater}
                                    />
                                    }
-
                             />
-                            <Redirect from="/" exact to="/register"/>
+                            <Route exact path='/change-password-request'/>
+                            <Route exact path='token-verification'/>
+                            <Redirect from="/" exact to="/login"/>
                         </Switch>
                     </Router>
 
                 </div>
+
             </div>
         } else if (this.state.loggedIn === true && this.state.user !== 'anonymous') {
             return <App view={'application'}
@@ -290,4 +288,4 @@ class Homepage extends Component {
 
 
 export default Homepage;
-export {Logo}
+export {Logo};
