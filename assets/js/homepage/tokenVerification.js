@@ -10,7 +10,7 @@ import Logo from "./logo";
 import FormUpperText from "./formUpperText";
 
 
-function tokenValidation(props) {
+function TokenVerification(props) {
     const verifyToken = (e) => {
         e.preventDefault();
         let token = document.getElementsByName('change-pwd-req-email')[0].value;
@@ -56,11 +56,11 @@ function tokenValidation(props) {
                 <div className={'forgotten-password-form__flex-div'}>
                     <NavLink onClick={(e) => props.homepageStateUpdater(e)} className={'forgot-password-link'}
                              to='/login' name={'back-to-login-page'}>Powrót do logowania</NavLink>
-                    <input type={'submit'} value={'Zweryfikuj'} className={'change-pwd-form-btn'} onClick={(e)=>{sendPasswordChangeRequest(e)}}/>
+                    <input type={'submit'} value={'Zweryfikuj'} className={'verify-token-form-btn'} onClick={(e)=>{verifyToken(e)}}/>
                 </div>
             </form>
         </div>
     </div>
 }
 
-export default ChangePasswordForm;
+export default TokenVerification;
