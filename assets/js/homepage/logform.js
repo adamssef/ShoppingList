@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {ReactDOM} from 'react-dom';
+import {NavLink, Route, Switch, withRouter, Redirect,} from 'react-router-dom';
+import FormUpperText from "./formUpperText";
 
 class LogForm extends Component {
     constructor(props) {
@@ -115,7 +117,8 @@ class LogForm extends Component {
                            required/>
                 </div>
                 <div className={'reg-form-btn-container'}>
-                    <a className={'forgot-password-link'} onClick={()=>{this.sendChangePasswordRequest()}}>Nie pamiętasz hasła?</a>
+                    {/*<a className={'forgot-password-link'} onClick={()=>{this.sendChangePasswordRequest()}}>Nie pamiętasz hasła?</a>*/}
+                    <NavLink onClick={(e)=>this.props.homepageStateUpdater(e)} className={'forgot-password-link'} to='/change-password' name={'forgotten-password-link'}>Nie pamiętasz hasła?</NavLink>
                     {/*<div className={'reg-form-successMsg-container'}></div>*/}
                     <div className={'reg-form-space-div'}></div>
                     <input onClick={this.formSendLogin}
